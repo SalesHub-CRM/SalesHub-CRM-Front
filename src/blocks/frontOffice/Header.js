@@ -1,4 +1,5 @@
 import {Link} from "react-router-dom";
+import NavbarMenu from "./NavbarMenu";
 
 const Header = () => {
   return(
@@ -10,6 +11,8 @@ const Header = () => {
                           <div className="site-logo">
                               <Link to="/"> <img src="assets/images/logo.png" alt="Saleshub Logo"/> </Link>
                           </div>
+
+                          <NavbarMenu/>
 
                       </div>
                   </div>

@@ -40,6 +40,29 @@
 */
 
 
+.homepage-titles{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.homepage-titles h1{
+  margin: 40px 0;
+}
+
+.HomeBody{
+  margin: 75px 0;
+}
+
+.HomeBodyButtons{
+  margin: 35px 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+
+
 .header-wrapper{
   /*
   background-color: #DCFFFE;
@@ -62,15 +85,32 @@ header{
 
 
 .site-logo img{
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   border-radius:10px;
 }
 
+.NavbarMenu ul{
+  list-style: none;
+
+}
+
+.NavbarMenu li{
+  display: inline;
+  padding: 10px 20px;
+}
+
+.NavbarMenu a{
+  text-decoration: none;
+}
 
 
 footer{
-  width: 95%;
+  width: 100%;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #bcbcbc;
+  z-index: 999;
 }
 
 footer a{
@@ -98,4 +138,42 @@ footer a{
 {
   display: flex;
   justify-content: center;
+}
+
+
+.signupPage{
+  position: relative;
+}
+
+
+.signupPage:before{
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../public/assets/images/office 1.jpg");
+  background-repeat: no-repeat;
+  opacity: 0.3;
+}
+
+
+.loginPage{
+  position: relative;
+}
+
+
+.loginPage:before{
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../public/assets/images/office 1.jpg");
+  background-repeat: no-repeat;
+  opacity: 0.3;
 }

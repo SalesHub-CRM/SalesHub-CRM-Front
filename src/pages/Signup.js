@@ -31,7 +31,7 @@ const Signup = () => {
 
 
   return(
-      <div>
+      <div className="signupPage">
           <Header/>
 
           <div className="container mt-5">
@@ -45,7 +45,7 @@ const Signup = () => {
 
                                   <div className="LogoTitle">
                                       <div className='site-logo'>
-                                          <img src="assets/images/poste-logo.jpg" alt="logo" className="imgLogin"/>
+                                          <img src="assets/images/logo.png" alt="logo" className="imgLogin"/>
                                       </div>
 
                                       <div className="homepage-titles">
