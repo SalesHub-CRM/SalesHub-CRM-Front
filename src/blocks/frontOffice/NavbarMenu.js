@@ -23,7 +23,7 @@ const NavbarMenu = () => {
 
                 <li><a href="src/components/Home#">About Us</a></li>
                 {JSON.parse(localStorage.getItem('user')) && <li><Link to="/" onClick={logoutHandler}><PowerSettingsNewIcon/> Logout</Link></li>}
-                {JSON.parse(localStorage.getItem('user')) && <li className="navbar-brand text-danger">{dataUser?.userName} <img src={dataUser?.img} alt="user image" className="rounded-circle" width="50"/></li>}
+
             </ul>
         </div>
     )

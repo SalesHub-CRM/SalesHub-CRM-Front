@@ -39,12 +39,15 @@
 }
 */
 
-
 .homepage-titles{
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.creatAccountTitle{
+  margin: auto;
 }
 
 .homepage-titles h1{
@@ -143,6 +146,8 @@ footer a{
 
 .signupPage{
   position: relative;
+  margin-top: -50px;
+  padding: 30px 0;
 }
 
 
@@ -162,6 +167,8 @@ footer a{
 
 .loginPage{
   position: relative;
+  margin-top: -50px;
+  padding: 30px 0;
 }
 
 

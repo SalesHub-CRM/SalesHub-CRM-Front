@@ -1,10 +1,8 @@
-import {Link} from "react-router-dom";
-import Footer from "../Footer";
-import React from "react";
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
+import React from "react";
 
-const AddLeadForm = () => {
+const EditClients = () => {
     const {register, handleSubmit, formState:{errors}}= useForm();
     const dispatch = useDispatch();
     const submit = async(data)=>{
@@ -21,53 +19,30 @@ const AddLeadForm = () => {
                                 <div className="card-body p-md-5 mx-md-4">
 
 
-                                        <div className="homepage-titles creatAccountTitle">
-                                            <h4 className="mt-1 mb-5 pb-1">Create a lead </h4>
-                                        </div>
+                                    <div className="homepage-titles creatAccountTitle">
+                                        <h4 className="mt-1 mb-5 pb-1">Edit a client </h4>
+                                    </div>
 
                                     <form onSubmit={handleSubmit(submit)}>
 
                                         <div className="formUnit d-flex justify-content-between">
                                             <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">Salutation :</label>
-                                                <select className="form-select" {...register("salutation")}>
-                                                    <option value="mr">Mr</option>
-                                                    <option value="ms">Ms</option>
-                                                </select>
-
-                                            </div>
-
-                                            <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">Status :</label>
-                                                <select className="form-select" {...register("status")}>
-                                                    <option value="NEW">New</option>
-                                                    <option value="CONTACTED">Contacted</option>
-                                                    <option value="QUALIFIED">Qualified</option>
-                                                    <option value="UNQUALIFIED">Unqualified</option>
-                                                    <option value="CONVERTED">Converted</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-
-                                        <div className="formUnit d-flex justify-content-between">
-                                            <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">First name :</label>
+                                                <label className="form-label" htmlFor="form2Example11">Name :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="First name" {...register("firstname", {required: true})}/>
-                                                {(errors.firstname?.type) &&
+                                                       placeholder="Client name" {...register("name", {required: true})}/>
+                                                {(errors.name?.type) &&
                                                     <div className="alert alert-danger" role="alert">
-                                                        first name is required
+                                                        Clients' name is required
                                                     </div>}
                                             </div>
 
                                             <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">Last name :</label>
+                                                <label className="form-label" htmlFor="form2Example11">Parent company :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="Last name" {...register("lastname", {required: true})}/>
-                                                {(errors.lastname?.type) &&
+                                                       placeholder="Parent company" {...register("parentname", {required: true})}/>
+                                                {(errors.parentname?.type) &&
                                                     <div className="alert alert-danger" role="alert">
-                                                        last name is required
+                                                        The parent company is required
                                                     </div>}
                                             </div>
                                         </div>
@@ -93,12 +68,12 @@ const AddLeadForm = () => {
                                             </div>
 
                                             <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">Company :</label>
+                                                <label className="form-label" htmlFor="form2Example11">Website :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="Company" {...register("company", {required: true})}/>
-                                                {(errors.company?.type) &&
+                                                       placeholder="www.company.com" {...register("website", {required: true})}/>
+                                                {(errors.website?.type) &&
                                                     <div className="alert alert-danger" role="alert">
-                                                        Company is required
+                                                        The company website is required
                                                     </div>}
                                             </div>
 
@@ -121,53 +96,25 @@ const AddLeadForm = () => {
                                             </div>
 
                                             <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">Address :</label>
-                                                <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="Address" {...register("address", {required: true})}/>
-                                                {(errors.address?.type) &&
-                                                    <div className="alert alert-danger" role="alert">
-                                                        Address is required
-                                                    </div>}
+                                                <label className="form-label" htmlFor="form2Example11">Fax number</label>
+                                                <input  type="number" id="form2Example11" className="form-control"
+                                                        placeholder="12345678" {...register("fax", { required: true, minLength: 8, maxLength:8 })}/>
+                                                {errors.fax?.type === "required" && <div className="alert alert-danger" role="alert">
+                                                    Fax number is required
+                                                </div>}
+                                                {errors.fax?.type === "minLength" && <div className="alert alert-danger" role="alert">
+                                                    the Fax number must have 8 digits
+                                                </div>}
+                                                {errors.fax?.type === "maxLength" && <div className="alert alert-danger" role="alert">
+                                                    the Fax number must have 8 digits
+                                                </div>}
                                             </div>
+
+
                                         </div>
 
 
                                         <div className="formUnit d-flex justify-content-between">
-                                            <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">City :</label>
-                                                <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="city" {...register("city", {required: true})}/>
-                                                {(errors.city?.type) &&
-                                                    <div className="alert alert-danger" role="alert">
-                                                        city is required
-                                                    </div>}
-                                            </div>
-
-                                            <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">ZipCode :</label>
-                                                <input type="number" id="form2Example11" className="form-control"
-                                                       placeholder="zipcode" {...register("zipcode", {required: true})}/>
-                                                {(errors.zipcode?.type) &&
-                                                    <div className="alert alert-danger" role="alert">
-                                                        ZipCode is required
-                                                    </div>}
-                                            </div>
-                                        </div>
-
-
-
-                                        <div className="formUnit d-flex justify-content-between">
-
-                                            <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">Source :</label>
-                                                <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="Source" {...register("source", {required: true})}/>
-                                                {(errors.source?.type) &&
-                                                    <div className="alert alert-danger" role="alert">
-                                                        Source is required
-                                                    </div>}
-                                            </div>
-
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Number of Employees :</label>
                                                 <input type="number" id="form2Example11" className="form-control"
@@ -178,7 +125,19 @@ const AddLeadForm = () => {
 
                                             </div>
 
+                                            <div className="form-outline col-5 mb-4">
+                                                <label className="form-label" htmlFor="form2Example11">Annual revenue :</label>
+                                                <input type="number" id="form2Example11" className="form-control"
+                                                       placeholder="200" {...register("annualrevenue", {required: true})}/>
+                                                {errors.annualrevenue?.type === "required" && <div className="alert alert-danger" role="alert">
+                                                    The annual revenue is required
+                                                </div>}
+
+                                            </div>
+
+
                                         </div>
+
 
                                         <div className="formUnit d-flex justify-content-between">
 
@@ -193,21 +152,45 @@ const AddLeadForm = () => {
                                             </div>
 
                                             <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">Annual revenue :</label>
-                                                <input type="number" id="form2Example11" className="form-control"
-                                                       placeholder="200" {...register("annualrevenue", {required: true})}/>
-                                                {errors.annualrevenue?.type === "required" && <div className="alert alert-danger" role="alert">
-                                                    The annual revenue is required
-                                                </div>}
+                                                <label className="form-label" htmlFor="form2Example11">Client type :</label>
+                                                <select className="form-select" {...register("type")}>
+                                                    <option value="ANALYST">Analyst</option>
+                                                    <option value="COMPETITOR">Competitor</option>
+                                                    <option value="CUSTOMER">Customer</option>
+                                                    <option value="INVESTOR">Investor</option>
+                                                    <option value="PARTNER">Partner</option>
+                                                </select>
 
                                             </div>
 
                                         </div>
 
+                                        <div className="formUnit d-flex justify-content-between">
+                                            <div className="form-outline col-5 mb-4">
+                                                <label className="form-label" htmlFor="form2Example11">Shipping address :</label>
+                                                <input type="text" id="form2Example11" className="form-control"
+                                                       placeholder="address" {...register("shippingaddress", {required: true})}/>
+                                                {(errors.shippingaddress?.type) &&
+                                                    <div className="alert alert-danger" role="alert">
+                                                        Shipping address is required
+                                                    </div>}
+                                            </div>
+
+                                            <div className="form-outline col-5 mb-4">
+                                                <label className="form-label" htmlFor="form2Example11">Billing address :</label>
+                                                <input type="number" id="form2Example11" className="form-control"
+                                                       placeholder="address" {...register("billingaddress", {required: true})}/>
+                                                {(errors.billingaddress?.type) &&
+                                                    <div className="alert alert-danger" role="alert">
+                                                        Billing address is required
+                                                    </div>}
+                                            </div>
+                                        </div>
+
                                         <div className="d-flex justify-content-around pt-1 mb-5 pb-1">
                                             <button
                                                 className="btn btn-primary btn-block fa-lg gradient-custom-1 mb-3"
-                                                type="submit">Create lead
+                                                type="submit">Edit client
                                             </button>
 
                                         </div>
@@ -224,4 +207,4 @@ const AddLeadForm = () => {
         </div>
     )
 }
-export default AddLeadForm;
+export default EditClients;

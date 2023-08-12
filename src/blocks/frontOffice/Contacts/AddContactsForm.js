@@ -1,10 +1,10 @@
-import {Link} from "react-router-dom";
-import Footer from "../Footer";
-import React from "react";
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
+import Footer from "../Footer";
+import React from "react";
 
-const AddLeadForm = () => {
+
+const AddContactsForm = () => {
     const {register, handleSubmit, formState:{errors}}= useForm();
     const dispatch = useDispatch();
     const submit = async(data)=>{
@@ -21,9 +21,9 @@ const AddLeadForm = () => {
                                 <div className="card-body p-md-5 mx-md-4">
 
 
-                                        <div className="homepage-titles creatAccountTitle">
-                                            <h4 className="mt-1 mb-5 pb-1">Create a lead </h4>
-                                        </div>
+                                    <div className="homepage-titles creatAccountTitle">
+                                        <h4 className="mt-1 mb-5 pb-1">Create a contact </h4>
+                                    </div>
 
                                     <form onSubmit={handleSubmit(submit)}>
 
@@ -207,7 +207,7 @@ const AddLeadForm = () => {
                                         <div className="d-flex justify-content-around pt-1 mb-5 pb-1">
                                             <button
                                                 className="btn btn-primary btn-block fa-lg gradient-custom-1 mb-3"
-                                                type="submit">Create lead
+                                                type="submit">Create contact
                                             </button>
 
                                         </div>
@@ -223,5 +223,8 @@ const AddLeadForm = () => {
 
         </div>
     )
+
+
 }
-export default AddLeadForm;
+
+export default AddContactsForm;

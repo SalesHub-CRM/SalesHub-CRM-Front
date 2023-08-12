@@ -1,4 +1,3 @@
-import Header from "../blocks/frontOffice/Header";
 import Footer from "../blocks/frontOffice/Footer";
 import {Link} from "react-router-dom";
 import React from "react";
@@ -24,16 +23,22 @@ const Signup = () => {
         formData.append("password",data.password);
         formData.append("confirmPwd",data.confirmPwd);
         formData.append("phone",data.phone);
-        formData.append("birthDate",data.birthDate);
+        formData.append("gender",data.gender);
+        formData.append("city",data.city);
+        formData.append("zipcode",data.zipcode);
+        formData.append("fulladdress",data.fulladdress);
+        formData.append("cin",data.cin);
+        formData.append("birthdate",data.birthdate);
         setPwd(data.password===data.confirmPwd);
+
+        console.log(Object.fromEntries(formData))
+
         dispatch(AdminRegistrationAction(formData))
     }
 
 
   return(
       <div className="signupPage">
-          <Header/>
-
           <div className="container mt-5">
               <div className="row d-flex justify-content-center align-items-center h-100">
                   <div className="col-xl-10">
@@ -43,12 +48,12 @@ const Signup = () => {
                               <div className="card-body p-md-5 mx-md-4">
 
 
-                                  <div className="LogoTitle">
+                                  <div className="LogoTitle d-flex">
                                       <div className='site-logo'>
                                           <img src="assets/images/logo.png" alt="logo" className="imgLogin"/>
                                       </div>
 
-                                      <div className="homepage-titles">
+                                      <div className="homepage-titles creatAccountTitle">
                                           <h4 className="mt-1 mb-5 pb-1">Create an account </h4>
                                       </div>
                                   </div>
@@ -57,9 +62,9 @@ const Signup = () => {
                                       <p>Please fill in this form</p>
 
 
-                                      <div className="formUnit">
+                                      <div className="formUnit d-flex justify-content-between">
                                           <div className="form-outline col-5 mb-4">
-                                              <label className="form-label" htmlFor="form2Example11">First name</label>
+                                              <label className="form-label" htmlFor="form2Example11">First name :</label>
                                               <input type="text" id="form2Example11" className="form-control"
                                                      placeholder="First name" {...register("firstname", {required: true})}/>
                                               {(errors.firstname?.type) &&
@@ -69,7 +74,7 @@ const Signup = () => {
                                           </div>
 
                                           <div className="form-outline col-5 mb-4">
-                                              <label className="form-label" htmlFor="form2Example11">Last name</label>
+                                              <label className="form-label" htmlFor="form2Example11">Last name :</label>
                                               <input type="text" id="form2Example11" className="form-control"
                                                      placeholder="Last name" {...register("lastname", {required: true})}/>
                                               {(errors.lastname?.type) &&
@@ -80,10 +85,10 @@ const Signup = () => {
                                       </div>
 
 
-                                      <div className="formUnit">
+                                      <div className="formUnit d-flex justify-content-between">
                                           <div className="form-outline col-5 mb-4">
                                               <label className="form-label" htmlFor="form2Example11">Username (how your
-                                                  account will show)</label>
+                                                  account will show) :</label>
                                               <input type="text" id="form2Example11" className="form-control"
                                                      placeholder="User name" {...register("username", {required: true})}/>
                                               {(errors.username?.type) &&
@@ -93,7 +98,7 @@ const Signup = () => {
                                           </div>
 
                                           <div className="form-outline col-5 mb-4">
-                                              <label className="form-label" htmlFor="form2Example11">Email</label>
+                                              <label className="form-label" htmlFor="form2Example11">Email :</label>
                                               <input type="text" id="form2Example11" className="form-control"
                                                      placeholder="Email" {...register("email", {
                                                   required: true,
@@ -111,9 +116,9 @@ const Signup = () => {
                                       </div>
 
 
-                                      <div className="formUnit">
+                                      <div className="formUnit d-flex justify-content-between">
                                           <div className="form-outline col-5 mb-4">
-                                              <label className="form-label" htmlFor="form2Example11">Password</label>
+                                              <label className="form-label" htmlFor="form2Example11">Password :</label>
                                               <input type="password" id="form2Example11" className="form-control"
                                                      placeholder="******" {...register("password", {
                                                   required: true,
@@ -131,7 +136,7 @@ const Signup = () => {
 
                                           <div className="form-outline col-5 mb-4">
                                               <label className="form-label" htmlFor="form2Example11">Confirm
-                                                  password</label>
+                                                  password :</label>
                                               <input type="password" id="form2Example11" className="form-control"
                                                      placeholder="******" {...register("confirmPwd", {required: true,})}/>
                                               {!matchPwd && <div className="alert alert-danger" role="alert">
@@ -141,12 +146,95 @@ const Signup = () => {
                                       </div>
 
 
-                                      <div className="formUnit">
+
+                                      <div className="formUnit d-flex justify-content-between">
+                                          <div className="form-outline col-5 mb-4">
+                                              <label className="form-label" htmlFor="form2Example11">Phone number</label>
+                                              <input  type="number" id="form2Example11" className="form-control"
+                                                      placeholder="12345678" {...register("phone", { required: true, minLength: 8, maxLength:8 })}/>
+                                              {errors.phone?.type === "required" && <div className="alert alert-danger" role="alert">
+                                                  phone number is required
+                                              </div>}
+                                              {errors.phone?.type === "minLength" && <div className="alert alert-danger" role="alert">
+                                                  the phone number must have 8 digits
+                                              </div>}
+                                              {errors.phone?.type === "maxLength" && <div className="alert alert-danger" role="alert">
+                                                  the phone number must have 8 digits
+                                              </div>}
+                                          </div>
+
+                                          <div className="form-outline col-5 mb-4">
+                                              <label className="form-label" htmlFor="form2Example11">Gender :</label>
+                                              <select className="form-select" {...register("gender")}>
+                                                  <option value="Male">Male</option>
+                                                  <option value="Female">Female</option>
+                                              </select>
+
+                                          </div>
+                                      </div>
+
+
+                                      <div className="formUnit d-flex justify-content-between">
+                                          <div className="form-outline col-5 mb-4">
+                                              <label className="form-label" htmlFor="form2Example11">City :</label>
+                                              <input type="text" id="form2Example11" className="form-control"
+                                                     placeholder="city" {...register("city", {required: true})}/>
+                                              {(errors.city?.type) &&
+                                                  <div className="alert alert-danger" role="alert">
+                                                      city is required
+                                                  </div>}
+                                          </div>
+
+                                          <div className="form-outline col-5 mb-4">
+                                              <label className="form-label" htmlFor="form2Example11">ZipCode :</label>
+                                              <input type="number" id="form2Example11" className="form-control"
+                                                     placeholder="zipcode" {...register("zipcode", {required: true})}/>
+                                              {(errors.zipcode?.type) &&
+                                                  <div className="alert alert-danger" role="alert">
+                                                      ZipCode is required
+                                                  </div>}
+                                          </div>
+                                      </div>
+
+
+
+                                      <div className="formUnit d-flex justify-content-between">
+
+                                          <div className="form-outline col-5 mb-4">
+                                              <label className="form-label" htmlFor="form2Example11">Full address :</label>
+                                              <input type="text" id="form2Example11" className="form-control"
+                                                     placeholder="full address" {...register("fulladdress", {required: true})}/>
+                                              {(errors.fulladdress?.type) &&
+                                                  <div className="alert alert-danger" role="alert">
+                                                      Full address is required
+                                                  </div>}
+                                          </div>
+
+                                          <div className="form-outline col-5 mb-4">
+                                              <label className="form-label" htmlFor="form2Example11">CIN :</label>
+                                              <input type="number" id="form2Example11" className="form-control"
+                                                     placeholder="12345678" {...register("cin", {required: true})}/>
+                                              {errors.cin?.type === "required" && <div className="alert alert-danger" role="alert">
+                                                  CIN is required
+                                              </div>}
+                                              {errors.cin?.type === "minLength" && <div className="alert alert-danger" role="alert">
+                                                  the CIN number must have 8 digits
+                                              </div>}
+                                              {errors.cin?.type === "maxLength" && <div className="alert alert-danger" role="alert">
+                                                  the CIN number must have 8 digits
+                                              </div>}
+                                          </div>
+
+                                      </div>
+
+
+                                      <div className="formUnit d-flex justify-content-center mb-5">
+
                                           <div className="form-outline col-5 mt-5">
                                               <label className="form-label" htmlFor="form3Example90">Birth date</label>
                                               <input type="date" id="form3Example90"
-                                                     className="form-control form-control-lg" {...register("birthDate", {required: true})} />
-                                              {errors.birthDate?.type &&
+                                                     className="form-control form-control-lg" {...register("birthdate", {required: true})} />
+                                              {errors.birthdate?.type &&
                                                   <div className="alert alert-danger" role="alert">
                                                       birth date is required
                                                   </div>}
@@ -173,10 +261,10 @@ const Signup = () => {
                                   </form>
                               </div>
 
-                              {!AuthState?.error && <div className="alert alert-success" role="alert">
+                              {/*{!AuthState?.error && <div className="alert alert-success" role="alert">
                                   registration completed successfully! please refer to your inbox for the confirmation
                                   mail and then login <Link to="/login">here</Link>
-                              </div>}
+                              </div>}*/}
                               {AuthState?.error && <div className="alert alert-warning" role="alert">
                                   {AuthState.error.data}
                               </div>}

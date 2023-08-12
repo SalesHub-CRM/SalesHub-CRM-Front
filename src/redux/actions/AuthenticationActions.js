@@ -5,11 +5,13 @@ import {ERROR,LOGIN_ACTION,REGISTRATION_ACTION,SET_CONNECTED,LOGOUT} from "../re
 
 export const AdminRegistrationAction = (user)=>dispatch=>{
     axios.post("http://localhost:8080/auth/admin/signup",user,{
+
         headers:{
-            'Content-Type':'multipart/form-data'
+            'Content-Type':'application/json'
         }
     })
         .then(result=>{
+
             dispatch({
                 type:REGISTRATION_ACTION,
             })
@@ -26,7 +28,7 @@ export const AdminRegistrationAction = (user)=>dispatch=>{
 export const EmployeeRegistrationAction = (user)=>dispatch=>{
     axios.post("http://localhost:8080/auth/client/signup",user,{
         headers:{
-            'Content-Type':'multipart/form-data'
+            'Content-Type':'application/json'
         }
     })
         .then(result=>{
@@ -47,6 +49,7 @@ export const EmployeeRegistrationAction = (user)=>dispatch=>{
 export const LoginAction = (credentials)=>dispatch=>{
     axios.post("http://localhost:8080/auth/signin",credentials,{ withCredentials: true })
         .then(result=>{
+            console.log(Object.fromEntries(credentials))
             dispatch({
                 type:LOGIN_ACTION,
                 payload:{accessToken:result.data.accessToken,refreshToken:result.data.refreshToken},

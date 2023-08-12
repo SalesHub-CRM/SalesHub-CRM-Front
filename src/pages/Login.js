@@ -17,6 +17,7 @@ const Login = () => {
         dispatch(LoginAction(data))
     }
 
+
     useEffect(()=>{
 
         AuthState.isConnected && localStorage.setItem('authTokens',JSON.stringify(AuthState.tokens))
@@ -27,7 +28,6 @@ const Login = () => {
   return(
 
       <div className="loginPage">
-          <Header/>
 
           <div className="container mt-5">
               <div className="row d-flex justify-content-center align-items-center h-100">
@@ -50,7 +50,7 @@ const Login = () => {
 
                                   <form onSubmit={handleSubmit(submit)}>
 
-                                      <div className="formUnit">
+                                      <div className="formUnit d-flex justify-content-between">
                                           <div className="form-outline col-5 mb-4">
                                               <label className="form-label" htmlFor="form2Example11">Username</label>
                                               <input type="text" id="form2Example11" className="form-control"
@@ -60,9 +60,7 @@ const Login = () => {
                                                       username is required
                                                   </div>}
                                           </div>
-                                      </div>
 
-                                      <div className="formUnit">
                                           <div className="form-outline col-5 mb-4">
                                               <label className="form-label" htmlFor="form2Example11">Password</label>
                                               <input type="password" id="form2Example11" className="form-control"
@@ -79,7 +77,6 @@ const Login = () => {
                                                       the password must be longer than 8 characters
                                                   </div>}
                                           </div>
-
                                       </div>
 
 
@@ -92,6 +89,13 @@ const Login = () => {
 
 
                                   </form>
+
+                                  <div className="d-flex align-items-center justify-content-center pb-4">
+                                      <p className="mb-0 me-2">Don't have an account?</p>
+                                      <Link to='/Signup' className="btn btn-outline-success">Create
+                                          new</Link>
+                                  </div>
+
                               </div>
 
                           </div>

@@ -30,13 +30,13 @@ const Footer = () => {
 
                                 <span className="info">
 
-                                    <span className="info-title">Phone : </span><a href="#">+216 71 839 000</a></span>
+                                    <span className="info-title">Phone : </span><a href="#">+216 11 111 111</a></span>
                             </li>
 
                             <li>
                                 <span className="icon"><i className="far fa-map-marker-alt"></i></span>
 
-                                <span className="info"><span className="info-title">Location : </span><a href="#">Hedi Nouira street - 1030 Tunis, Tunisia</a></span>
+                                <span className="info"><span className="info-title">Location : </span><a href="#">Avenue XXxxXX Tunis, Tunisia</a></span>
                             </li>
                         </ul>
                     </div>
@@ -45,7 +45,7 @@ const Footer = () => {
 
                 <div className="copyright-area">
 
-                    <p className="copyright-text">© 2000-2022 <span> </span><a href="#">La Poste Tunisienne</a>. All Rights Reserved</p>
+                    <p className="copyright-text">© 2000-2022 <span> </span><a href="#">SalesHub</a>. All Rights Reserved</p>
 
                 </div>
 
