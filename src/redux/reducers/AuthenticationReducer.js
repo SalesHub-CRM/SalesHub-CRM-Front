@@ -17,7 +17,7 @@ export const LOGOUT = "LOGOUT";
 export default function (state = initialState,action){
     switch (action.type){
         case REGISTRATION_ACTION:
-            console.log("reg act")
+
             return{
                 user:"signup successful"
             }

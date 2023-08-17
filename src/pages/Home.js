@@ -1,6 +1,6 @@
 import Header from "../blocks/frontOffice/Header";
 import Footer from "../blocks/frontOffice/Footer";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Homepage from "../components/FontOffice/Homepage";
 import Leadspage from "../components/FontOffice/Leadspage";
 import Contactspage from "../components/FontOffice/Contactspage";
@@ -10,9 +10,31 @@ import Productspage from "../components/FontOffice/Productspage";
 import Campaignspage from "../components/FontOffice/Campaignspage";
 import Taskspage from "../components/FontOffice/Taskspage";
 import Casespage from "../components/FontOffice/Casespage";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router";
+import {setConnected} from "../redux/actions/AuthenticationActions";
 
 
 const Home=()=>{
+
+
+    const dispatch = useDispatch();
+    const navigate=useNavigate();
+    const AuthState = useSelector(state => state.Auth);
+
+    useEffect(()=>{
+        const token = JSON.parse(localStorage.getItem('authTokens'));
+        const user =JSON.parse(localStorage.getItem('user'))
+        if(!token)
+        {
+            localStorage.removeItem('authTokens');
+            navigate('/login');
+        }
+        else{
+            dispatch(setConnected(token,user));
+        }
+    },[AuthState.isConnected])
+
 
     const [show, setShow] = useState(0)
 

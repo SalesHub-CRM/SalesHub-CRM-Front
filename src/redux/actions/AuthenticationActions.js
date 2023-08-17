@@ -47,13 +47,20 @@ export const EmployeeRegistrationAction = (user)=>dispatch=>{
 
 
 export const LoginAction = (credentials)=>dispatch=>{
-    axios.post("http://localhost:8080/auth/signin",credentials,{ withCredentials: true })
+    axios.post("http://localhost:8080/auth/signin",credentials)
         .then(result=>{
-            console.log(Object.fromEntries(credentials))
+            console.log("result")
+            console.log(result)
+            console.log("user")
+            console.log(result.data)
+            console.log("access token")
+            console.log(result.data.accessToken)
+            console.log("refresh token")
+            console.log(result.data.refreshToken)
             dispatch({
                 type:LOGIN_ACTION,
                 payload:{accessToken:result.data.accessToken,refreshToken:result.data.refreshToken},
-                user:result.data.user
+                user:result.data
             })
         })
         .catch(err=>{

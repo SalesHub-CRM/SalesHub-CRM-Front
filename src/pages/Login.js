@@ -1,4 +1,3 @@
-import Header from "../blocks/frontOffice/Header";
 import Footer from "../blocks/frontOffice/Footer";
 import {useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";

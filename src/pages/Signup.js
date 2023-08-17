@@ -13,6 +13,7 @@ const Signup = () => {
     //const [confirmCreate,setConfirmCreate]=useState(false);
     const dispatch = useDispatch();
     const AuthState = useSelector(state=>state.Auth);
+    const roles =["ROLE_ADMIN"];
 
     const submit = (data)=>{
         var formData = new FormData();
@@ -26,9 +27,13 @@ const Signup = () => {
         formData.append("gender",data.gender);
         formData.append("city",data.city);
         formData.append("zipcode",data.zipcode);
-        formData.append("fulladdress",data.fulladdress);
+        formData.append("fulladress",data.fulladress);
         formData.append("cin",data.cin);
         formData.append("birthdate",data.birthdate);
+        //formData.append("roles",role);
+        roles.forEach((role, index) => {
+            formData.append(`roles[${index}]`, role);
+        });
         setPwd(data.password===data.confirmPwd);
 
         console.log(Object.fromEntries(formData))
@@ -203,8 +208,8 @@ const Signup = () => {
                                           <div className="form-outline col-5 mb-4">
                                               <label className="form-label" htmlFor="form2Example11">Full address :</label>
                                               <input type="text" id="form2Example11" className="form-control"
-                                                     placeholder="full address" {...register("fulladdress", {required: true})}/>
-                                              {(errors.fulladdress?.type) &&
+                                                     placeholder="full address" {...register("fulladress", {required: true})}/>
+                                              {(errors.fulladress?.type) &&
                                                   <div className="alert alert-danger" role="alert">
                                                       Full address is required
                                                   </div>}

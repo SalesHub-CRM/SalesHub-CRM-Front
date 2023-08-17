@@ -1,7 +1,24 @@
 import {combineReducers} from "redux";
 import AuthenticationReducer from "./AuthenticationReducer";
+import CampaignsReducer from "./CampaignsReducer"
+import CasesReducer from "./CasesReducer";
+import ClientsReducer from "./ClientsReducer";
+import ContactsReducer from "./ContactsReducer";
+import GroupsReducer from "./GroupsReducer";
+import LeadsReducer from "./LeadsReducer";
+import ProductsReducer from "./ProductsReducer";
+import TasksReducer from "./TasksReducer";
 
 
 export default combineReducers({
-    Auth:AuthenticationReducer
+    Auth:AuthenticationReducer,
+    Campaign:CampaignsReducer,
+    Case:CasesReducer,
+    Client:ClientsReducer,
+    Contact:ContactsReducer,
+    Group:GroupsReducer,
+    Lead:LeadsReducer,
+    Product:ProductsReducer,
+    Task:TasksReducer,
+
 })
