@@ -1,12 +1,11 @@
-import axios from "axios"
-import {CREATE_CLIENT,GET_CLIENT,LIST_CLIENT,DELETE_CLIENT,ERROR} from "../reducers/ClientsReducer"
+import axios from "axios";
+import {CREATE_OPPORTUNITY,GET_OPPORTUNITY,LIST_OPPORTUNITY,DELETE_OPPORTUNITY,ERROR} from "../reducers/OpportunitiesReducer"
 
-
-export const CreateClient=(client)=>dispatch=>{
-    axios.post("http://localhost:8080/client",client,{withCredentials:true})
+export const CreateOpportunity=(opportunity)=>dispatch=>{
+    axios.post("http://localhost:8080/opportunity",opportunity,{withCredentials:true})
         .then(result=>{
             dispatch({
-                type:CREATE_CLIENT
+                type:CREATE_OPPORTUNITY
             })
         })
         .catch(err=>{
@@ -18,11 +17,11 @@ export const CreateClient=(client)=>dispatch=>{
 }
 
 
-export const GetClientById=(clientID)=>dispatch=>{
-    axios.get("http://localhost:8080/client/"+clientID,{withCredentials:true})
+export const GetOpportunityById=(opportunityID)=>dispatch=>{
+    axios.get("http://localhost:8080/opportunity/"+opportunityID,{withCredentials:true})
         .then(result=>{
             dispatch({
-                type:GET_CLIENT,
+                type:GET_OPPORTUNITY,
                 payload:result.data
             })
         })
@@ -35,11 +34,11 @@ export const GetClientById=(clientID)=>dispatch=>{
 }
 
 
-export const ListClients=()=>dispatch=>{
-    axios.get("http://localhost:8080/client",{withCredentials:true})
+export const ListOpportunities=()=>dispatch=>{
+    axios.get("http://localhost:8080/opportunity",{withCredentials:true})
         .then(result=>{
             dispatch({
-                type:LIST_CLIENT,
+                type:LIST_OPPORTUNITY,
                 payload:result.data
             })
         })
@@ -52,11 +51,11 @@ export const ListClients=()=>dispatch=>{
 }
 
 
-export const DeleteClient=(clientID)=>dispatch=>{
-    axios.delete("http://localhost:8080/client/"+clientID,{withCredentials:true})
+export const DeleteOpportunity=(opportunityID)=>dispatch=>{
+    axios.delete("http://localhost:8080/opportunity/"+opportunityID,{withCredentials:true})
         .then(result=>{
             dispatch({
-                type:DELETE_CLIENT
+                type:DELETE_OPPORTUNITY
             })
         })
         .catch(err=>{

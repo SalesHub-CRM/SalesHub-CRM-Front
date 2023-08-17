@@ -8,6 +8,7 @@ import GroupsReducer from "./GroupsReducer";
 import LeadsReducer from "./LeadsReducer";
 import ProductsReducer from "./ProductsReducer";
 import TasksReducer from "./TasksReducer";
+import OpportunitiesReducer from "./OpportunitiesReducer";
 
 
 export default combineReducers({
@@ -18,6 +19,7 @@ export default combineReducers({
     Contact:ContactsReducer,
     Group:GroupsReducer,
     Lead:LeadsReducer,
+    Opportunity:OpportunitiesReducer,
     Product:ProductsReducer,
     Task:TasksReducer,
 
