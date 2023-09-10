@@ -1,12 +1,24 @@
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
 import React from "react";
+import {CreateProduct} from "../../../redux/actions/ProductsActions";
 
 const AddProductsForm = () => {
     const {register, handleSubmit, formState:{errors}}= useForm();
     const dispatch = useDispatch();
-    const submit = async(data)=>{
+   // const dataUser = JSON.parse(localStorage.getItem('user'));
 
+    const submit = async(data)=>{
+    var formData = new FormData();
+
+        formData.append("name",data.name);
+        formData.append("description",data.description);
+        formData.append("productionstart",data.productionstart);
+        formData.append("productionend",data.productionend);
+        formData.append("price",data.price);
+        //formData.append("opportunityId",)
+
+        dispatch(CreateProduct(formData));
     }
     return(
         <div className="AddLeadPage">

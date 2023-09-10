@@ -25,6 +25,7 @@ const Home=()=>{
     useEffect(()=>{
         const token = JSON.parse(localStorage.getItem('authTokens'));
         const user =JSON.parse(localStorage.getItem('user'))
+
         if(!token)
         {
             localStorage.removeItem('authTokens');

@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import PublicRouteHandler from "./utils/PublicRouteHandler";
 import PrivateRoute from "./utils/PrivateRoute";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
             <Route path='/signup' element={<Signup/>}/>
 
             {/*change dashboard to connected only later*/}
-
+            <Route path='/Dashboard/*' element={<Dashboard/>}/>
             {/*registration and login here*/}
             <Route exact path='/' element={<PublicRouteHandler />} ></Route>
             {/*routes that require a user to be connected to access*/}

@@ -1,21 +1,23 @@
 import Footer from "../blocks/frontOffice/Footer";
 import {Link} from "react-router-dom";
-import React from "react";
+import React, {useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {useDispatch,useSelector} from "react-redux";
 import {useState} from "react";
 import {AdminRegistrationAction} from "../redux/actions/AuthenticationActions";
+import {useNavigate} from "react-router";
+import RegistrationSuccessModal from "../blocks/frontOffice/modals/RegistrationSuccessModal";
 
 const Signup = () => {
 
     const {register, handleSubmit, formState:{errors}}= useForm();
-    const [matchPwd,setPwd] = useState(false);
-    //const [confirmCreate,setConfirmCreate]=useState(false);
+    const [matchPwd,setPwd] = useState(true);
     const dispatch = useDispatch();
+    const navigate=useNavigate();
     const AuthState = useSelector(state=>state.Auth);
     const roles =["ROLE_ADMIN"];
-
-    const submit = (data)=>{
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const submit = async (data)=>{
         var formData = new FormData();
         formData.append("firstname",data.firstname)
         formData.append("lastname",data.lastname);
@@ -30,17 +32,42 @@ const Signup = () => {
         formData.append("fulladress",data.fulladress);
         formData.append("cin",data.cin);
         formData.append("birthdate",data.birthdate);
-        //formData.append("roles",role);
         roles.forEach((role, index) => {
             formData.append(`roles[${index}]`, role);
         });
+
         setPwd(data.password===data.confirmPwd);
 
         console.log(Object.fromEntries(formData))
 
-        dispatch(AdminRegistrationAction(formData))
+        try {
+
+
+            await dispatch(AdminRegistrationAction(formData));
+            setShowSuccessModal(true);
+        } catch (error) {
+            console.error('Registration failed:', error);
+        }
+
+        /*dispatch(AdminRegistrationAction(formData))
+            .then(()=>{
+            setShowSuccessModal(true);
+        })
+            .catch((error) => {
+            // Handle registration error.
+            console.error('Registration failed:', error);
+        });*/
     }
 
+    /*useEffect(() => {
+        if (showSuccessModal) {
+            navigate('/login');
+        }
+    }, [showSuccessModal, navigate]);*/
+
+    const closeModal = () => {
+        setShowSuccessModal(false);
+    };
 
   return(
       <div className="signupPage">
@@ -63,8 +90,20 @@ const Signup = () => {
                                       </div>
                                   </div>
 
+                                  {/*modal handeling*/}
+                                  <RegistrationSuccessModal
+                                      show={showSuccessModal}
+                                      onClose={closeModal}
+                                  />
+
                                   <form onSubmit={handleSubmit(submit)}>
                                       <p>Please fill in this form</p>
+
+                                        {/*this shows errors from the backend */}
+                                      {AuthState?.error && <div className="alert alert-warning" role="alert">
+                                          {AuthState.error.data}
+                                      </div>}
+
 
 
                                       <div className="formUnit d-flex justify-content-between">
@@ -270,9 +309,7 @@ const Signup = () => {
                                   registration completed successfully! please refer to your inbox for the confirmation
                                   mail and then login <Link to="/login">here</Link>
                               </div>}*/}
-                              {AuthState?.error && <div className="alert alert-warning" role="alert">
-                                  {AuthState.error.data}
-                              </div>}
+
 
                           </div>
                       </div>

@@ -45,7 +45,7 @@ const Footer = () => {
 
                 <div className="copyright-area">
 
-                    <p className="copyright-text">© 2000-2022 <span> </span><a href="#">SalesHub</a>. All Rights Reserved</p>
+                    <p className="copyright-text">© 2000-2024 <span> </span><a href="#">SalesHub</a>. All Rights Reserved</p>
 
                 </div>
 

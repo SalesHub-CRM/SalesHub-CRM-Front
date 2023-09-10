@@ -4,28 +4,35 @@ import axiosInstance from "../../utils/axiosInterceptor";
 import {ERROR,LOGIN_ACTION,REGISTRATION_ACTION,SET_CONNECTED,LOGOUT} from "../reducers/AuthenticationReducer";
 
 export const AdminRegistrationAction = (user)=>dispatch=>{
-    axios.post("http://localhost:8080/auth/admin/signup",user,{
 
-        headers:{
-            'Content-Type':'application/json'
-        }
+    return new Promise((resolve, reject) => {
+
+        //the resolve + reject are a promise to manage the modal in signup
+
+        axios.post("http://localhost:8081/auth/signup", user, {
+
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(result => {
+                dispatch({
+                    type: REGISTRATION_ACTION,
+                });
+                resolve();
+            })
+            .catch(err => {
+                dispatch({
+                    type: ERROR,
+                    payload: err.response
+                });
+                reject(err);
+            })
     })
-        .then(result=>{
-
-            dispatch({
-                type:REGISTRATION_ACTION,
-            })
-        })
-        .catch(err=>{
-            dispatch({
-                type:ERROR,
-                payload:err.response
-            })
-        })
 }
 
 
-export const EmployeeRegistrationAction = (user)=>dispatch=>{
+/*export const EmployeeRegistrationAction = (user)=>dispatch=>{
     axios.post("http://localhost:8080/auth/client/signup",user,{
         headers:{
             'Content-Type':'application/json'
@@ -42,24 +49,21 @@ export const EmployeeRegistrationAction = (user)=>dispatch=>{
                 payload:err.response
             })
         })
-}
+}*/
 
 
 
 export const LoginAction = (credentials)=>dispatch=>{
-    axios.post("http://localhost:8080/auth/signin",credentials)
+    axios.post("http://localhost:8081/auth/signin",credentials)
         .then(result=>{
-            console.log("result")
-            console.log(result)
             console.log("user")
             console.log(result.data)
-            console.log("access token")
-            console.log(result.data.accessToken)
-            console.log("refresh token")
-            console.log(result.data.refreshToken)
+            //const cookieValue=result.data.cookie;
+            const token = result.data.cookie.split('=')[1];
+
             dispatch({
                 type:LOGIN_ACTION,
-                payload:{accessToken:result.data.accessToken,refreshToken:result.data.refreshToken},
+                payload:{accessToken:token.split(';')[0]/*,refreshToken:result.data.refreshToken*/},
                 user:result.data
             })
         })
@@ -83,8 +87,7 @@ export const setConnected=(token,user)=>dispatch=>{
 
 export const logout =()=>dispatch=>{
     const authTokens = JSON.parse(localStorage.getItem('authTokens'))
-
-    axiosInstance.delete("/logout",authTokens,{ withCredentials: true })
+    axiosInstance.post("http://localhost:8081/auth/signout",authTokens,{ withCredentials: true })
         .then(result=>{
 
             dispatch({
@@ -93,4 +96,13 @@ export const logout =()=>dispatch=>{
             localStorage.removeItem('authTokens')
             localStorage.removeItem('user')
         })
+
 }
+
+export const setAuthToken = (token) => {
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    } else {
+        delete axios.defaults.headers.common['Authorization'];
+    }
+};

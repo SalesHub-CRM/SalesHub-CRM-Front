@@ -3,13 +3,38 @@ import Footer from "../Footer";
 import React from "react";
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
+import {CreateLead} from "../../../redux/actions/LeadsActions";
 
 const AddLeadForm = () => {
     const {register, handleSubmit, formState:{errors}}= useForm();
     const dispatch = useDispatch();
+    const dataUser = JSON.parse(localStorage.getItem('user'));
+    console.log(dataUser.id);
     const submit = async(data)=>{
+        var formData = new FormData();
+        formData.append("salutation",data.salutation);
+        formData.append("firstname",data.firstname);
+        formData.append("lastname",data.lastname);
+        formData.append("title",data.salutation);
+        formData.append("company",data.company);
+        formData.append("email",data.email);
+        formData.append("phone",data.phone);
+        formData.append("address",data.address);
+        formData.append("city",data.city);
+        formData.append("zipcode",data.zipcode);
+        formData.append("source",data.source);
+        formData.append("industry",data.industry);
+        formData.append("employeenumber",data.employeenumber);
+        formData.append("annualrevenue",data.annualrevenue);
+        formData.append("status",data.status);
+        formData.append("employeeID",dataUser.id);
 
+        dispatch(CreateLead(formData));
     }
+
+
+
+
     return(
         <div className="AddLeadPage">
             <div className="container mt-5">

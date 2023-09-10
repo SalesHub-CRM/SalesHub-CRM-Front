@@ -2,7 +2,7 @@ import axios from "axios";
 import {CREATE_TASK,GET_TASK,LIST_TASK,DELETE_TASK,ERROR} from "../reducers/TasksReducer"
 
 export const CreateTask=(task)=>dispatch=>{
-    axios.post("http://localhost:8080/task",task,{withCredentials:true})
+    axios.post("http://localhost:8081/API/task",task,{withCredentials:true})
         .then(result=>{
             dispatch({
                 type:CREATE_TASK
@@ -18,7 +18,7 @@ export const CreateTask=(task)=>dispatch=>{
 
 
 export const GetTaskById=(taskID)=>dispatch=>{
-    axios.get("http://localhost:8080/task/"+taskID,{withCredentials:true})
+    axios.get("http://localhost:8081/API/task/"+taskID,{withCredentials:true})
         .then(result=>{
             dispatch({
                 type:GET_TASK,
@@ -35,7 +35,7 @@ export const GetTaskById=(taskID)=>dispatch=>{
 
 
 export const ListTasks=()=>dispatch=>{
-    axios.get("http://localhost:8080/task",{withCredentials:true})
+    axios.get("http://localhost:8081/API/task",{withCredentials:true})
         .then(result=>{
             dispatch({
                 type:LIST_TASK,
@@ -52,7 +52,7 @@ export const ListTasks=()=>dispatch=>{
 
 
 export const DeleteTask=(taskID)=>dispatch=>{
-    axios.delete("http://localhost:8080/task/"+taskID,{withCredentials:true})
+    axios.delete("http://localhost:8081/API/task/"+taskID,{withCredentials:true})
         .then(result=>{
             dispatch({
                 type:DELETE_TASK
