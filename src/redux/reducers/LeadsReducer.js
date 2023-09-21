@@ -1,6 +1,7 @@
 
 const initialState={
     createLead:{},
+    updateLead:{},
     getLeadById:{},
     ListLeads:{},
     DeleteLeads:{},
@@ -8,6 +9,7 @@ const initialState={
 }
 
 export const CREATE_LEAD="CREATELEAD";
+export const UPDATE_LEAD="UPDATELEAD";
 export const GET_LEAD="GETLEAD";
 export const LIST_LEAD="LISTLEAD";
 export const DELETE_LEAD="DELETELEAD";
@@ -20,6 +22,13 @@ export default function (state = initialState,action){
 
             return {
                 createLead:"lead created"
+            }
+
+
+        case UPDATE_LEAD:
+
+            return {
+                updateLead:"lead updated"
             }
 
 
@@ -40,7 +49,9 @@ export default function (state = initialState,action){
 
         case DELETE_LEAD:
             return{
-                DeleteLeads:"lead deleted"
+                /*DeleteLeads:"lead deleted"*/
+                ...state,
+                ListLeads: state.ListLeads.filter(lead => lead.id !== action.payload),
             }
 
 

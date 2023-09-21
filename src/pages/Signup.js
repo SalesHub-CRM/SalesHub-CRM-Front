@@ -17,6 +17,11 @@ const Signup = () => {
     const AuthState = useSelector(state=>state.Auth);
     const roles =["ROLE_ADMIN"];
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+    useEffect(()=>{
+        localStorage.getItem('authTokens') && navigate('/home');
+    },[AuthState.isConnected])
+
     const submit = async (data)=>{
         var formData = new FormData();
         formData.append("firstname",data.firstname)

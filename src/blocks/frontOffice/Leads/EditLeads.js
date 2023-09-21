@@ -1,12 +1,58 @@
 import {useForm} from "react-hook-form";
-import {useDispatch} from "react-redux";
-import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import React, {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router";
+import {CreateLead, GetLeadById, UpdateLead} from "../../../redux/actions/LeadsActions";
+import AddSuccessModal from "../modals/lead/AddSuccessModal";
 
 const EditLeads = () => {
+    const dataUser = JSON.parse(localStorage.getItem('user'));
     const {register, handleSubmit, formState:{errors}}= useForm();
     const dispatch = useDispatch();
-    const submit = async(data)=>{
+    const navigate = useNavigate();
+    const Lead = useSelector(state => state.Lead.getLeadById);
+    const { leadId } = useParams();
 
+    const [showAddModal, setShowAddModal] = useState(false);
+
+    const refreshPage = () => {
+        // navigate(location.pathname, { state: { refresh: true } });
+        window.location.reload();
+        console.log("refresh")
+    };
+
+    useEffect(() => {
+        dispatch(GetLeadById(leadId))
+    },[dispatch, leadId] );
+
+    console.log(Lead)
+
+    const submit = async(data)=>{
+        var formData = new FormData();
+        formData.append("salutation",data.salutation);
+        formData.append("firstname",data.firstname);
+        formData.append("lastname",data.lastname);
+        formData.append("title",data.title);
+        formData.append("company",data.company);
+        formData.append("email",data.email);
+        formData.append("phone",data.phone);
+        formData.append("address",data.address);
+        formData.append("city",data.city);
+        formData.append("zipcode",data.zipcode);
+        formData.append("source",data.source);
+        formData.append("industry",data.industry);
+        formData.append("employeenumber",data.employeenumber);
+        formData.append("annualrevenue",data.annualrevenue);
+        formData.append("status",data.status);
+        formData.append("employeeID",dataUser.id);
+
+        try {
+            await dispatch(UpdateLead(formData,leadId));
+            setShowAddModal(true)
+        }
+        catch (error) {
+            console.error('Registration failed:', error);
+        }
     }
     return(
         <div className="AddLeadPage">
@@ -18,9 +64,15 @@ const EditLeads = () => {
 
                                 <div className="card-body p-md-5 mx-md-4">
 
+                                    {/* Display the AddSuccessModal component */}
+                                    <AddSuccessModal show={showAddModal} onClose={() => {
+                                        setShowAddModal(false);
+                                        refreshPage(); // Refresh the page when the modal is closed
+                                    }}
+                                    />
 
                                     <div className="homepage-titles creatAccountTitle">
-                                        <h4 className="mt-1 mb-5 pb-1">Edit a lead </h4>
+                                        <h4 className="mt-1 mb-5 pb-1">Create a lead </h4>
                                     </div>
 
                                     <form onSubmit={handleSubmit(submit)}>
@@ -52,7 +104,8 @@ const EditLeads = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">First name :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="First name" {...register("firstname", {required: true})}/>
+                                                       placeholder="First name" {...register("firstname", {required: true})}
+                                                        value={Lead.firstname}/>
                                                 {(errors.firstname?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         first name is required
@@ -91,6 +144,20 @@ const EditLeads = () => {
                                             </div>
 
                                             <div className="form-outline col-5 mb-4">
+                                                <label className="form-label" htmlFor="form2Example11">Title :</label>
+                                                <input type="text" id="form2Example11" className="form-control"
+                                                       placeholder="Title" {...register("title", {required: true})}/>
+                                                {(errors.title?.type) &&
+                                                    <div className="alert alert-danger" role="alert">
+                                                        The title is required
+                                                    </div>}
+                                            </div>
+
+                                        </div>
+
+                                        <div className="formUnit d-flex justify-content-between">
+
+                                            <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Company :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
                                                        placeholder="Company" {...register("company", {required: true})}/>
@@ -100,9 +167,6 @@ const EditLeads = () => {
                                                     </div>}
                                             </div>
 
-                                        </div>
-
-                                        <div className="formUnit d-flex justify-content-between">
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Phone number</label>
                                                 <input  type="number" id="form2Example11" className="form-control"
@@ -118,6 +182,9 @@ const EditLeads = () => {
                                                 </div>}
                                             </div>
 
+                                        </div>
+
+                                        <div className="formUnit d-flex justify-content-between">
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Address :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
@@ -127,10 +194,7 @@ const EditLeads = () => {
                                                         Address is required
                                                     </div>}
                                             </div>
-                                        </div>
 
-
-                                        <div className="formUnit d-flex justify-content-between">
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">City :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
@@ -141,6 +205,11 @@ const EditLeads = () => {
                                                     </div>}
                                             </div>
 
+                                        </div>
+
+
+                                        <div className="formUnit d-flex justify-content-between">
+
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">ZipCode :</label>
                                                 <input type="number" id="form2Example11" className="form-control"
@@ -150,11 +219,6 @@ const EditLeads = () => {
                                                         ZipCode is required
                                                     </div>}
                                             </div>
-                                        </div>
-
-
-
-                                        <div className="formUnit d-flex justify-content-between">
 
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Source :</label>
@@ -166,6 +230,12 @@ const EditLeads = () => {
                                                     </div>}
                                             </div>
 
+                                        </div>
+
+
+
+                                        <div className="formUnit d-flex justify-content-between">
+
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Number of Employees :</label>
                                                 <input type="number" id="form2Example11" className="form-control"
@@ -176,10 +246,6 @@ const EditLeads = () => {
 
                                             </div>
 
-                                        </div>
-
-                                        <div className="formUnit d-flex justify-content-between">
-
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Industry :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
@@ -189,6 +255,10 @@ const EditLeads = () => {
                                                         Industry is required
                                                     </div>}
                                             </div>
+
+                                        </div>
+
+                                        <div className="formUnit d-flex justify-content-between">
 
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Annual revenue :</label>
@@ -202,10 +272,12 @@ const EditLeads = () => {
 
                                         </div>
 
+
+
                                         <div className="d-flex justify-content-around pt-1 mb-5 pb-1">
                                             <button
                                                 className="btn btn-primary btn-block fa-lg gradient-custom-1 mb-3"
-                                                type="submit">Edit lead
+                                                type="submit">Update lead
                                             </button>
 
                                         </div>

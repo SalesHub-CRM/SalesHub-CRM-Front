@@ -21,7 +21,7 @@ const Login = () => {
 
         AuthState.isConnected && localStorage.setItem('authTokens',JSON.stringify(AuthState.tokens))
         AuthState.isConnected && localStorage.setItem('user',JSON.stringify(AuthState.user))
-        localStorage.getItem('authTokens') && navigate('/');
+        localStorage.getItem('authTokens') && navigate('/home');
     },[AuthState.isConnected])
 
   return(

@@ -1,21 +1,51 @@
 import axios from "axios";
-import {CREATE_LEAD,GET_LEAD,LIST_LEAD,DELETE_LEAD,ERROR} from "../reducers/LeadsReducer"
+import {CREATE_LEAD,UPDATE_LEAD,GET_LEAD,LIST_LEAD,DELETE_LEAD,ERROR} from "../reducers/LeadsReducer"
 
 export const CreateLead=(lead)=>dispatch=>{
-    axios.post("http://localhost:8081/API/lead",lead,{withCredentials:true,headers:{
-            'Content-Type':'application/json'
-        }})
-        .then(result=>{
-            dispatch({
-                type:CREATE_LEAD
-            })
+    return new Promise((resolve, reject) => {
+        axios.post("http://localhost:8081/API/lead", lead, {
+            withCredentials: true, headers: {
+                'Content-Type': 'application/json'
+            }
         })
-        .catch(err=>{
-            dispatch({
-                type:ERROR,
-                payload:err.response
+            .then(result => {
+                dispatch({
+                    type: CREATE_LEAD
+                })
+                resolve();
             })
+            .catch(err => {
+                dispatch({
+                    type: ERROR,
+                    payload: err.response
+                })
+                reject(err);
+            })
+    })
+}
+
+
+export const UpdateLead=(lead,id)=>dispatch=>{
+    return new Promise((resolve, reject) => {
+        axios.put("http://localhost:8081/API/lead/${id}", lead, {
+            withCredentials: true, headers: {
+                'Content-Type': 'application/json'
+            }
         })
+            .then(result => {
+                dispatch({
+                    type: UPDATE_LEAD
+                })
+                resolve();
+            })
+            .catch(err => {
+                dispatch({
+                    type: ERROR,
+                    payload: err.response
+                })
+                reject(err);
+            })
+    })
 }
 
 
@@ -54,16 +84,21 @@ export const ListLeads=()=>dispatch=>{
 
 
 export const DeleteLead=(leadID)=>dispatch=>{
+    return new Promise((resolve, reject) => {
+
     axios.delete("http://localhost:8081/API/lead/"+leadID,{withCredentials:true})
         .then(result=>{
             dispatch({
                 type:DELETE_LEAD
             })
+            resolve(result.data);
         })
         .catch(err=>{
             dispatch({
                 type:ERROR,
                 payload:err.response
             })
+            reject(err);
         })
+    })
 }

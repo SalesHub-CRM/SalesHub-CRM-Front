@@ -1,24 +1,32 @@
 import axios from "axios";
-import {CREATE_GROUP,GET_GROUP,LIST_GROUP,DELETE_GROUP,ERROR} from "../reducers/GroupsReducer"
+import {CREATE_GROUP,UPDATE_GROUP,GET_GROUP,LIST_GROUP,DELETE_GROUP,ERROR,COUNT_GROUP} from "../reducers/GroupsReducer"
 
 export const CreateGroup=(group)=>dispatch=>{
-    axios.post("http://localhost:8080/group",group,{withCredentials:true})
-        .then(result=>{
-            dispatch({
-                type:CREATE_GROUP
-            })
+    return new Promise((resolve, reject) => {
+        axios.post("http://localhost:8081/API/group", group, {
+            withCredentials: true, headers: {
+                'Content-Type': 'application/json'
+            }
         })
-        .catch(err=>{
-            dispatch({
-                type:ERROR,
-                payload:err.response
+            .then(result => {
+                dispatch({
+                    type: CREATE_GROUP
+                })
+                resolve();
             })
-        })
+            .catch(err => {
+                dispatch({
+                    type: ERROR,
+                    payload: err.response
+                })
+                reject(err);
+            })
+    })
 }
 
 
 export const GetGroupById=(groupID)=>dispatch=>{
-    axios.get("http://localhost:8080/group/"+groupID,{withCredentials:true})
+    axios.get("http://localhost:8081/API/group/"+groupID,{withCredentials:true})
         .then(result=>{
             dispatch({
                 type:GET_GROUP,
@@ -34,8 +42,8 @@ export const GetGroupById=(groupID)=>dispatch=>{
 }
 
 
-export const ListGroups=()=>dispatch=>{
-    axios.get("http://localhost:8080/group",{withCredentials:true})
+export const ListGroupsByAdmin=(adminID)=>dispatch=>{
+    axios.get("http://localhost:8081/API/group/listGroups/"+adminID,{withCredentials:true})
         .then(result=>{
             dispatch({
                 type:LIST_GROUP,
@@ -51,11 +59,37 @@ export const ListGroups=()=>dispatch=>{
 }
 
 
-export const DeleteGroup=(groupID)=>dispatch=>{
-    axios.delete("http://localhost:8080/group/"+groupID,{withCredentials:true})
+export const UpdateGroup=(group,id)=>dispatch=>{
+    return new Promise((resolve, reject) => {
+        axios.put("http://localhost:8081/API/group/"+id, group, {
+            withCredentials: true, headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(result => {
+                dispatch({
+                    type: UPDATE_GROUP,
+                    payload:result.data
+                })
+                resolve();
+            })
+            .catch(err => {
+                dispatch({
+                    type: ERROR,
+                    payload: err.response
+                })
+                reject(err);
+            })
+    })
+}
+
+
+export const CountsGroupsByAdmin=(adminID)=>dispatch=>{
+    axios.get("http://localhost:8081/API/group/countGroups/"+adminID,{withCredentials:true})
         .then(result=>{
             dispatch({
-                type:DELETE_GROUP
+                type:COUNT_GROUP,
+                payload:result.data
             })
         })
         .catch(err=>{
@@ -64,4 +98,24 @@ export const DeleteGroup=(groupID)=>dispatch=>{
                 payload:err.response
             })
         })
+}
+
+
+export const DeleteGroup=(groupID)=>dispatch=>{
+    return new Promise((resolve, reject) => {
+        axios.delete("http://localhost:8081/API/group/" + groupID, {withCredentials: true})
+            .then(result => {
+                dispatch({
+                    type: DELETE_GROUP
+                })
+                resolve(result.data);
+            })
+            .catch(err => {
+                dispatch({
+                    type: ERROR,
+                    payload: err.response
+                })
+                reject(err);
+            })
+    })
 }

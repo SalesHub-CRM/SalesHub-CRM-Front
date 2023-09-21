@@ -1,21 +1,32 @@
 import {Link} from "react-router-dom";
 import Footer from "../Footer";
-import React from "react";
+import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
 import {CreateLead} from "../../../redux/actions/LeadsActions";
+import AddSuccessModal from "../modals/lead/AddSuccessModal";
 
 const AddLeadForm = () => {
     const {register, handleSubmit, formState:{errors}}= useForm();
     const dispatch = useDispatch();
     const dataUser = JSON.parse(localStorage.getItem('user'));
     console.log(dataUser.id);
+
+    const [showAddModal, setShowAddModal] = useState(false);
+
+    const refreshPage = () => {
+        // navigate(location.pathname, { state: { refresh: true } });
+        window.location.reload();
+        console.log("refresh")
+    };
+
+
     const submit = async(data)=>{
         var formData = new FormData();
         formData.append("salutation",data.salutation);
         formData.append("firstname",data.firstname);
         formData.append("lastname",data.lastname);
-        formData.append("title",data.salutation);
+        formData.append("title",data.title);
         formData.append("company",data.company);
         formData.append("email",data.email);
         formData.append("phone",data.phone);
@@ -29,7 +40,15 @@ const AddLeadForm = () => {
         formData.append("status",data.status);
         formData.append("employeeID",dataUser.id);
 
-        dispatch(CreateLead(formData));
+        try {
+            await dispatch(CreateLead(formData));
+            setShowAddModal(true)
+        }
+        catch (error) {
+            console.error('Registration failed:', error);
+        }
+
+
     }
 
 
@@ -45,6 +64,12 @@ const AddLeadForm = () => {
 
                                 <div className="card-body p-md-5 mx-md-4">
 
+                                    {/* Display the AddSuccessModal component */}
+                                    <AddSuccessModal show={showAddModal} onClose={() => {
+                                        setShowAddModal(false);
+                                        refreshPage(); // Refresh the page when the modal is closed
+                                    }}
+                                    />
 
                                         <div className="homepage-titles creatAccountTitle">
                                             <h4 className="mt-1 mb-5 pb-1">Create a lead </h4>
@@ -118,6 +143,20 @@ const AddLeadForm = () => {
                                             </div>
 
                                             <div className="form-outline col-5 mb-4">
+                                                <label className="form-label" htmlFor="form2Example11">Title :</label>
+                                                <input type="text" id="form2Example11" className="form-control"
+                                                       placeholder="Title" {...register("title", {required: true})}/>
+                                                {(errors.title?.type) &&
+                                                    <div className="alert alert-danger" role="alert">
+                                                        The title is required
+                                                    </div>}
+                                            </div>
+
+                                        </div>
+
+                                        <div className="formUnit d-flex justify-content-between">
+
+                                            <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Company :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
                                                        placeholder="Company" {...register("company", {required: true})}/>
@@ -127,9 +166,6 @@ const AddLeadForm = () => {
                                                     </div>}
                                             </div>
 
-                                        </div>
-
-                                        <div className="formUnit d-flex justify-content-between">
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Phone number</label>
                                                 <input  type="number" id="form2Example11" className="form-control"
@@ -145,6 +181,9 @@ const AddLeadForm = () => {
                                                 </div>}
                                             </div>
 
+                                        </div>
+
+                                        <div className="formUnit d-flex justify-content-between">
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Address :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
@@ -154,10 +193,7 @@ const AddLeadForm = () => {
                                                         Address is required
                                                     </div>}
                                             </div>
-                                        </div>
 
-
-                                        <div className="formUnit d-flex justify-content-between">
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">City :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
@@ -168,6 +204,11 @@ const AddLeadForm = () => {
                                                     </div>}
                                             </div>
 
+                                        </div>
+
+
+                                        <div className="formUnit d-flex justify-content-between">
+
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">ZipCode :</label>
                                                 <input type="number" id="form2Example11" className="form-control"
@@ -177,11 +218,6 @@ const AddLeadForm = () => {
                                                         ZipCode is required
                                                     </div>}
                                             </div>
-                                        </div>
-
-
-
-                                        <div className="formUnit d-flex justify-content-between">
 
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Source :</label>
@@ -193,6 +229,12 @@ const AddLeadForm = () => {
                                                     </div>}
                                             </div>
 
+                                        </div>
+
+
+
+                                        <div className="formUnit d-flex justify-content-between">
+
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Number of Employees :</label>
                                                 <input type="number" id="form2Example11" className="form-control"
@@ -203,10 +245,6 @@ const AddLeadForm = () => {
 
                                             </div>
 
-                                        </div>
-
-                                        <div className="formUnit d-flex justify-content-between">
-
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Industry :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
@@ -216,6 +254,10 @@ const AddLeadForm = () => {
                                                         Industry is required
                                                     </div>}
                                             </div>
+
+                                        </div>
+
+                                        <div className="formUnit d-flex justify-content-between">
 
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Annual revenue :</label>
@@ -228,6 +270,8 @@ const AddLeadForm = () => {
                                             </div>
 
                                         </div>
+
+
 
                                         <div className="d-flex justify-content-around pt-1 mb-5 pb-1">
                                             <button

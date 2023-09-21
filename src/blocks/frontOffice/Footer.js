@@ -8,7 +8,7 @@ const Footer = () => {
 
                 <div className="footer-Block">
                     <div className="footerLogo">
-                        <Link to="/"> <img src="assets/images/logo.png" alt="Saleshub Logo"/> </Link>
+                        <Link to="/"> <img src="/assets/images/logo.png" alt="Saleshub Logo"/> </Link>
                     </div>
 
                     <div className="widget nav-widget">

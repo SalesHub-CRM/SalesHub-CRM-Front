@@ -1,6 +1,6 @@
-import React,{useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch,useSelector} from "react-redux";
-import {ListLeads} from "../../../redux/actions/LeadsActions";
+import {DeleteLead, ListLeads} from "../../../redux/actions/LeadsActions";
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,19 +9,29 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import DeleteSuccessModal from "../modals/lead/DeleteSuccessModal";
+import {useLocation, useNavigate} from "react-router";
+import Leadspage from "../../../components/FontOffice/Leadspage";
+
 
 const DisplayLeads = () => {
 
+    //dispatcher and effect setup
+
     const dispatch = useDispatch();
     const Leads = useSelector(state => state.Lead.ListLeads);
-    //const loading = useSelector((state) => state.Lead.loading);
+    const navigate = useNavigate();
+    const location = useLocation();
     useEffect(()=>{
         dispatch(ListLeads())
     },[])
 
+
+    //const for modal invocation
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+
     //set up for the table variables
-
-
     const columns = [
         { id: 'fullName', label: 'Name', minWidth: 150 },
         { id: 'title', label: 'Title', minWidth: 100 },
@@ -29,7 +39,7 @@ const DisplayLeads = () => {
         { id: 'company', label: 'Company', minWidth: 150 },
         { id: 'city', label: 'City', minWidth: 150},
         { id: 'createdBy', label: 'Created By', minWidth: 150 },
-        { id: 'actions', label: 'Actions', minWidth: 170, align: 'center' },
+        { id: 'actions', label: 'Actions', minWidth: 170 },
     ];
 
     const [page, setPage] = React.useState(0);
@@ -45,6 +55,27 @@ const DisplayLeads = () => {
     };
 
 
+    //delete handler
+    const handleDeleteLead = (leadId) => {
+        console.log("Leads before delete:", Leads);
+        dispatch(DeleteLead(leadId))
+            .then(() => {
+                setShowDeleteModal(true);
+                console.log("Leads after delete:", Leads);
+            })
+            .catch((error) => {
+                console.error("Error deleting lead:", error);
+            });
+    };
+
+    // page refresh handler
+    const refreshPage = () => {
+       // navigate(location.pathname, { state: { refresh: true } });
+        window.location.reload();
+        console.log("refresh")
+    };
+
+
     // Define the rows based on the Leads data
     const rows = Array.isArray(Leads)
         ? Leads.map((lead) => ({
@@ -56,9 +87,12 @@ const DisplayLeads = () => {
             city: lead.city || "-",
             createdBy: `${lead.user.firstname || "-"} ${lead.user.lastname || "-"}`,
             actions: (
-                <div>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                <div className="d-flex justify-content-around">
+                    <button className="btn btn-info" onClick={() => navigate(`/home/lead/${lead.id}`)}>Details</button>
+                    <button className="btn btn-danger" onClick={() =>{
+                        handleDeleteLead(lead.id);
+                        navigate(`/lead/${lead.id}`);
+                    }}>Delete</button>
                 </div>
             ),
         }))
@@ -89,7 +123,16 @@ const DisplayLeads = () => {
   else {
         return (
 
+      <div>
+          {/* Display the DeleteSuccessModal component */}
+          <DeleteSuccessModal show={showDeleteModal} onClose={() => {
+              setShowDeleteModal(false);
+              refreshPage(); // Refresh the page when the modal is closed
+          }}
+          />
+
        <Paper style={{ width: "100%", overflow: "hidden" }}>
+
                 <TableContainer style={{ maxHeight: 440 }}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
@@ -131,7 +174,9 @@ const DisplayLeads = () => {
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
+
             </Paper>
+      </div>
         );
      }
 }

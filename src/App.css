@@ -184,3 +184,18 @@ footer a{
   background-repeat: no-repeat;
   opacity: 0.3;
 }
+
+
+.leadImage{
+  width: 200px;
+  height: 200px;
+  padding : 15px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.7) 0px 10px 30px;
+}
+
+
+.detailsSpan{
+  font-weight: bold;
+}

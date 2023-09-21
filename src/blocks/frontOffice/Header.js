@@ -9,7 +9,7 @@ const Header = () => {
                   <div className="container">
                       <div className="navbar navbar-light">
                           <div className="site-logo">
-                              <Link to="/"> <img src="assets/images/logo.png" alt="Saleshub Logo"/> </Link>
+                              <Link to="/"> <img src="/assets/images/logo.png" alt="Saleshub Logo"/> </Link>
                           </div>
 
                           <NavbarMenu/>

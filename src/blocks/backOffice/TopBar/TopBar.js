@@ -5,6 +5,9 @@ import {NotificationsNone, Settings} from '@mui/icons-material';
 
 
 const TopBar = () => {
+
+    const baseUrl = process.env.PUBLIC_URL;
+
     return (
         <div className="topbar">
             <div className="topbarWrapper">
@@ -13,7 +16,7 @@ const TopBar = () => {
 
 
                     <Link to="/">
-                        <img className="topbarImage" src="assets/images/logo.png" alt=""/>
+                        <img className="topbarImage" src={`${baseUrl}/assets/images/logo.png`} alt="logo"/>
                         <span style={{'margin-left':'20px','text-decoration':'none'}}>Back to client interface</span>
                     </Link>
                 </div>
