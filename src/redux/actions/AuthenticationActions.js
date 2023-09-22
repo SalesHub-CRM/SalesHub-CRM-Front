@@ -1,7 +1,7 @@
 import axios from "axios";
 import axiosInstance from "../../utils/axiosInterceptor";
 
-import {ERROR,LOGIN_ACTION,REGISTRATION_ACTION,SET_CONNECTED,LOGOUT} from "../reducers/AuthenticationReducer";
+import {ERROR,LOGIN_ACTION,REGISTRATION_ACTION,LIST_EMPLOYEES,GET_EMPLOYEE,SET_CONNECTED,LOGOUT} from "../reducers/AuthenticationReducer";
 
 export const AdminRegistrationAction = (user)=>dispatch=>{
 
@@ -30,26 +30,6 @@ export const AdminRegistrationAction = (user)=>dispatch=>{
             })
     })
 }
-
-
-/*export const EmployeeRegistrationAction = (user)=>dispatch=>{
-    axios.post("http://localhost:8080/auth/client/signup",user,{
-        headers:{
-            'Content-Type':'application/json'
-        }
-    })
-        .then(result=>{
-            dispatch({
-                type:REGISTRATION_ACTION,
-            })
-        })
-        .catch(err=>{
-            dispatch({
-                type:ERROR,
-                payload:err.response
-            })
-        })
-}*/
 
 
 
@@ -106,3 +86,35 @@ export const setAuthToken = (token) => {
         delete axios.defaults.headers.common['Authorization'];
     }
 };
+
+export const ListEmployees = (groupId) => dispatch => {
+    axios.get("http://localhost:8081/auth/listByGroupId/"+groupId,{withCredentials:true})
+        .then(result=>{
+            dispatch({
+                type:LIST_EMPLOYEES,
+                payload:result.data
+            })
+        })
+        .catch(err=>{
+            dispatch({
+                type:ERROR,
+                payload:err.response
+            })
+        })
+}
+
+export const fetchEmployee = (empId)=>dispatch=>{
+    axios.get("http://localhost:8081/auth/getUser/"+empId,{withCredentials:true})
+        .then(result=>{
+            dispatch({
+                type:GET_EMPLOYEE,
+                payload:result.data
+            })
+        })
+        .catch(err=>{
+            dispatch({
+                type:ERROR,
+                payload:err.response
+            })
+        })
+}

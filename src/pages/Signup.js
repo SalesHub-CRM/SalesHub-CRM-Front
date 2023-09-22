@@ -310,11 +310,6 @@ const Signup = () => {
                                   </form>
                               </div>
 
-                              {/*{!AuthState?.error && <div className="alert alert-success" role="alert">
-                                  registration completed successfully! please refer to your inbox for the confirmation
-                                  mail and then login <Link to="/login">here</Link>
-                              </div>}*/}
-
 
                           </div>
                       </div>
