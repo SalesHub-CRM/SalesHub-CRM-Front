@@ -3,7 +3,7 @@ import {useNavigate, useParams} from "react-router";
 import React, {useEffect, useState} from "react";
 import {GetGroupById, UpdateGroup} from "../../../redux/actions/GroupsActions";
 import {useForm} from "react-hook-form";
-import EditSuccessModal from "../modals/group/EditSuccessModal";
+import EditGroupSuccessModal from "../modals/group/EditGroupSuccessModal";
 
 
 const EditGroup = () => {
@@ -85,8 +85,8 @@ const EditGroup = () => {
                                 <div className="row g-0">
 
                                     <div className="card-body p-md-5 mx-md-4">
-                                        {/* Display the AddSuccessModal component */}
-                                        <EditSuccessModal show={ isEditSuccess} onClose={handleModalClose} />
+                                        {/* Display the AddLeadSuccessModal component */}
+                                        <EditGroupSuccessModal show={ isEditSuccess} onClose={handleModalClose} />
 
                                         <div className="homepage-titles creatAccountTitle">
                                             <h4 className="mt-1 mb-5 pb-1">Edit Group </h4>

@@ -2,8 +2,8 @@ import {useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router";
-import {CreateLead, GetLeadById, UpdateLead} from "../../../redux/actions/LeadsActions";
-import AddSuccessModal from "../modals/lead/AddSuccessModal";
+import { GetLeadById, UpdateLead} from "../../../redux/actions/LeadsActions";
+import EditLeadSuccessModal from "../modals/lead/EditLeadSuccessModal";
 
 const EditLeads = () => {
     const dataUser = JSON.parse(localStorage.getItem('user'));
@@ -13,12 +13,14 @@ const EditLeads = () => {
     const Lead = useSelector(state => state.Lead.getLeadById);
     const { leadId } = useParams();
 
-    const [showAddModal, setShowAddModal] = useState(false);
 
-    const refreshPage = () => {
-        // navigate(location.pathname, { state: { refresh: true } });
-        window.location.reload();
-        console.log("refresh")
+    const [isEditSuccess, setIsEditSuccess] = useState(false);
+
+
+    const handleModalClose = () => {
+        setIsEditSuccess(false);
+        navigate("/home/lead");
+        console.log("Modal closed, isEditSuccess set to false");
     };
 
     useEffect(() => {
@@ -48,7 +50,8 @@ const EditLeads = () => {
 
         try {
             await dispatch(UpdateLead(formData,leadId));
-            setShowAddModal(true)
+            setIsEditSuccess(true);
+            console.log("isEditSuccess:", isEditSuccess);
         }
         catch (error) {
             console.error('Registration failed:', error);
@@ -64,12 +67,8 @@ const EditLeads = () => {
 
                                 <div className="card-body p-md-5 mx-md-4">
 
-                                    {/* Display the AddSuccessModal component */}
-                                    <AddSuccessModal show={showAddModal} onClose={() => {
-                                        setShowAddModal(false);
-                                        refreshPage(); // Refresh the page when the modal is closed
-                                    }}
-                                    />
+                                    {/* Display the AddLeadSuccessModal component */}
+                                    <EditLeadSuccessModal show={ isEditSuccess} onClose={handleModalClose} />
 
                                     <div className="homepage-titles creatAccountTitle">
                                         <h4 className="mt-1 mb-5 pb-1">Create a lead </h4>
@@ -105,7 +104,7 @@ const EditLeads = () => {
                                                 <label className="form-label" htmlFor="form2Example11">First name :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
                                                        placeholder="First name" {...register("firstname", {required: true})}
-                                                        value={Lead.firstname}/>
+                                                       defaultValue={Lead.firstname}/>
                                                 {(errors.firstname?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         first name is required
@@ -115,7 +114,7 @@ const EditLeads = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Last name :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="Last name" {...register("lastname", {required: true})}/>
+                                                       placeholder="Last name" defaultValue={Lead.lastname} {...register("lastname", {required: true})}/>
                                                 {(errors.lastname?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         last name is required
@@ -129,7 +128,7 @@ const EditLeads = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Email :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="Email" {...register("email", {
+                                                       placeholder="Email" defaultValue={Lead.email} {...register("email", {
                                                     required: true,
                                                     pattern: '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'
                                                 })}/>
@@ -146,7 +145,7 @@ const EditLeads = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Title :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="Title" {...register("title", {required: true})}/>
+                                                       placeholder="Title" defaultValue={Lead.title} {...register("title", {required: true})}/>
                                                 {(errors.title?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         The title is required
@@ -160,7 +159,7 @@ const EditLeads = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Company :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="Company" {...register("company", {required: true})}/>
+                                                       placeholder="Company" defaultValue={Lead.company} {...register("company", {required: true})}/>
                                                 {(errors.company?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         Company is required
@@ -170,7 +169,7 @@ const EditLeads = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Phone number</label>
                                                 <input  type="number" id="form2Example11" className="form-control"
-                                                        placeholder="12345678" {...register("phone", { required: true, minLength: 8, maxLength:8 })}/>
+                                                        placeholder="12345678" defaultValue={Lead.phone} {...register("phone", { required: true, minLength: 8, maxLength:8 })}/>
                                                 {errors.phone?.type === "required" && <div className="alert alert-danger" role="alert">
                                                     phone number is required
                                                 </div>}
@@ -188,7 +187,7 @@ const EditLeads = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Address :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="Address" {...register("address", {required: true})}/>
+                                                       placeholder="Address" defaultValue={Lead.address} {...register("address", {required: true})}/>
                                                 {(errors.address?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         Address is required
@@ -198,7 +197,7 @@ const EditLeads = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">City :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="city" {...register("city", {required: true})}/>
+                                                       placeholder="city" defaultValue={Lead.city} {...register("city", {required: true})}/>
                                                 {(errors.city?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         city is required
@@ -213,7 +212,7 @@ const EditLeads = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">ZipCode :</label>
                                                 <input type="number" id="form2Example11" className="form-control"
-                                                       placeholder="zipcode" {...register("zipcode", {required: true})}/>
+                                                       placeholder="zipcode" defaultValue={Lead.zipcode} {...register("zipcode", {required: true})}/>
                                                 {(errors.zipcode?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         ZipCode is required
@@ -223,7 +222,7 @@ const EditLeads = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Source :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="Source" {...register("source", {required: true})}/>
+                                                       placeholder="Source" defaultValue={Lead.source} {...register("source", {required: true})}/>
                                                 {(errors.source?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         Source is required
@@ -239,7 +238,7 @@ const EditLeads = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Number of Employees :</label>
                                                 <input type="number" id="form2Example11" className="form-control"
-                                                       placeholder="200" {...register("employeenumber", {required: true})}/>
+                                                       placeholder="200" defaultValue={Lead.employeenumber} {...register("employeenumber", {required: true})}/>
                                                 {errors.employeenumber?.type === "required" && <div className="alert alert-danger" role="alert">
                                                     The number of employees is required
                                                 </div>}
@@ -249,7 +248,7 @@ const EditLeads = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Industry :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="industry" {...register("industry", {required: true})}/>
+                                                       placeholder="industry" defaultValue={Lead.industry} {...register("industry", {required: true})}/>
                                                 {(errors.industry?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         Industry is required
@@ -263,7 +262,7 @@ const EditLeads = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Annual revenue :</label>
                                                 <input type="number" id="form2Example11" className="form-control"
-                                                       placeholder="200" {...register("annualrevenue", {required: true})}/>
+                                                       placeholder="200" defaultValue={Lead.annualrevenue} {...register("annualrevenue", {required: true})}/>
                                                 {errors.annualrevenue?.type === "required" && <div className="alert alert-danger" role="alert">
                                                     The annual revenue is required
                                                 </div>}

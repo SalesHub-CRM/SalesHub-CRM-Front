@@ -1,4 +1,4 @@
-.modalBackground {
+.deleteGroup-success-modal .modalBackground {
     z-index: 999;
     /*background-color: rgba(200, 200, 200);*/
     position: fixed;
@@ -7,12 +7,12 @@
     align-items: center;
 }
 
-.modalContainers {
+.deleteGroup-success-modal .modalContainers {
     width: 500px;
     height: 500px;
     width: 50vw;
     height: 60vh;
-    margin-top: 5%;
+    margin-top: -15%;
     margin-right: 5%;
     border-radius: 12px;
     background-color: white;
@@ -22,25 +22,25 @@
     padding: 40px;
 }
 
-.modalContainers .modalTitle {
+.deleteGroup-success-modal .modalContainers .modalTitle {
     display: inline-block;
     text-align: center;
     margin-top: 10px;
 }
 
-.titleCloseBtn {
+.deleteGroup-success-modal .titleCloseBtn {
     display: flex;
     justify-content: flex-end;
 }
 
-.titleCloseBtn button {
+.deleteGroup-success-modal .titleCloseBtn button {
     background-color: transparent;
     border: none;
     font-size: 25px;
     cursor: pointer;
 }
 
-.modalContainers .modalBody {
+.deleteGroup-success-modal .modalContainers .modalBody {
     flex: 50%;
     display: flex;
     justify-content: center;
@@ -49,14 +49,14 @@
     text-align: center;
 }
 
-.modalContainers .modalFooter {
+.deleteGroup-success-modal .modalContainers .modalFooter {
     flex: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.modalContainers .modalFooter button {
+.deleteGroup-success-modal .modalContainers .modalFooter button {
     width: 150px;
     height: 45px;
     margin: 10px;
@@ -72,6 +72,6 @@
     background-color: crimson;
 }
 
-.registration-success-modal{
+.deleteGroup-success-modal {
     z-index: 9999;
 }

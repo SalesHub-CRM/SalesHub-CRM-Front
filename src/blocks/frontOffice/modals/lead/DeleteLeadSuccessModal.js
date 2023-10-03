@@ -1,10 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import "./DeleteLeadSuccessModal.css";
+const DeleteLeadSuccessModal = ({ show, onClose }) => {
 
-import "./AddSuccessModal.css"
-
-
-const AddSuccessModal = ({ show, onClose }) => {
     if (!show) {
         return null; // Do not render the modal if show is false
         {console.log("it didn't show")}
@@ -12,7 +10,7 @@ const AddSuccessModal = ({ show, onClose }) => {
 
     return (
 
-        <div className={`addgroup-success-modal ${show ? 'show' : 'hide'}`}>
+        <div className={`deleteLead-success-modal ${show ? 'show' : 'hide'}`}>
 
             <div className="modalBackground">
 
@@ -22,15 +20,15 @@ const AddSuccessModal = ({ show, onClose }) => {
                     </div>
 
                     <div className="modalTitle">
-                        <h2>Added Successfully!</h2>
+                        <h2>Deleted Successfully!</h2>
                     </div>
 
                     <div className="modalBody">
-                        <p>Your Group was added successfully.</p>
+                        <p>Your delete action was successful.</p>
                     </div>
 
                     <div className="modalFooter">
-                        <Link to="/Dashboard/addGroup" className="btn btn-danger" onClick={onClose}>
+                        <Link to="/home/lead" className="btn btn-danger" onClick={onClose}>
                             Close and refresh
                         </Link>
                     </div>
@@ -41,5 +39,7 @@ const AddSuccessModal = ({ show, onClose }) => {
 
         </div>
     );
-}
-export default AddSuccessModal;
+};
+
+
+export default DeleteLeadSuccessModal;

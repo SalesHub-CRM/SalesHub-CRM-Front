@@ -33,7 +33,10 @@ const Welcomepage = () => {
                   <h3 className="mt-5 mb-5">Or click <Link to="/Dashboard/addGroup">Here</Link> to go to the form.</h3>
               </div>
           ) : (
-              <h1>Welcome to salesHub. How can we help?</h1>
+              <div className="container mt-5 mb-5 text-center">
+                  <h1 className="mt-5 mb-5">Welcome to salesHub. How can we help?</h1>
+              </div>
+
           )}
       </div>
   )

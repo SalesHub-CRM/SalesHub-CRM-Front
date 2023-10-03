@@ -10,7 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TablePagination from "@mui/material/TablePagination";
-import DeleteSuccessModal from "../modals/group/DeleteSuccessModal";
+import DeleteGroupSuccessModal from "../modals/group/DeleteGroupSuccessModal";
 
 
 const ListGroups = () => {
@@ -145,8 +145,8 @@ const ListGroups = () => {
                             </div>
 
 
-                            {/* Display the DeleteSuccessModal component */}
-                            <DeleteSuccessModal show={showDeleteModal} onClose={() => {
+                            {/* Display the DeleteLeadSuccessModal component */}
+                            <DeleteGroupSuccessModal show={showDeleteModal} onClose={() => {
                                 setShowDeleteModal(false);
                                 refreshPage(); // Refresh the page when the modal is closed
                             }}

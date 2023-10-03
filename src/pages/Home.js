@@ -39,7 +39,6 @@ const Home=()=>{
     },[AuthState.isConnected,dispatch, navigate])
 
 
-    const [show, setShow] = useState(0)
 
     return(
 
@@ -48,15 +47,15 @@ const Home=()=>{
 
             <div className="d-flex justify-content-around">
                 <Link className="btn btn-light" to="/home/lead">Leads</Link>
+                <Link className="btn btn-light" to="/home/task">Tasks</Link>
+                <Link className="btn btn-light" to="/home/client">Clients</Link>
+                <Link className="btn btn-light" to="/home/contact">Contacts</Link>
+                <Link className="btn btn-light" to="/home/case">Cases</Link>
+                <Link className="btn btn-light" to="/home/product">Products</Link>
+                <Link className="btn btn-light" to="/home/opportunity">Opportunities</Link>
+                <Link className="btn btn-light" to="/home/campaign">Campaigns</Link>
 
-                {/*<button className="btn btn-light" onClick={() => setShow(1)}>Leads</button>*/}
-                <button className="btn btn-light" onClick={() => setShow(2)}>Contacts</button>
-                <button className="btn btn-light" onClick={() => setShow(3)}>Opportunities</button>
-                <button className="btn btn-light" onClick={() => setShow(4)}>Clients</button>
-                <button className="btn btn-light" onClick={() => setShow(5)}>Products</button>
-                <button className="btn btn-light" onClick={() => setShow(6)}>Campaigns</button>
-                <button className="btn btn-light" onClick={() => setShow(7)}>Tasks</button>
-                <button className="btn btn-light" onClick={() => setShow(8)}>Cases</button>
+
 
             </div>
 
@@ -64,37 +63,15 @@ const Home=()=>{
             <Routes>
                 <Route path="/" element={<Welcomepage/>}/>
                 <Route path="/lead/*" element={<Leadspage/>}/>
-                <Route/>
-                <Route/>
-                <Route/>
-                <Route/>
-                <Route/>
-                <Route/>
+                <Route path="/task/*" element={<Taskspage/>}/>
+                <Route path="/client/*" element={<Clientspage/>}/>
+                <Route path="/contact/*" element={<Contactspage/>}/>
+                <Route path="/case/*" element={<Casespage/>}/>
+                <Route path="/product/*" element={<Productspage/>}/>
+                <Route path="/opportunity/*" element={<Opportunitiespage/>}/>
+                <Route path="/campaign/*" element={<Campaignspage/>}/>
+
             </Routes>
-            {/*<div className="d-flex justify-content-around">
-                <button className="btn btn-light" onClick={() => setShow(0)}>Home</button>
-                <button className="btn btn-light" onClick={() => setShow(1)}>Leads</button>
-                <button className="btn btn-light" onClick={() => setShow(2)}>Contacts</button>
-                <button className="btn btn-light" onClick={() => setShow(3)}>Opportunities</button>
-                <button className="btn btn-light" onClick={() => setShow(4)}>Clients</button>
-                <button className="btn btn-light" onClick={() => setShow(5)}>Products</button>
-                <button className="btn btn-light" onClick={() => setShow(6)}>Campaigns</button>
-                <button className="btn btn-light" onClick={() => setShow(7)}>Tasks</button>
-                <button className="btn btn-light" onClick={() => setShow(8)}>Cases</button>
-
-            </div>
-            {show === 0 && <Homepage/> }
-            {show === 1 && <Leadspage/> }
-            {show === 2 && <Contactspage/> }
-            {show === 3 && <Opportunitiespage/> }
-            {show === 4 && <Clientspage/> }
-            {show === 5 && <Productspage/> }
-            {show === 6 && <Campaignspage/> }
-            {show === 7 && <Taskspage/> }
-            {show === 8 && <Casespage/> }*/}
-
-
-
 
             <Footer/>
         </div>

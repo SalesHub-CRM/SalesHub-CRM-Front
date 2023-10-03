@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import "./EditSuccessModal.css"
+import "./EditGroupSuccessModal.css"
 
 
-const EditSuccessModal = ({ show, onClose }) => {
+const EditGroupSuccessModal = ({ show, onClose }) => {
     if (!show) {
         return null; // Do not render the modal if show is false
         {console.log("it didn't show")}
@@ -11,7 +11,7 @@ const EditSuccessModal = ({ show, onClose }) => {
 
     return (
 
-        <div className={`editgroup-success-modal ${show ? 'show' : 'hide'}`}>
+        <div className={`editGroup-success-modal ${show ? 'show' : 'hide'}`}>
 
             <div className="modalBackground">
 
@@ -41,4 +41,4 @@ const EditSuccessModal = ({ show, onClose }) => {
         </div>
     );
 }
-export default EditSuccessModal;
+export default EditGroupSuccessModal;

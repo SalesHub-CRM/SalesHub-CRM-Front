@@ -1,8 +1,5 @@
-.registration-success-modal .modalBackground {
-    width: 90vw;
-    height: 80vh;
-    margin-top: -100px;
-    margin-left: -200px;
+.editGroup-success-modal .modalBackground {
+    z-index: 999;
     /*background-color: rgba(200, 200, 200);*/
     position: fixed;
     display: flex;
@@ -10,9 +7,13 @@
     align-items: center;
 }
 
-.registration-success-modal .modalContainers {
+.editGroup-success-modal .modalContainers {
     width: 500px;
     height: 500px;
+    width: 50vw;
+    height: 60vh;
+    margin-top: 5%;
+    margin-right: 5%;
     border-radius: 12px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.7) 0px 30px 60px;
@@ -21,25 +22,25 @@
     padding: 40px;
 }
 
-.registration-success-modal .modalContainers .modalTitle {
+.editGroup-success-modal .modalContainers .modalTitle {
     display: inline-block;
     text-align: center;
     margin-top: 10px;
 }
 
-.registration-success-modal .titleCloseBtn {
+.editGroup-success-modal .titleCloseBtn {
     display: flex;
     justify-content: flex-end;
 }
 
-.registration-success-modal .titleCloseBtn button {
+.editGroup-success-modal .titleCloseBtn button {
     background-color: transparent;
     border: none;
     font-size: 25px;
     cursor: pointer;
 }
 
-.registration-success-modal .modalContainers .modalBody {
+.editGroup-success-modal .modalContainers .modalBody {
     flex: 50%;
     display: flex;
     justify-content: center;
@@ -48,14 +49,14 @@
     text-align: center;
 }
 
-.registration-success-modal .modalContainers .modalFooter {
+.editGroup-success-modal .modalContainers .modalFooter {
     flex: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.registration-success-modal .modalContainers .modalFooter button {
+.editGroup-success-modal .modalContainers .modalFooter button {
     width: 150px;
     height: 45px;
     margin: 10px;
@@ -71,6 +72,6 @@
     background-color: crimson;
 }
 
-.registration-success-modal{
+.editGroup-success-modal {
     z-index: 9999;
 }

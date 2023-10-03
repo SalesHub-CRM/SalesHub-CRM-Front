@@ -4,6 +4,8 @@ const initialState={
     updateLead:{},
     getLeadById:{},
     ListLeads:{},
+    listByAdmin:[],
+    listByEmployee:[],
     DeleteLeads:{},
     errors:{},
 }
@@ -12,6 +14,8 @@ export const CREATE_LEAD="CREATELEAD";
 export const UPDATE_LEAD="UPDATELEAD";
 export const GET_LEAD="GETLEAD";
 export const LIST_LEAD="LISTLEAD";
+export const LIST_BY_ADMIN="LISTBYADMIN";
+export const LIST_BY_EMPLOYEE="LISTBYEMPLOYEE";
 export const DELETE_LEAD="DELETELEAD";
 export const ERROR = "ERROR";
 
@@ -28,7 +32,9 @@ export default function (state = initialState,action){
         case UPDATE_LEAD:
 
             return {
-                updateLead:"lead updated"
+                ...state,
+                isEditSuccess: true,
+                updateLead: action.payload
             }
 
 
@@ -47,12 +53,35 @@ export default function (state = initialState,action){
             }
 
 
-        case DELETE_LEAD:
+        case LIST_BY_ADMIN:
             return{
-                /*DeleteLeads:"lead deleted"*/
+                ...state,
+                listByAdmin:action.payload
+            }
+
+
+        case LIST_BY_EMPLOYEE:
+            return{
+                ...state,
+                listByEmployee:action.payload
+            }
+
+
+        /*case DELETE_LEAD:
+            return{
+                /!*DeleteLeads:"lead deleted"*!/
                 ...state,
                 ListLeads: state.ListLeads.filter(lead => lead.id !== action.payload),
-            }
+            }*/
+
+
+        case DELETE_LEAD:
+            const leadID = action.payload;
+            return {
+                ...state,
+                listByAdmin: state.listByAdmin.filter((lead) => lead.id !== leadID),
+                listByEmployee: state.listByEmployee.filter((lead) => lead.id !== leadID),
+            };
 
 
         case ERROR:

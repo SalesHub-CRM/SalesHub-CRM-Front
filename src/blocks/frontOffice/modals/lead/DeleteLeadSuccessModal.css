@@ -1,4 +1,4 @@
-.modalBackground {
+.deleteLead-success-modal .modalBackground {
     z-index: 999;
     /*background-color: rgba(200, 200, 200);*/
     position: fixed;
@@ -7,13 +7,13 @@
     align-items: center;
 }
 
-.modalContainers {
+.deleteLead-success-modal .modalContainers {
     width: 500px;
     height: 500px;
-    width: 90vw;
-    height: 80vh;
-    margin-top: -15%;
-    margin-right: -30%;
+    width: 40vw;
+    height: 70vh;
+    margin-top: -20%;
+    margin-right: -120%;
     border-radius: 12px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.7) 0px 30px 60px;
@@ -22,25 +22,25 @@
     padding: 40px;
 }
 
-.modalContainers .modalTitle {
+.deleteLead-success-modal .modalContainers .modalTitle {
     display: inline-block;
     text-align: center;
     margin-top: 10px;
 }
 
-.titleCloseBtn {
+.deleteLead-success-modal .titleCloseBtn {
     display: flex;
     justify-content: flex-end;
 }
 
-.titleCloseBtn button {
+.deleteLead-success-modal .titleCloseBtn button {
     background-color: transparent;
     border: none;
     font-size: 25px;
     cursor: pointer;
 }
 
-.modalContainers .modalBody {
+.deleteLead-success-modal .modalContainers .modalBody {
     flex: 50%;
     display: flex;
     justify-content: center;
@@ -49,14 +49,14 @@
     text-align: center;
 }
 
-.modalContainers .modalFooter {
+.deleteLead-success-modal .modalContainers .modalFooter {
     flex: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.modalContainers .modalFooter button {
+.deleteLead-success-modal .modalContainers .modalFooter button {
     width: 150px;
     height: 45px;
     margin: 10px;
@@ -72,6 +72,6 @@
     background-color: crimson;
 }
 
-.registration-success-modal{
+.deleteLead-success-modal {
     z-index: 9999;
 }

@@ -9,19 +9,26 @@ const LeadDetails = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const dataUser = JSON.parse(localStorage.getItem('user'));
     const Lead = useSelector(state => state.Lead.getLeadById);
     const { leadId } = useParams();
 
+
     const createdformat = new Date(Lead.createdat);
     const updatedfrmat = new Date(Lead.updatedat);
-    const formattedStatus = Lead.status.charAt(0).toUpperCase() + Lead.status.slice(1).toLowerCase();
+    let formattedStatus ="";
+
+    if(Lead.status)
+    {
+        formattedStatus=Lead.status?.charAt(0).toUpperCase() + Lead.status.slice(1).toLowerCase();
+    }
 
 
     useEffect(() => {
         dispatch(GetLeadById(leadId))
     },[dispatch, leadId] );
 
-    console.log(Lead)
+
 
     if (Object.keys(Lead).length === 0) {
         // Handle the case where Lead hasn't been fetched yet
@@ -36,7 +43,6 @@ const LeadDetails = () => {
     else{
         return(
             <div>
-                <Header/>
                 <div className="container mt-5 mb-5">
                     {/*img and general info*/}
                     <div className="d-flex justify-content-around">
@@ -83,10 +89,10 @@ const LeadDetails = () => {
                 </div>
 
                 <div className="d-flex justify-content-around mt-5 mb-5">
-                    <button className="btn btn-info" onClick={() => navigate(`/home/editlead/${Lead.id}`)}>Edit this Lead</button>
+                    <button className="btn btn-info" onClick={() => navigate(`/home/lead/editlead/${Lead.id}`)}>Edit this Lead</button>
                 </div>
 
-                <Footer/>
+
             </div>
         )
     }

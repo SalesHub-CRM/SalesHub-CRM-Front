@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch,useSelector} from "react-redux";
-import {DeleteLead, ListLeads} from "../../../redux/actions/LeadsActions";
+import {DeleteLead, ListLeads, ListLeadsByAdmin, ListLeadsByEmployee} from "../../../redux/actions/LeadsActions";
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,7 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import DeleteSuccessModal from "../modals/lead/DeleteSuccessModal";
+import DeleteLeadSuccessModal from "../modals/lead/DeleteLeadSuccessModal";
 import {useLocation, useNavigate} from "react-router";
 import Leadspage from "../../../components/FontOffice/Leadspage";
 
@@ -19,13 +19,49 @@ const DisplayLeads = () => {
     //dispatcher and effect setup
 
     const dispatch = useDispatch();
-    const Leads = useSelector(state => state.Lead.ListLeads);
+    const [isLoading, setIsLoading] = useState(true); //this is to create a control variable to prevent the useEffect code from going into an infinite loop
+    const LeadsEmployee = useSelector(state => state.Lead.listByEmployee);
+    const LeadsAdmin = useSelector(state => state.Lead.listByAdmin);
+    const user =JSON.parse(localStorage.getItem('user'));
+
     const navigate = useNavigate();
     const location = useLocation();
-    useEffect(()=>{
-        dispatch(ListLeads())
+
+    useEffect(()=>
+    {
+        try {
+            if(user?.roles.includes("ROLE_ADMIN"))
+            {
+                 dispatch(ListLeadsByAdmin(user.id));
+                setIsLoading(false);
+            }
+        }
+
+        catch (error){
+            console.error("Something went wrong:", error);
+            setIsLoading(false);
+        }
     },[])
 
+    useEffect(()=>
+    {
+        try {
+            if(!user?.roles.includes("ROLE_ADMIN"))
+            {
+                dispatch(ListLeadsByEmployee(user.id));
+                setIsLoading(false);
+            }
+        }
+
+        catch (error){
+            console.error("Something went wrong:", error);
+            setIsLoading(false);
+        }
+    },[])
+
+
+    console.log("employee",LeadsEmployee)
+    console.log("admin", LeadsAdmin)
 
     //const for modal invocation
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -57,11 +93,10 @@ const DisplayLeads = () => {
 
     //delete handler
     const handleDeleteLead = (leadId) => {
-        console.log("Leads before delete:", Leads);
-        dispatch(DeleteLead(leadId))
+
+        dispatch(DeleteLead(leadId,user))
             .then(() => {
                 setShowDeleteModal(true);
-                console.log("Leads after delete:", Leads);
             })
             .catch((error) => {
                 console.error("Error deleting lead:", error);
@@ -77,8 +112,8 @@ const DisplayLeads = () => {
 
 
     // Define the rows based on the Leads data
-    const rows = Array.isArray(Leads)
-        ? Leads.map((lead) => ({
+/*    const rows = Array.isArray(LeadsEmployee)
+        ? LeadsEmployee.map((lead) => ({
             id: lead.id,
             fullName: `${lead.firstname || "-"} ${lead.lastname || "-"}`,
             title: lead.title || "-",
@@ -96,12 +131,58 @@ const DisplayLeads = () => {
                 </div>
             ),
         }))
-        : [];
+        : [];*/
+
+
+
+    // Define the rows based on the Leads data
+    let rows = [];
+
+    if (user?.roles.includes("ROLE_ADMIN")) {
+        rows = LeadsAdmin.map((lead) => ({
+            id: lead.id,
+            fullName: `${lead.firstname || "-"} ${lead.lastname || "-"}`,
+            title: lead.title || "-",
+            phone: lead.phone || "-",
+            company: lead.company || "-",
+            city: lead.city || "-",
+            createdBy: `${lead.user.firstname || "-"} ${lead.user.lastname || "-"}`,
+            actions: (
+                <div className="d-flex justify-content-around">
+                    <button className="btn btn-info" onClick={() => navigate(`/home/lead/leadDetails/${lead.id}`)}>Details</button>
+                    <button className="btn btn-danger" onClick={() => {
+                        handleDeleteLead(lead.id);
+                        navigate(`/home/lead`);
+                    }}>Delete</button>
+                </div>
+            ),
+        }));
+    } else {
+        rows = LeadsEmployee?.map((lead) => ({
+            id: lead.id,
+            fullName: `${lead.firstname || "-"} ${lead.lastname || "-"}`,
+            title: lead.title || "-",
+            phone: lead.phone || "-",
+            company: lead.company || "-",
+            city: lead.city || "-",
+            createdBy: `${lead.user.firstname || "-"} ${lead.user.lastname || "-"}`,
+            actions: (
+                <div className="d-flex justify-content-around">
+                    <button className="btn btn-info" onClick={() => navigate(`/home/lead/leadDetails/${lead.id}`)}>Details</button>
+                    <button className="btn btn-danger" onClick={() => {
+                        handleDeleteLead(lead.id);
+                        navigate(`/home/lead`);
+                    }}>Delete</button>
+                </div>
+            ),
+        }));
+    }
+
 
 
     //display conditions (depending on whether Leads is empty or not)
 
-    if (!Array.isArray(Leads)) {
+    if (isLoading) {
         // Handle the case where Leads is not an array yet
         return (
             <div>
@@ -110,7 +191,7 @@ const DisplayLeads = () => {
         );
     }
 
-    else if (Leads.length === 0) {
+    else if ((user?.roles.includes("ROLE_ADMIN") && !LeadsAdmin.length) || (!user?.roles.includes("ROLE_ADMIN") && !LeadsEmployee.length)) {
         // Handle the case where Leads is an empty array
         return (
             <div>
@@ -123,9 +204,9 @@ const DisplayLeads = () => {
   else {
         return (
 
-      <div>
-          {/* Display the DeleteSuccessModal component */}
-          <DeleteSuccessModal show={showDeleteModal} onClose={() => {
+      <div className="AddLeadPage">
+          {/* Display the DeleteLeadSuccessModal component */}
+          <DeleteLeadSuccessModal show={showDeleteModal} onClose={() => {
               setShowDeleteModal(false);
               refreshPage(); // Refresh the page when the modal is closed
           }}
@@ -168,7 +249,7 @@ const DisplayLeads = () => {
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={Leads.length}
+                    count={user?.roles.includes("ROLE_ADMIN") ? LeadsAdmin.length : LeadsEmployee.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

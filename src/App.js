@@ -19,8 +19,8 @@ function App() {
             <Route path='/' element={<Home/>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path='/signup' element={<Signup/>}/>
-            <Route path="/home/lead/:leadId" element={<LeadDetails />} />
-            <Route path="/home/editlead/:leadId" element={<EditLeads />} />
+            {/*<Route path="/home/lead/:leadId" element={<LeadDetails />} />
+            <Route path="/home/editlead/:leadId" element={<EditLeads />} />*/}
             {/*change dashboard to connected only later*/}
             <Route path='/Dashboard/*' element={<Dashboard/>}/>
             {/*registration and login here*/}

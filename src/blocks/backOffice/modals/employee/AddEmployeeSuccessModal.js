@@ -1,7 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import "./DeleteSuccessModal.css"
-const DeleteSuccessModal = ({ show, onClose }) => {
+import'./AddEmployeeSuccessModal.css'
+import {Link} from "react-router-dom";
+import React from "react";
+
+const AddEmployeeSuccessModal = ({ show, onClose }) => {
 
     if (!show) {
         return null; // Do not render the modal if show is false
@@ -10,7 +11,7 @@ const DeleteSuccessModal = ({ show, onClose }) => {
 
     return (
 
-        <div className={`delete-success-modal ${show ? 'show' : 'hide'}`}>
+        <div className={`addEmployee-success-modal ${show ? 'show' : 'hide'}`}>
 
             <div className="modalBackground">
 
@@ -20,15 +21,15 @@ const DeleteSuccessModal = ({ show, onClose }) => {
                     </div>
 
                     <div className="modalTitle">
-                        <h2>Deleted Successfully!</h2>
+                        <h2>Added Successfully!</h2>
                     </div>
 
                     <div className="modalBody">
-                        <p>Your delete action was successful.</p>
+                        <p>Your Employee was added successfully.</p>
                     </div>
 
                     <div className="modalFooter">
-                        <Link to="/Dashboard/listGroups" className="btn btn-danger" onClick={onClose}>
+                        <Link to="/Dashboard/addEmployee" className="btn btn-danger" onClick={onClose}>
                             Close and refresh
                         </Link>
                     </div>
@@ -39,7 +40,7 @@ const DeleteSuccessModal = ({ show, onClose }) => {
 
         </div>
     );
-};
 
+}
 
-export default DeleteSuccessModal;
+export default AddEmployeeSuccessModal;

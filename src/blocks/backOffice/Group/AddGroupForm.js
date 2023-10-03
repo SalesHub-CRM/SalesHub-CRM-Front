@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
 import {CreateGroup} from "../../../redux/actions/GroupsActions";
-import AddSuccessModal from "../modals/group/AddSuccessModal";
+import AddGroupSuccessModal from "../modals/group/AddGroupSuccessModal";
 
 const AddGroupForm = () => {
     const {register, handleSubmit, formState:{errors}}= useForm();
@@ -46,8 +46,8 @@ const AddGroupForm = () => {
 
                                 <div className="card-body p-md-5 mx-md-4">
 
-                                    {/* Display the AddSuccessModal component */}
-                                    <AddSuccessModal show={showAddModal} onClose={() => {
+                                    {/* Display the AddLeadSuccessModal component */}
+                                    <AddGroupSuccessModal show={showAddModal} onClose={() => {
                                         setShowAddModal(false);
                                         refreshPage(); // Refresh the page when the modal is closed
                                     }}

@@ -5,7 +5,7 @@ import {useNavigate} from "react-router";
 import {AdminRegistrationAction} from "../../../redux/actions/AuthenticationActions";
 import {Link} from "react-router-dom";
 import {ListGroupsByAdmin} from "../../../redux/actions/GroupsActions";
-import AddSuccessModal from "../modals/employee/AddSuccessModal";
+import AddEmployeeSuccessModal from "../modals/employee/AddEmployeeSuccessModal";
 
 
 const AddEmployeeForm = () => {
@@ -78,8 +78,8 @@ const AddEmployeeForm = () => {
 
                                 <div className="card-body p-md-5 mx-md-4">
 
-                                    {/* Display the AddSuccessModal component */}
-                                    <AddSuccessModal show={showAddModal} onClose={() => {
+                                    {/* Display the AddLeadSuccessModal component */}
+                                    <AddEmployeeSuccessModal show={showAddModal} onClose={() => {
                                         setShowAddModal(false);
                                         refreshPage(); // Refresh the page when the modal is closed
                                     }}

@@ -1,16 +1,30 @@
 import {Link} from "react-router-dom";
 import Footer from "../Footer";
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useForm} from "react-hook-form";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {CreateLead} from "../../../redux/actions/LeadsActions";
-import AddSuccessModal from "../modals/lead/AddSuccessModal";
+import AddLeadSuccessModal from "../modals/lead/AddLeadSuccessModal";
+import {ListGroupsByAdmin} from "../../../redux/actions/GroupsActions";
 
 const AddLeadForm = () => {
     const {register, handleSubmit, formState:{errors}}= useForm();
     const dispatch = useDispatch();
     const dataUser = JSON.parse(localStorage.getItem('user'));
+    const groups = useSelector(state=>state.Group.ListGroups);
+
+    useEffect(()=>{
+        if(dataUser?.roles.includes("ROLE_ADMIN"))
+        {
+            dispatch(ListGroupsByAdmin(dataUser.id));
+        }
+    },[])
+
+    console.log("groups",groups)
+
     console.log(dataUser.id);
+
+    const groupSelectRef = useRef(null);
 
     const [showAddModal, setShowAddModal] = useState(false);
 
@@ -22,6 +36,7 @@ const AddLeadForm = () => {
 
 
     const submit = async(data)=>{
+
         var formData = new FormData();
         formData.append("salutation",data.salutation);
         formData.append("firstname",data.firstname);
@@ -39,6 +54,17 @@ const AddLeadForm = () => {
         formData.append("annualrevenue",data.annualrevenue);
         formData.append("status",data.status);
         formData.append("employeeID",dataUser.id);
+
+        if(dataUser?.roles.includes("ROLE_ADMIN"))
+        {
+            const selectedGroupId = groupSelectRef.current.value;
+            formData.append("groupId",selectedGroupId)
+            console.log("group id adm",selectedGroupId)
+        }
+        else {
+            formData.append("groupId",dataUser.groupId)
+            console.log("group id emp",dataUser.groupId)
+        }
 
         try {
             await dispatch(CreateLead(formData));
@@ -62,14 +88,14 @@ const AddLeadForm = () => {
                         <div className="card rounded-3 text-black">
                             <div className="row g-0">
 
-                                <div className="card-body p-md-5 mx-md-4">
+                                {/* Display the AddLeadSuccessModal component */}
+                                <AddLeadSuccessModal show={showAddModal} onClose={() => {
+                                    setShowAddModal(false);
+                                    refreshPage(); // Refresh the page when the modal is closed
+                                }}
+                                />
 
-                                    {/* Display the AddSuccessModal component */}
-                                    <AddSuccessModal show={showAddModal} onClose={() => {
-                                        setShowAddModal(false);
-                                        refreshPage(); // Refresh the page when the modal is closed
-                                    }}
-                                    />
+                                <div className="card-body p-md-5 mx-md-4">
 
                                         <div className="homepage-titles creatAccountTitle">
                                             <h4 className="mt-1 mb-5 pb-1">Create a lead </h4>
@@ -268,6 +294,18 @@ const AddLeadForm = () => {
                                                 </div>}
 
                                             </div>
+
+                                            {dataUser?.roles.includes("ROLE_ADMIN") ? (
+                                                <div className="form-outline col-5 mb-5">
+                                                    <label className="form-label" htmlFor="form2Example11">Please choose the group :</label>
+                                                    <select className="form-select" ref={groupSelectRef}>
+                                                        <option value="" disabled>Select a group</option>
+                                                        {groups?.map(group => (
+                                                            <option key={group.id} value={group.id}>{group.name}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            ) : null}
 
                                         </div>
 

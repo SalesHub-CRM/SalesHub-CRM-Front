@@ -1,4 +1,4 @@
-.modalBackground {
+.addEmployee-success-modal .modalBackground {
     z-index: 999;
     /*background-color: rgba(200, 200, 200);*/
     position: fixed;
@@ -7,7 +7,7 @@
     align-items: center;
 }
 
-.modalContainers {
+.addEmployee-success-modal .modalContainers {
     width: 500px;
     height: 500px;
     width: 50vw;
@@ -22,25 +22,25 @@
     padding: 40px;
 }
 
-.modalContainers .modalTitle {
+.addEmployee-success-modal .modalContainers .modalTitle {
     display: inline-block;
     text-align: center;
     margin-top: 10px;
 }
 
-.titleCloseBtn {
+.addEmployee-success-modal .titleCloseBtn {
     display: flex;
     justify-content: flex-end;
 }
 
-.titleCloseBtn button {
+.addEmployee-success-modal .titleCloseBtn button {
     background-color: transparent;
     border: none;
     font-size: 25px;
     cursor: pointer;
 }
 
-.modalContainers .modalBody {
+.addEmployee-success-modal .modalContainers .modalBody {
     flex: 50%;
     display: flex;
     justify-content: center;
@@ -49,14 +49,14 @@
     text-align: center;
 }
 
-.modalContainers .modalFooter {
+.addEmployee-success-modal .modalContainers .modalFooter {
     flex: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.modalContainers .modalFooter button {
+.addEmployee-success-modal .modalContainers .modalFooter button {
     width: 150px;
     height: 45px;
     margin: 10px;
@@ -68,10 +68,10 @@
     cursor: pointer;
 }
 
-#cancelBtn {
+.addEmployee-success-modal #cancelBtn {
     background-color: crimson;
 }
 
-.registration-success-modal{
+.addEmployee-success-modal .registration-success-modal{
     z-index: 9999;
 }

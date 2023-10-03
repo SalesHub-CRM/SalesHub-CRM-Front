@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import "./DeleteSuccessModal.css"
-const DeleteSuccessModal = ({ show, onClose }) => {
+import "./DeleteGroupSuccessModal.css"
+const DeleteGroupSuccessModal = ({ show, onClose }) => {
 
     if (!show) {
         return null; // Do not render the modal if show is false
@@ -10,7 +10,7 @@ const DeleteSuccessModal = ({ show, onClose }) => {
 
     return (
 
-        <div className={`delete-success-modal ${show ? 'show' : 'hide'}`}>
+        <div className={`deleteGroup-success-modal ${show ? 'show' : 'hide'}`}>
 
             <div className="modalBackground">
 
@@ -28,7 +28,7 @@ const DeleteSuccessModal = ({ show, onClose }) => {
                     </div>
 
                     <div className="modalFooter">
-                        <Link to="/home/lead" className="btn btn-danger" onClick={onClose}>
+                        <Link to="/Dashboard/listGroups" className="btn btn-danger" onClick={onClose}>
                             Close and refresh
                         </Link>
                     </div>
@@ -42,4 +42,4 @@ const DeleteSuccessModal = ({ show, onClose }) => {
 };
 
 
-export default DeleteSuccessModal;
+export default DeleteGroupSuccessModal;

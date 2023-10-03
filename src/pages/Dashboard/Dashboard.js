@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Dashboard.css";
-import {Routes,Route} from "react-router";
+import {Routes, Route, useNavigate} from "react-router";
 import TopBar from "../../blocks/backOffice/TopBar/TopBar";
 import SideBar from "../../blocks/backOffice/SideBar/SideBar";
 import Home from "../../blocks/backOffice/Home/Home";
@@ -11,10 +11,33 @@ import EditGroup from "../../blocks/backOffice/Group/EditGroup";
 import AddEmployeeForm from "../../blocks/backOffice/Employee/AddEmployeeForm";
 import ListEmployees from "../../blocks/backOffice/Employee/ListEmployees";
 import EmployeeDetails from "../../blocks/backOffice/Employee/EmployeeDetails";
+import {useDispatch, useSelector} from "react-redux";
+import {setConnected} from "../../redux/actions/AuthenticationActions";
 
 
 
 const Dashboard = () => {
+
+    //this code will automatically redirect to /login if there is no user connected
+
+    const dispatch = useDispatch();
+    const navigate=useNavigate();
+    const AuthState = useSelector(state => state.Auth);
+    const user =JSON.parse(localStorage.getItem('user'))
+
+    useEffect(()=>{
+        const token = JSON.parse(localStorage.getItem('authTokens'));
+        if(!token)
+        {
+            localStorage.removeItem('authTokens');
+            navigate('/login');
+        }
+        else{
+            dispatch(setConnected(token,user));
+        }
+    },[AuthState.isConnected,dispatch, navigate])
+
+
     return(
         <div>
 

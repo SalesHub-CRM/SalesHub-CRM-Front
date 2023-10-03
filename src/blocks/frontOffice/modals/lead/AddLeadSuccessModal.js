@@ -1,9 +1,8 @@
-import'./AddSuccessModal.css'
-import {Link} from "react-router-dom";
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import "./AddLeadSuccessModal.css";
 
-const AddSuccessModal = ({ show, onClose }) => {
-
+const AddLeadSuccessModal = ({ show, onClose }) => {
     if (!show) {
         return null; // Do not render the modal if show is false
         {console.log("it didn't show")}
@@ -11,8 +10,9 @@ const AddSuccessModal = ({ show, onClose }) => {
 
     return (
 
-        <div className={`addemployee-success-modal ${show ? 'show' : 'hide'}`}>
 
+        <div className={`addLead-success-modal ${show ? 'show' : 'hide'}`}>
+            {console.log("it did show")}
             <div className="modalBackground">
 
                 <div className="modalContainers">
@@ -25,11 +25,11 @@ const AddSuccessModal = ({ show, onClose }) => {
                     </div>
 
                     <div className="modalBody">
-                        <p>Your Employee was added successfully.</p>
+                        <p>Your lead was added successfully.</p>
                     </div>
 
                     <div className="modalFooter">
-                        <Link to="/Dashboard/addEmployee" className="btn btn-danger" onClick={onClose}>
+                        <Link to="/home/lead/addLead" className="btn btn-danger" onClick={onClose}>
                             Close and refresh
                         </Link>
                     </div>
@@ -40,7 +40,5 @@ const AddSuccessModal = ({ show, onClose }) => {
 
         </div>
     );
-
 }
-
-export default AddSuccessModal;
+export default AddLeadSuccessModal;

@@ -3,7 +3,7 @@ const initialState={
     createGroup:{},
     updateGroup:{},
     getGroupById:{},
-    ListGroups:{},
+    ListGroups:[],
     countGroups:{},
     DeleteGroups:{},
     errors:{},
