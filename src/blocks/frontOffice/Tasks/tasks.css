@@ -6,3 +6,16 @@
 .tasksMainPage{
     padding: 30px;
 }
+
+.completed {
+    color: green;
+}
+
+.not-completed {
+    color: red;
+}
+
+.taskDetMarg{
+    margin-bottom: 100px;
+}
+

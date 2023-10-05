@@ -2,9 +2,12 @@ import {useState} from "react";
 import DisplayTasks from "../../blocks/frontOffice/Tasks/DisplayTasks";
 import AddTasksForm from "../../blocks/frontOffice/Tasks/AddTasksForm";
 import '../../blocks/frontOffice/Tasks/tasks.css';
+import {Link, Route, Routes} from "react-router-dom";
+import TaskDetails from "../../blocks/frontOffice/Tasks/TaskDetails";
+import EditTask from "../../blocks/frontOffice/Tasks/EditTask";
 
 const Taskspage = () => {
-    const [show, setShow] = useState(0)
+
 
     return(
         <div>
@@ -14,15 +17,19 @@ const Taskspage = () => {
                 </div>
 
                 <div>
-                    <button className="btn btn-light" onClick={() => setShow(0)}>show list</button>
-                    <button className="btn btn-light" onClick={() => setShow(1)}>Add tasks</button>
+                    <Link className="btn btn-light" to="/home/task">Show List</Link>
+                    <Link className="btn btn-light" to="/home/task/addTask">Add Task</Link>
                 </div>
             </div>
 
 
             <div className="tasksMainPage">
-                {show===0 && <DisplayTasks/>}
-                {show===1 && <AddTasksForm/>}
+                <Routes>
+                    <Route path="/" element={<DisplayTasks/>}/>
+                    <Route path="/addTask" element={<AddTasksForm/>}/>
+                    <Route path="/taskDetails/:taskId" element={<TaskDetails/>}/>
+                    <Route path="/editTask/:taskId" element={<EditTask/>}/>
+                </Routes>
             </div>
         </div>
     )

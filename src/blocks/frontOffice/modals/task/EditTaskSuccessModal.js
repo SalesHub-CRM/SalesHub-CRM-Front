@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import "./EditLeadSuccessModal.css";
+import {Link} from "react-router-dom";
+import React from "react";
+import "./EditTaskSuccessModal.css"
 
-const EditLeadSuccessModal = ({ show, onClose, leadId }) => {
-    console.log("EditLeadSuccessModal show prop:", show);
+const EditTaskSuccessModal = ({ show, onClose, taskId }) => {
+    console.log("EditTaskSuccessModal show prop:", show);
 
     if (!show) {
         return null; // Do not render the modal if show is false
@@ -12,7 +12,7 @@ const EditLeadSuccessModal = ({ show, onClose, leadId }) => {
 
     return (
 
-        <div className={`editLead-success-modal ${show ? 'show' : 'hide'}`}>
+        <div className={`editTask-success-modal ${show ? 'show' : 'hide'}`}>
 
             <div className="modalBackground">
 
@@ -26,11 +26,11 @@ const EditLeadSuccessModal = ({ show, onClose, leadId }) => {
                     </div>
 
                     <div className="modalBody">
-                        <p>Your Lead was edited successfully.</p>
+                        <p>Your Task was edited successfully.</p>
                     </div>
 
                     <div className="modalFooter">
-                        <Link to={`/home/lead/leadDetails/${leadId}`} className="btn btn-danger" onClick={onClose}>
+                        <Link to={`/home/task/taskDetails/${taskId}`} className="btn btn-danger" onClick={onClose}>
                             Close and return to details
                         </Link>
                     </div>
@@ -44,4 +44,4 @@ const EditLeadSuccessModal = ({ show, onClose, leadId }) => {
 
 }
 
-export default EditLeadSuccessModal;
+export default EditTaskSuccessModal;

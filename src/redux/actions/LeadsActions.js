@@ -1,5 +1,5 @@
 import axios from "axios";
-import {CREATE_LEAD,UPDATE_LEAD,GET_LEAD,LIST_LEAD,LIST_BY_ADMIN,LIST_BY_EMPLOYEE,DELETE_LEAD,ERROR} from "../reducers/LeadsReducer"
+import {CREATE_LEAD,UPDATE_LEAD,GET_LEAD,LIST_LEAD,LIST_LEAD_BY_ADMIN,LIST_LEAD_BY_EMPLOYEE,DELETE_LEAD,ERROR} from "../reducers/LeadsReducer"
 
 export const CreateLead=(lead)=>dispatch=>{
     return new Promise((resolve, reject) => {
@@ -89,7 +89,7 @@ export const ListLeadsByAdmin=(adminId)=>dispatch=>{
         .then(result=>{
             console.log("admin1")
             dispatch({
-                type:LIST_BY_ADMIN,
+                type:LIST_LEAD_BY_ADMIN,
                 payload:result.data
             })
             console.log("admin")
@@ -107,7 +107,7 @@ export const ListLeadsByEmployee=(employeeId)=>dispatch=>{
     axios.get("http://localhost:8081/API/lead/byEmployee/"+employeeId,{withCredentials:true})
         .then(result=>{
             dispatch({
-                type:LIST_BY_EMPLOYEE,
+                type:LIST_LEAD_BY_EMPLOYEE,
                 payload:result.data
             })
             console.log("employee")
@@ -126,10 +126,6 @@ export const DeleteLead=(leadID,user)=>dispatch=>{
 
     axios.delete("http://localhost:8081/API/lead/"+leadID,{withCredentials:true})
         .then(result=>{
-            /*dispatch({
-                type:DELETE_LEAD,
-                payload: leadID,
-            })*/
 
             if (user.roles.includes("ROLE_ADMIN")) {
                 dispatch(ListLeadsByAdmin(user.id)); // Dispatch ListByAdmin if the current user is an admin

@@ -71,7 +71,7 @@ const AddLeadForm = () => {
             setShowAddModal(true)
         }
         catch (error) {
-            console.error('Registration failed:', error);
+            console.error('Operation failed:', error);
         }
 
 

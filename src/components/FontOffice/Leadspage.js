@@ -9,18 +9,6 @@ import EditLeads from "../../blocks/frontOffice/Leads/EditLeads";
 
 
 const Leadspage = () => {
-/*
-    const [show, setShow] = useState(0)
-
-    const [showLeadDetails, setShowLeadDetails] = useState(false);
-
-    const [selectedLeadId, setSelectedLeadId] = useState(null);
-
-
-    const handleDetailsClick = (leadId) => {
-        setSelectedLeadId(leadId); // Set the selected lead ID
-        setShowLeadDetails(true); // Show the LeadDetails component
-    };*/
 
 
     return(
@@ -35,8 +23,6 @@ const Leadspage = () => {
                   <Link className="btn btn-light" to="/home/lead">show list</Link>
                   <Link className="btn btn-light" to="/home/lead/addLead">Add lead</Link>
 
-                  {/*<button className="btn btn-light" onClick={() => setShow(0)}>show list</button>
-                  <button className="btn btn-light" onClick={() => setShow(1)}>Add lead</button>*/}
               </div>
           </div>
 

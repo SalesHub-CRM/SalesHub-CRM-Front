@@ -49,6 +49,7 @@ export const ListGroupsByAdmin=(adminID)=>dispatch=>{
                 type:LIST_GROUP,
                 payload:result.data
             })
+            console.log("action",result.data)
         })
         .catch(err=>{
             dispatch({

@@ -1,4 +1,4 @@
-.editLead-success-modal .modalBackground {
+.addTask-success-modal .modalBackground {
     z-index: 999;
     /*background-color: rgba(200, 200, 200);*/
     position: fixed;
@@ -7,13 +7,13 @@
     align-items: center;
 }
 
-.editLead-success-modal .modalContainers {
+.addTask-success-modal .modalContainers {
     width: 500px;
     height: 500px;
     width: 50vw;
     height: 60vh;
-    margin-top: -40%;
-    margin-right: -20%;
+    margin-top: -30%;
+    margin-right: -40%;
     border-radius: 12px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.7) 0px 30px 60px;
@@ -22,25 +22,25 @@
     padding: 40px;
 }
 
-.editLead-success-modal .modalContainers .modalTitle {
+.addTask-success-modal .modalContainers .modalTitle {
     display: inline-block;
     text-align: center;
     margin-top: 10px;
 }
 
-.editLead-success-modal .titleCloseBtn {
+.addTask-success-modal .titleCloseBtn {
     display: flex;
     justify-content: flex-end;
 }
 
-.editLead-success-modal .titleCloseBtn button {
+.addTask-success-modal .titleCloseBtn button {
     background-color: transparent;
     border: none;
     font-size: 25px;
     cursor: pointer;
 }
 
-.editLead-success-modal .modalContainers .modalBody {
+.addTask-success-modal .modalContainers .modalBody {
     flex: 50%;
     display: flex;
     justify-content: center;
@@ -49,14 +49,14 @@
     text-align: center;
 }
 
-.editLead-success-modal .modalContainers .modalFooter {
+.addTask-success-modal .modalContainers .modalFooter {
     flex: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.editLead-success-modal .modalContainers .modalFooter button {
+.addTask-success-modal .modalContainers .modalFooter button {
     width: 150px;
     height: 45px;
     margin: 10px;
@@ -72,6 +72,6 @@
     background-color: crimson;
 }
 
-.editLead-success-modal {
+.addTask-success-modal {
     z-index: 9999;
 }

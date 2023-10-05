@@ -1,8 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router";
-import Header from "../Header";
-import Footer from "../Footer";
 import {GetLeadById} from "../../../redux/actions/LeadsActions";
 
 const LeadDetails = () => {

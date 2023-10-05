@@ -68,7 +68,7 @@ const EditLeads = () => {
                                 <div className="card-body p-md-5 mx-md-4">
 
                                     {/* Display the AddLeadSuccessModal component */}
-                                    <EditLeadSuccessModal show={ isEditSuccess} onClose={handleModalClose} />
+                                    <EditLeadSuccessModal show={ isEditSuccess} onClose={handleModalClose} leadId={Lead.id}/>
 
                                     <div className="homepage-titles creatAccountTitle">
                                         <h4 className="mt-1 mb-5 pb-1">Create a lead </h4>

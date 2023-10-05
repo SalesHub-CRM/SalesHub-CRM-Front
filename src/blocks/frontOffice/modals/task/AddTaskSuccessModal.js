@@ -1,10 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import "./EditLeadSuccessModal.css";
+import {Link} from "react-router-dom";
+import React from "react";
+import "./AddTaskSuccessModal.css";
 
-const EditLeadSuccessModal = ({ show, onClose, leadId }) => {
-    console.log("EditLeadSuccessModal show prop:", show);
-
+const AddTaskSuccessModal = ({ show, onClose }) => {
     if (!show) {
         return null; // Do not render the modal if show is false
         {console.log("it didn't show")}
@@ -12,8 +10,9 @@ const EditLeadSuccessModal = ({ show, onClose, leadId }) => {
 
     return (
 
-        <div className={`editLead-success-modal ${show ? 'show' : 'hide'}`}>
 
+        <div className={`addTask-success-modal ${show ? 'show' : 'hide'}`}>
+            {console.log("it did show")}
             <div className="modalBackground">
 
                 <div className="modalContainers">
@@ -22,16 +21,16 @@ const EditLeadSuccessModal = ({ show, onClose, leadId }) => {
                     </div>
 
                     <div className="modalTitle">
-                        <h2>Edited Successfully!</h2>
+                        <h2>Added Successfully!</h2>
                     </div>
 
                     <div className="modalBody">
-                        <p>Your Lead was edited successfully.</p>
+                        <p>Your task was added successfully.</p>
                     </div>
 
                     <div className="modalFooter">
-                        <Link to={`/home/lead/leadDetails/${leadId}`} className="btn btn-danger" onClick={onClose}>
-                            Close and return to details
+                        <Link to="/home/task/addTask" className="btn btn-danger" onClick={onClose}>
+                            Close and refresh
                         </Link>
                     </div>
 
@@ -41,7 +40,6 @@ const EditLeadSuccessModal = ({ show, onClose, leadId }) => {
 
         </div>
     );
-
 }
 
-export default EditLeadSuccessModal;
+export default AddTaskSuccessModal

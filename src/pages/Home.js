@@ -45,6 +45,8 @@ const Home=()=>{
         <div>
             <Header/>
 
+            <hr style={{width:'60%', margin:'25px auto'}}/>
+
             <div className="d-flex justify-content-around">
                 <Link className="btn btn-light" to="/home/lead">Leads</Link>
                 <Link className="btn btn-light" to="/home/task">Tasks</Link>
@@ -54,11 +56,9 @@ const Home=()=>{
                 <Link className="btn btn-light" to="/home/product">Products</Link>
                 <Link className="btn btn-light" to="/home/opportunity">Opportunities</Link>
                 <Link className="btn btn-light" to="/home/campaign">Campaigns</Link>
-
-
-
             </div>
 
+            <hr style={{width:'60%', margin:'25px auto'}}/>
 
             <Routes>
                 <Route path="/" element={<Welcomepage/>}/>

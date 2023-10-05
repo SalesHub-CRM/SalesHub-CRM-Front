@@ -4,8 +4,8 @@ const initialState={
     updateLead:{},
     getLeadById:{},
     ListLeads:{},
-    listByAdmin:[],
-    listByEmployee:[],
+    listLeadsByAdmin:[],
+    listLeadsByEmployee:[],
     DeleteLeads:{},
     errors:{},
 }
@@ -14,8 +14,8 @@ export const CREATE_LEAD="CREATELEAD";
 export const UPDATE_LEAD="UPDATELEAD";
 export const GET_LEAD="GETLEAD";
 export const LIST_LEAD="LISTLEAD";
-export const LIST_BY_ADMIN="LISTBYADMIN";
-export const LIST_BY_EMPLOYEE="LISTBYEMPLOYEE";
+export const LIST_LEAD_BY_ADMIN="LISTLEADSBYADMIN";
+export const LIST_LEAD_BY_EMPLOYEE="LISTLEADSBYEMPLOYEE";
 export const DELETE_LEAD="DELETELEAD";
 export const ERROR = "ERROR";
 
@@ -53,34 +53,27 @@ export default function (state = initialState,action){
             }
 
 
-        case LIST_BY_ADMIN:
+        case LIST_LEAD_BY_ADMIN:
             return{
                 ...state,
-                listByAdmin:action.payload
+                listLeadsByAdmin:action.payload
             }
 
 
-        case LIST_BY_EMPLOYEE:
+        case LIST_LEAD_BY_EMPLOYEE:
             return{
                 ...state,
-                listByEmployee:action.payload
+                listLeadsByEmployee:action.payload
             }
 
-
-        /*case DELETE_LEAD:
-            return{
-                /!*DeleteLeads:"lead deleted"*!/
-                ...state,
-                ListLeads: state.ListLeads.filter(lead => lead.id !== action.payload),
-            }*/
 
 
         case DELETE_LEAD:
             const leadID = action.payload;
             return {
                 ...state,
-                listByAdmin: state.listByAdmin.filter((lead) => lead.id !== leadID),
-                listByEmployee: state.listByEmployee.filter((lead) => lead.id !== leadID),
+                listLeadsByAdmin: state.listLeadsByAdmin.filter((lead) => lead.id !== leadID),
+                listLeadsByEmployee: state.listLeadsByEmployee.filter((lead) => lead.id !== leadID),
             };
 
 

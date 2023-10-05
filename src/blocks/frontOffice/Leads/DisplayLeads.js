@@ -20,12 +20,12 @@ const DisplayLeads = () => {
 
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true); //this is to create a control variable to prevent the useEffect code from going into an infinite loop
-    const LeadsEmployee = useSelector(state => state.Lead.listByEmployee);
-    const LeadsAdmin = useSelector(state => state.Lead.listByAdmin);
+    const LeadsEmployee = useSelector(state => state.Lead.listLeadsByEmployee);
+    const LeadsAdmin = useSelector(state => state.Lead.listLeadsByAdmin);
     const user =JSON.parse(localStorage.getItem('user'));
 
     const navigate = useNavigate();
-    const location = useLocation();
+   // const location = useLocation();
 
     useEffect(()=>
     {
@@ -109,30 +109,6 @@ const DisplayLeads = () => {
         window.location.reload();
         console.log("refresh")
     };
-
-
-    // Define the rows based on the Leads data
-/*    const rows = Array.isArray(LeadsEmployee)
-        ? LeadsEmployee.map((lead) => ({
-            id: lead.id,
-            fullName: `${lead.firstname || "-"} ${lead.lastname || "-"}`,
-            title: lead.title || "-",
-            phone: lead.phone || "-",
-            company: lead.company || "-",
-            city: lead.city || "-",
-            createdBy: `${lead.user.firstname || "-"} ${lead.user.lastname || "-"}`,
-            actions: (
-                <div className="d-flex justify-content-around">
-                    <button className="btn btn-info" onClick={() => navigate(`/home/lead/${lead.id}`)}>Details</button>
-                    <button className="btn btn-danger" onClick={() =>{
-                        handleDeleteLead(lead.id);
-                        navigate(`/lead/${lead.id}`);
-                    }}>Delete</button>
-                </div>
-            ),
-        }))
-        : [];*/
-
 
 
     // Define the rows based on the Leads data
