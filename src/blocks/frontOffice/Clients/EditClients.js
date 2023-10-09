@@ -1,13 +1,65 @@
 import {useForm} from "react-hook-form";
-import {useDispatch} from "react-redux";
-import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import React, {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router";
+import {GetClientById, UpdateClient} from "../../../redux/actions/ClientsActions";
+import EditClientSuccessModal from "../modals/client/EditClientSuccessModal";
 
 const EditClients = () => {
     const {register, handleSubmit, formState:{errors}}= useForm();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {clientId} = useParams();
+    const dataUser = JSON.parse(localStorage.getItem('user'));
+    const Client = useSelector(state => state.Client.getClientById);
+
+    useEffect(()=>{
+        dispatch(GetClientById(clientId));
+    },[]);
+
+    console.log("client id",clientId)
+
+    console.log("client",Client);
+
+
     const submit = async(data)=>{
+        let formData = new FormData();
+
+        formData.append("name",data.name);
+        formData.append("parentname",data.parentname);
+        formData.append("email",data.email);
+        formData.append("website",data.website);
+        formData.append("phone",data.phone);
+        formData.append("fax",data.fax);
+        formData.append("employeenumber",data.employeenumber);
+        formData.append("annualrevenue",data.annualrevenue);
+        formData.append("industry",data.industry);
+        formData.append("type",data.type);
+        formData.append("shippingaddress",data.shippingaddress);
+        formData.append("billingaddress",data.billingaddress);
+        formData.append("employeeId",dataUser.id);
+        formData.append("groupId",dataUser.groupId)
+
+        try {
+            await dispatch(UpdateClient(formData,Client.id));
+            setIsEditSuccess(true);
+        }
+        catch (error) {
+            console.error('Operation failed:', error);
+        }
 
     }
+
+
+    const [isEditSuccess, setIsEditSuccess] = useState(false);
+
+    const handleModalClose = () => {
+        setIsEditSuccess(false);
+        navigate(`/home/client/clientDetails/${Client.id}`);
+        console.log("Modal closed, isEditSuccess set to false");
+    };
+
+
     return(
         <div className="AddLeadPage">
             <div className="container mt-5">
@@ -15,6 +67,9 @@ const EditClients = () => {
                     <div className="col-xl-10">
                         <div className="card rounded-3 text-black">
                             <div className="row g-0">
+
+                                {/* Display the AddLeadSuccessModal component */}
+                                <EditClientSuccessModal show={ isEditSuccess} onClose={handleModalClose} clientId={Client.id}/>
 
                                 <div className="card-body p-md-5 mx-md-4">
 
@@ -29,7 +84,8 @@ const EditClients = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Name :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="Client name" {...register("name", {required: true})}/>
+                                                       placeholder="Client name" {...register("name", {required: true})}
+                                                defaultValue={Client.name}/>
                                                 {(errors.name?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         Clients' name is required
@@ -39,7 +95,8 @@ const EditClients = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Parent company :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="Parent company" {...register("parentname", {required: true})}/>
+                                                       placeholder="Parent company" {...register("parentname", {required: true})}
+                                                       defaultValue={Client.parentname}/>
                                                 {(errors.parentname?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         The parent company is required
@@ -56,7 +113,8 @@ const EditClients = () => {
                                                        placeholder="Email" {...register("email", {
                                                     required: true,
                                                     pattern: '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'
-                                                })}/>
+                                                })}
+                                                       defaultValue={Client.email}/>
                                                 {errors.email?.type === "required" &&
                                                     <div className="alert alert-danger" role="alert">
                                                         email is required
@@ -70,7 +128,8 @@ const EditClients = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Website :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="www.company.com" {...register("website", {required: true})}/>
+                                                       placeholder="www.company.com" {...register("website", {required: true})}
+                                                       defaultValue={Client.website}/>
                                                 {(errors.website?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         The company website is required
@@ -83,7 +142,8 @@ const EditClients = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Phone number</label>
                                                 <input  type="number" id="form2Example11" className="form-control"
-                                                        placeholder="12345678" {...register("phone", { required: true, minLength: 8, maxLength:8 })}/>
+                                                        placeholder="12345678" {...register("phone", { required: true, minLength: 8, maxLength:8 })}
+                                                        defaultValue={Client.phone}/>
                                                 {errors.phone?.type === "required" && <div className="alert alert-danger" role="alert">
                                                     phone number is required
                                                 </div>}
@@ -98,7 +158,8 @@ const EditClients = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Fax number</label>
                                                 <input  type="number" id="form2Example11" className="form-control"
-                                                        placeholder="12345678" {...register("fax", { required: true, minLength: 8, maxLength:8 })}/>
+                                                        placeholder="12345678" {...register("fax", { required: true, minLength: 8, maxLength:8 })}
+                                                        defaultValue={Client.fax}/>
                                                 {errors.fax?.type === "required" && <div className="alert alert-danger" role="alert">
                                                     Fax number is required
                                                 </div>}
@@ -118,7 +179,8 @@ const EditClients = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Number of Employees :</label>
                                                 <input type="number" id="form2Example11" className="form-control"
-                                                       placeholder="200" {...register("employeenumber", {required: true})}/>
+                                                       placeholder="200" {...register("employeenumber", {required: true})}
+                                                       defaultValue={Client.employeenumber}/>
                                                 {errors.employeenumber?.type === "required" && <div className="alert alert-danger" role="alert">
                                                     The number of employees is required
                                                 </div>}
@@ -128,7 +190,8 @@ const EditClients = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Annual revenue :</label>
                                                 <input type="number" id="form2Example11" className="form-control"
-                                                       placeholder="200" {...register("annualrevenue", {required: true})}/>
+                                                       placeholder="200" {...register("annualrevenue", {required: true})}
+                                                       defaultValue={Client.annualrevenue}/>
                                                 {errors.annualrevenue?.type === "required" && <div className="alert alert-danger" role="alert">
                                                     The annual revenue is required
                                                 </div>}
@@ -144,7 +207,8 @@ const EditClients = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Industry :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="industry" {...register("industry", {required: true})}/>
+                                                       placeholder="industry" {...register("industry", {required: true})}
+                                                       defaultValue={Client.industry}/>
                                                 {(errors.industry?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         Industry is required
@@ -153,7 +217,8 @@ const EditClients = () => {
 
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Client type :</label>
-                                                <select className="form-select" {...register("type")}>
+                                                <select className="form-select" {...register("type")}
+                                                        defaultValue={Client.type}>
                                                     <option value="ANALYST">Analyst</option>
                                                     <option value="COMPETITOR">Competitor</option>
                                                     <option value="CUSTOMER">Customer</option>
@@ -169,7 +234,8 @@ const EditClients = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Shipping address :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="address" {...register("shippingaddress", {required: true})}/>
+                                                       placeholder="address" {...register("shippingaddress", {required: true})}
+                                                       defaultValue={Client.shippingaddress}/>
                                                 {(errors.shippingaddress?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         Shipping address is required
@@ -178,8 +244,9 @@ const EditClients = () => {
 
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Billing address :</label>
-                                                <input type="number" id="form2Example11" className="form-control"
-                                                       placeholder="address" {...register("billingaddress", {required: true})}/>
+                                                <input type="text" id="form2Example11" className="form-control"
+                                                       placeholder="address" {...register("billingaddress", {required: true})}
+                                                       defaultValue={Client.billingaddress}/>
                                                 {(errors.billingaddress?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         Billing address is required

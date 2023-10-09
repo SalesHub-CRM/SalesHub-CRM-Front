@@ -1,8 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import "./EditLeadSuccessModal.css";
+import {Link} from "react-router-dom";
+import React from "react";
+import "./AddClientSuccessModal.css";
 
-const EditLeadSuccessModal = ({ show, onClose, leadId }) => {
+
+const AddClientSuccessModal = ({ show, onClose }) => {
 
     if (!show) {
         return null; // Do not render the modal if show is false
@@ -11,8 +12,9 @@ const EditLeadSuccessModal = ({ show, onClose, leadId }) => {
 
     return (
 
-        <div className={`editLead-success-modal ${show ? 'show' : 'hide'}`}>
 
+        <div className={`addClient-success-modal ${show ? 'show' : 'hide'}`}>
+            {console.log("it did show")}
             <div className="modalBackground">
 
                 <div className="modalContainers">
@@ -21,16 +23,16 @@ const EditLeadSuccessModal = ({ show, onClose, leadId }) => {
                     </div>
 
                     <div className="modalTitle">
-                        <h2>Edited Successfully!</h2>
+                        <h2>Added Successfully!</h2>
                     </div>
 
                     <div className="modalBody">
-                        <p>Your Lead was edited successfully.</p>
+                        <p>Your client was added successfully.</p>
                     </div>
 
                     <div className="modalFooter">
-                        <Link to={`/home/lead/leadDetails/${leadId}`} className="btn btn-danger" onClick={onClose}>
-                            Close and return to details
+                        <Link to="/home/client/addClient" className="btn btn-danger" onClick={onClose}>
+                            Close and refresh
                         </Link>
                     </div>
 
@@ -43,4 +45,4 @@ const EditLeadSuccessModal = ({ show, onClose, leadId }) => {
 
 }
 
-export default EditLeadSuccessModal;
+export default AddClientSuccessModal;

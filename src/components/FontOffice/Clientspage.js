@@ -2,9 +2,11 @@ import {useState} from "react";
 import DisplayClients from "../../blocks/frontOffice/Clients/DisplayClients";
 import AddClientsForm from "../../blocks/frontOffice/Clients/AddClientsForm";
 import '../../blocks/frontOffice/Clients/clients.css';
+import {Link, Route, Routes} from "react-router-dom";
+import ClientDetails from "../../blocks/frontOffice/Clients/ClientDetails";
+import EditClients from "../../blocks/frontOffice/Clients/EditClients";
 
 const Clientspage = () => {
-    const [show, setShow] = useState(0)
 
     return(
         <div>
@@ -14,15 +16,19 @@ const Clientspage = () => {
                 </div>
 
                 <div>
-                    <button className="btn btn-light" onClick={() => setShow(0)}>show list</button>
-                    <button className="btn btn-light" onClick={() => setShow(1)}>Add clients</button>
+                    <Link className="btn btn-light" to="/home/client">Show List</Link>
+                    <Link className="btn btn-light" to="/home/client/addClient">Add Client</Link>
                 </div>
             </div>
 
 
             <div className="clientsMainPage">
-                {show===0 && <DisplayClients/>}
-                {show===1 && <AddClientsForm/>}
+                <Routes>
+                    <Route path="/" element={<DisplayClients/>}/>
+                    <Route path="/addClient" element={<AddClientsForm/>}/>
+                    <Route path="/clientDetails/:clientId" element={<ClientDetails/>}/>
+                    <Route path="/editClient/:clientId" element={<EditClients/>}/>
+                </Routes>
             </div>
         </div>
     )

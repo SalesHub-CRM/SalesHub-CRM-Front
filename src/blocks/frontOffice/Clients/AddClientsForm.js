@@ -1,14 +1,78 @@
 import {useForm} from "react-hook-form";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Footer from "../Footer";
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
+import {ListGroupsByAdmin} from "../../../redux/actions/GroupsActions";
+import {CreateClient} from "../../../redux/actions/ClientsActions";
+import AddClientSuccessModal from "../modals/client/AddClientSuccessModal";
 
 const AddClientsForm = () => {
     const {register, handleSubmit, formState:{errors}}= useForm();
     const dispatch = useDispatch();
+    const dataUser = JSON.parse(localStorage.getItem('user'));
+    const groups = useSelector(state=>state.Group.ListGroups);
+
+
+    useEffect(()=>{
+        if(dataUser?.roles.includes("ROLE_ADMIN"))
+        {
+            dispatch(ListGroupsByAdmin(dataUser.id));
+        }
+    },[])
+
+
+    const groupSelectRef = useRef(null);
+
+    const [showAddModal, setShowAddModal] = useState(false);
+
+    const refreshPage = () => {
+        // navigate(location.pathname, { state: { refresh: true } });
+        window.location.reload();
+        console.log("refresh")
+    };
+
+
+
     const submit = async(data)=>{
 
+        let formData = new FormData();
+
+        formData.append("name",data.name);
+        formData.append("parentname",data.parentname);
+        formData.append("email",data.email);
+        formData.append("website",data.website);
+        formData.append("phone",data.phone);
+        formData.append("fax",data.fax);
+        formData.append("employeenumber",data.employeenumber);
+        formData.append("annualrevenue",data.annualrevenue);
+        formData.append("industry",data.industry);
+        formData.append("type",data.type);
+        formData.append("shippingaddress",data.shippingaddress);
+        formData.append("billingaddress",data.billingaddress);
+        formData.append("employeeId",dataUser.id);
+
+        if(dataUser?.roles.includes("ROLE_ADMIN"))
+        {
+            const selectedGroupId = groupSelectRef.current.value;
+            formData.append("groupId",selectedGroupId)
+            console.log("group id adm",selectedGroupId)
+        }
+        else {
+            formData.append("groupId",dataUser.groupId)
+            console.log("group id emp",dataUser.groupId)
+        }
+
+        try {
+            await dispatch(CreateClient(formData));
+            setShowAddModal(true)
+        }
+        catch (error) {
+            console.error('Operation failed:', error);
+        }
     }
+
+
+
     return(
         <div className="AddLeadPage">
             <div className="container mt-5">
@@ -16,6 +80,12 @@ const AddClientsForm = () => {
                     <div className="col-xl-10">
                         <div className="card rounded-3 text-black">
                             <div className="row g-0">
+                                {/* Display the success modal */}
+                                <AddClientSuccessModal show={showAddModal} onClose={() => {
+                                    setShowAddModal(false);
+                                    refreshPage();
+                                }}
+                                />
 
                                 <div className="card-body p-md-5 mx-md-4">
 
@@ -179,13 +249,29 @@ const AddClientsForm = () => {
 
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Billing address :</label>
-                                                <input type="number" id="form2Example11" className="form-control"
+                                                <input type="text" id="form2Example11" className="form-control"
                                                        placeholder="address" {...register("billingaddress", {required: true})}/>
                                                 {(errors.billingaddress?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         Billing address is required
                                                     </div>}
                                             </div>
+                                        </div>
+
+                                        <div className="formUnit d-flex justify-content-center">
+
+                                            {dataUser?.roles.includes("ROLE_ADMIN") ? (
+                                                <div className="form-outline col-5 mb-5">
+                                                    <label className="form-label" htmlFor="form2Example11">Please choose the group :</label>
+                                                    <select className="form-select" ref={groupSelectRef} defaultValue="">
+                                                        <option value="" disabled>Select a group</option>
+                                                        {groups?.map(group => (
+                                                            <option key={group.id} value={group.id}>{group.name}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            ) : null}
+
                                         </div>
 
                                         <div className="d-flex justify-content-around pt-1 mb-5 pb-1">

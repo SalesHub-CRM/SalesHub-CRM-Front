@@ -19,7 +19,7 @@ const EditLeads = () => {
 
     const handleModalClose = () => {
         setIsEditSuccess(false);
-        navigate("/home/lead");
+        navigate(`/home/lead/leadDetails/${Lead.id}`);
         console.log("Modal closed, isEditSuccess set to false");
     };
 

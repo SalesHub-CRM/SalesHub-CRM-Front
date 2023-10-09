@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import "./SideBar.css";
 import {Home, Timeline, Person, Store} from '@mui/icons-material';
 import GroupsIcon from '@mui/icons-material/Groups';
+import BusinessIcon from '@mui/icons-material/Business';
 import SearchIcon from '@mui/icons-material/Search';
 import HailIcon from '@mui/icons-material/Hail';
 import {Link} from "react-router-dom";
@@ -55,6 +56,8 @@ const SideBar = () => {
                                 <li><Link className="dropdown-item" to="/Dashboard/addEmployee">Add a new employee</Link></li>
                             </ul>
                         </li>
+
+                        <li className="sidebarItem"> <BusinessIcon className="sidebarIcon"/> <Link to="/Dashboard/listClients">My clients</Link></li>
 
 
                     </ul>

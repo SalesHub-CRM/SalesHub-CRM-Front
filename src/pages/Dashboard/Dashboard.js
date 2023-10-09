@@ -13,6 +13,8 @@ import ListEmployees from "../../blocks/backOffice/Employee/ListEmployees";
 import EmployeeDetails from "../../blocks/backOffice/Employee/EmployeeDetails";
 import {useDispatch, useSelector} from "react-redux";
 import {setConnected} from "../../redux/actions/AuthenticationActions";
+import ListClientsAdmin from "../../blocks/backOffice/Clients/ListClientsAdmin";
+import ClientDetailsAdmin from "../../blocks/backOffice/Clients/ClientDetailsAdmin";
 
 
 
@@ -57,6 +59,10 @@ const Dashboard = () => {
                     <Route path='/addEmployee' element={<AddEmployeeForm/>}/>
                     <Route path='/listEmployees' element={<ListEmployees/>}/>
                     <Route path='/employeeDetails/:empId' element={<EmployeeDetails/>}/>
+                    {/*client routes*/}
+                    <Route path='/listClients' element={<ListClientsAdmin/>}/>
+                    <Route path='/ClientDetails/:clientId' element={<ClientDetailsAdmin/>}/>
+
                 </Routes>
             </div>
         </div>
