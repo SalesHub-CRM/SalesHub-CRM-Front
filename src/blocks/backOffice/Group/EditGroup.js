@@ -116,6 +116,8 @@ const EditGroup = () => {
                                                     type="submit">Edit Group
                                                 </button>
 
+                                                <button className="btn btn-danger btn-block fa-lg gradient-custom-1 mb-3" onClick={() => navigate(`/Dashboard/groupDetails/${group.id}`)}>Back to details</button>
+
                                             </div>
 
                                         </form>

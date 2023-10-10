@@ -1,25 +1,69 @@
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
 import Footer from "../Footer";
-import React from "react";
+import React, {useState} from "react";
+import {useNavigate, useParams} from "react-router";
+import {CreateContact} from "../../../redux/actions/ContactsActions";
+import AddContactSuccessModal from "../modals/contact/AddContactSuccessModal";
+import {Link} from "react-router-dom";
 
 
 const AddContactsForm = () => {
     const {register, handleSubmit, formState:{errors}}= useForm();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {clientId} = useParams();
+
+    const [showAddModal, setShowAddModal] = useState(false);
+
+    const refreshPage = () => {
+        window.location.reload();
+        console.log("refresh")
+    };
+
     const submit = async(data)=>{
 
+        let formData = new FormData();
+
+        formData.append("salutation",data.salutation);
+        formData.append("title",data.title);
+        formData.append("firstname",data.firstname);
+        formData.append("lastname",data.lastname);
+        formData.append("email",data.email);
+        formData.append("company",data.company);
+        formData.append("phone",data.phone);
+        formData.append("address",data.address);
+        formData.append("address2",data.address2);
+        formData.append("city",data.city);
+        formData.append("zipcode",data.zipcode);
+        formData.append("clientId",clientId);
+
+        try {
+            await dispatch(CreateContact(formData));
+            setShowAddModal(true);
+        }
+        catch (error) {
+            console.error('Operation failed:', error);
+        }
+
     }
+
+
     return(
-        <div className="AddLeadPage">
+        <div className="AddContactPage">
             <div className="container mt-5">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col-xl-10">
                         <div className="card rounded-3 text-black">
                             <div className="row g-0">
 
-                                <div className="card-body p-md-5 mx-md-4">
+                                <AddContactSuccessModal show={showAddModal} onClose={() => {
+                                    setShowAddModal(false);
+                                    refreshPage();
+                                }} clientId={clientId}
+                                />
 
+                                <div className="card-body p-md-5 mx-md-4">
 
                                     <div className="homepage-titles creatAccountTitle">
                                         <h4 className="mt-1 mb-5 pb-1">Create a contact </h4>
@@ -38,15 +82,13 @@ const AddContactsForm = () => {
                                             </div>
 
                                             <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">Status :</label>
-                                                <select className="form-select" {...register("status")}>
-                                                    <option value="NEW">New</option>
-                                                    <option value="CONTACTED">Contacted</option>
-                                                    <option value="QUALIFIED">Qualified</option>
-                                                    <option value="UNQUALIFIED">Unqualified</option>
-                                                    <option value="CONVERTED">Converted</option>
-                                                </select>
-
+                                                <label className="form-label" htmlFor="form2Example11">Title :</label>
+                                                <input type="text" id="form2Example11" className="form-control"
+                                                       placeholder="Title" {...register("title", {required: true})}/>
+                                                {(errors.title?.type) &&
+                                                    <div className="alert alert-danger" role="alert">
+                                                        first name is required
+                                                    </div>}
                                             </div>
                                         </div>
 
@@ -93,19 +135,6 @@ const AddContactsForm = () => {
                                             </div>
 
                                             <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">Company :</label>
-                                                <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="Company" {...register("company", {required: true})}/>
-                                                {(errors.company?.type) &&
-                                                    <div className="alert alert-danger" role="alert">
-                                                        Company is required
-                                                    </div>}
-                                            </div>
-
-                                        </div>
-
-                                        <div className="formUnit d-flex justify-content-between">
-                                            <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Phone number</label>
                                                 <input  type="number" id="form2Example11" className="form-control"
                                                         placeholder="12345678" {...register("phone", { required: true, minLength: 8, maxLength:8 })}/>
@@ -120,11 +149,25 @@ const AddContactsForm = () => {
                                                 </div>}
                                             </div>
 
+                                        </div>
+
+                                        <div className="formUnit d-flex justify-content-between">
+
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Address :</label>
                                                 <input type="text" id="form2Example11" className="form-control"
                                                        placeholder="Address" {...register("address", {required: true})}/>
                                                 {(errors.address?.type) &&
+                                                    <div className="alert alert-danger" role="alert">
+                                                        Address is required
+                                                    </div>}
+                                            </div>
+
+                                            <div className="form-outline col-5 mb-4">
+                                                <label className="form-label" htmlFor="form2Example11">Second address :</label>
+                                                <input type="text" id="form2Example11" className="form-control"
+                                                       placeholder="Second address" {...register("address2", {required: true})}/>
+                                                {(errors.address2?.type) &&
                                                     <div className="alert alert-danger" role="alert">
                                                         Address is required
                                                     </div>}
@@ -155,59 +198,14 @@ const AddContactsForm = () => {
                                         </div>
 
 
-
-                                        <div className="formUnit d-flex justify-content-between">
-
-                                            <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">Source :</label>
-                                                <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="Source" {...register("source", {required: true})}/>
-                                                {(errors.source?.type) &&
-                                                    <div className="alert alert-danger" role="alert">
-                                                        Source is required
-                                                    </div>}
-                                            </div>
-
-                                            <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">Number of Employees :</label>
-                                                <input type="number" id="form2Example11" className="form-control"
-                                                       placeholder="200" {...register("employeenumber", {required: true})}/>
-                                                {errors.employeenumber?.type === "required" && <div className="alert alert-danger" role="alert">
-                                                    The number of employees is required
-                                                </div>}
-
-                                            </div>
-
-                                        </div>
-
-                                        <div className="formUnit d-flex justify-content-between">
-
-                                            <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">Industry :</label>
-                                                <input type="text" id="form2Example11" className="form-control"
-                                                       placeholder="industry" {...register("industry", {required: true})}/>
-                                                {(errors.industry?.type) &&
-                                                    <div className="alert alert-danger" role="alert">
-                                                        Industry is required
-                                                    </div>}
-                                            </div>
-
-                                            <div className="form-outline col-5 mb-4">
-                                                <label className="form-label" htmlFor="form2Example11">Annual revenue :</label>
-                                                <input type="number" id="form2Example11" className="form-control"
-                                                       placeholder="200" {...register("annualrevenue", {required: true})}/>
-                                                {errors.annualrevenue?.type === "required" && <div className="alert alert-danger" role="alert">
-                                                    The annual revenue is required
-                                                </div>}
-
-                                            </div>
-
-                                        </div>
-
-                                        <div className="d-flex justify-content-around pt-1 mb-5 pb-1">
+                                        <div className="d-flex justify-content-around pt-1 mb-5 mt-5 pb-1">
                                             <button
                                                 className="btn btn-primary btn-block fa-lg gradient-custom-1 mb-3"
                                                 type="submit">Create contact
+                                            </button>
+
+                                            <button className="btn btn-danger btn-block fa-lg gradient-custom-1 mb-3"
+                                                    onClick={() => navigate(`/home/contact/listContacts/${clientId}`)}>Return to contacts
                                             </button>
 
                                         </div>

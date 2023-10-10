@@ -5,10 +5,12 @@ import React, {useEffect, useRef, useState} from "react";
 import {ListGroupsByAdmin} from "../../../redux/actions/GroupsActions";
 import {CreateClient} from "../../../redux/actions/ClientsActions";
 import AddClientSuccessModal from "../modals/client/AddClientSuccessModal";
+import {useNavigate} from "react-router";
 
 const AddClientsForm = () => {
     const {register, handleSubmit, formState:{errors}}= useForm();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const dataUser = JSON.parse(localStorage.getItem('user'));
     const groups = useSelector(state=>state.Group.ListGroups);
 
@@ -26,7 +28,6 @@ const AddClientsForm = () => {
     const [showAddModal, setShowAddModal] = useState(false);
 
     const refreshPage = () => {
-        // navigate(location.pathname, { state: { refresh: true } });
         window.location.reload();
         console.log("refresh")
     };
@@ -274,10 +275,15 @@ const AddClientsForm = () => {
 
                                         </div>
 
-                                        <div className="d-flex justify-content-around pt-1 mb-5 pb-1">
+                                        <div className="d-flex justify-content-around pt-1 mb-5 mt-5 pb-1">
                                             <button
                                                 className="btn btn-primary btn-block fa-lg gradient-custom-1 mb-3"
                                                 type="submit">Create client
+                                            </button>
+
+                                            <button
+                                                className="btn btn-danger btn-block fa-lg gradient-custom-1 mb-3"
+                                                onClick={() => navigate(`/home/client`)}>Back to list
                                             </button>
 
                                         </div>

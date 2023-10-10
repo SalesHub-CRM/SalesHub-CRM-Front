@@ -120,6 +120,7 @@ const TaskDetails = () => {
 
                 <div className="d-flex justify-content-around mt-5 mb-5">
                     <button className="btn btn-info" onClick={() => navigate(`/home/task/editTask/${Task.id}`)}>Edit this task</button>
+                    <button className="btn btn-danger" onClick={() => navigate(`/home/task`)}>Back to list</button>
                 </div>
 
 

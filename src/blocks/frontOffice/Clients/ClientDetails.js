@@ -87,14 +87,14 @@ const ClientDetails = () => {
 
                         </div>
 
-
                     </div>
 
                 </div>
 
                 <div className="d-flex justify-content-around mt-5 mb-5">
                     <button className="btn btn-info" onClick={() => navigate(`/home/client/editClient/${Client.id}`)}>Edit this client</button>
-                    <button className="btn btn-info" onClick={() => navigate(`/home/client/editClient/${Client.id}`)}>Add contacts</button>
+                    <button className="btn btn-info" onClick={() => navigate(`/home/contact/listContacts/${Client.id}`)}>Display contacts</button>
+                    <button className="btn btn-info" onClick={() => navigate(`/home/contact/addContact/${Client.id}`)}>Add contacts</button>
                 </div>
 
 

@@ -106,6 +106,7 @@ export const ListEmployees = (groupId) => dispatch => {
 export const fetchEmployee = (empId)=>dispatch=>{
     axios.get("http://localhost:8081/auth/getUser/"+empId,{withCredentials:true})
         .then(result=>{
+            console.log("emp action", result.data)
             dispatch({
                 type:GET_EMPLOYEE,
                 payload:result.data

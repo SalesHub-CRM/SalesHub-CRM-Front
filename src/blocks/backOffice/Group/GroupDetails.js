@@ -56,11 +56,11 @@ const GroupDetails = () => {
                                         </div>
 
                                         <div>
-                                            <p>Name : {group.name}</p>
-                                            <p>Created at : {createdFormat.toLocaleDateString("en-GB")}</p>
-                                            <p>Updated at : {updatedFormat.toLocaleDateString("en-GB")}</p>
-                                            <p>Number of employees : {group.employees.length}</p>
-                                            <p>Total number of clients : {group.clients.length}</p>
+                                            <p><span style={{fontWeight:"bold"}}>Name :</span>  {group.name}</p>
+                                            <p><span style={{fontWeight:"bold"}}>Created at :</span> {createdFormat.toLocaleDateString("en-GB")}</p>
+                                            <p><span style={{fontWeight:"bold"}}>Updated at :</span> {updatedFormat.toLocaleDateString("en-GB")}</p>
+                                            <p><span style={{fontWeight:"bold"}}>Number of employees :</span> {group.employees.length}</p>
+                                            <p><span style={{fontWeight:"bold"}}>Total number of clients :</span> {group.clients.length}</p>
 
                                         </div>
 
@@ -69,6 +69,7 @@ const GroupDetails = () => {
                                 </div>
                                 <div className="d-flex justify-content-around mt-5 mb-5">
                                     <button className="btn btn-info" onClick={() => navigate(`/Dashboard/editGroup/${group.id}`)}>Edit this group</button>
+                                    <button className="btn btn-danger" onClick={() => navigate(`/Dashboard/listGroups`)}>Back to list</button>
                                 </div>
                             </div>
                         </div>

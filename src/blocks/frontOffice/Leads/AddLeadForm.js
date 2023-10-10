@@ -6,10 +6,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {CreateLead} from "../../../redux/actions/LeadsActions";
 import AddLeadSuccessModal from "../modals/lead/AddLeadSuccessModal";
 import {ListGroupsByAdmin} from "../../../redux/actions/GroupsActions";
+import {useNavigate} from "react-router";
 
 const AddLeadForm = () => {
     const {register, handleSubmit, formState:{errors}}= useForm();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const dataUser = JSON.parse(localStorage.getItem('user'));
     const groups = useSelector(state=>state.Group.ListGroups);
 
@@ -311,11 +313,13 @@ const AddLeadForm = () => {
 
 
 
-                                        <div className="d-flex justify-content-around pt-1 mb-5 pb-1">
+                                        <div className="d-flex justify-content-around pt-1 mb-5 mt-5 pb-1">
                                             <button
                                                 className="btn btn-primary btn-block fa-lg gradient-custom-1 mb-3"
                                                 type="submit">Create lead
                                             </button>
+
+                                            <button className="btn btn-danger btn-block fa-lg gradient-custom-1 mb-3" onClick={() => navigate(`/home/lead`)}>Back to list</button>
 
                                         </div>
 

@@ -10,6 +10,7 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TablePagination from "@mui/material/TablePagination";
 import {useNavigate} from "react-router";
+import {Link} from "react-router-dom";
 
 const DisplayClients = () => {
 
@@ -89,6 +90,7 @@ const DisplayClients = () => {
             <div className="container mt-5 mb-5 text-center">
                 <h1 className="mt-5 mb-5">This View is reserved for employees.</h1>
                 <h2 className="mt-5 mb-5">Please refer to your dashboard for a more in depth display</h2>
+                <h3 className="mt-5 mb-5">Or you can click <Link to="/Dashboard/listClients">here</Link></h3>
             </div>
         );
     }

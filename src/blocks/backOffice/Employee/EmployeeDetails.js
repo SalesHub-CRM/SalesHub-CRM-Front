@@ -9,20 +9,20 @@ const EmployeeDetails = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {empId} = useParams();
-    const employee = useSelector(state => state.Auth.getEmployeeById)
-
-    const bdaydformat = new Date(employee.birthdate);
-    const createdformat = new Date(employee.createdat);
-    const updatedfrmat = new Date(employee.updatedat);
+    const employee = useSelector((state) => state.Auth.getEmployeeById)
 
 
     useEffect(()=>{
         dispatch(fetchEmployee(empId));
     },[dispatch,empId])
 
+    const bdaydformat = new Date(employee.birthdate);
+    const createdformat = new Date(employee.createdat);
+    const updatedfrmat = new Date(employee.updatedat);
+
     console.log("employee",employee)
 
-    if (Object.keys(employee).length===0)
+    if (!employee || Object.keys(employee).length===0)
     {
         return (
 
@@ -91,6 +91,10 @@ const EmployeeDetails = () => {
                                                 </div>
                                             </div>
 
+                                        </div>
+
+                                        <div className="d-flex justify-content-around mt-5">
+                                            <button className="btn btn-danger" onClick={() => navigate(`/Dashboard/listEmployees`)}>Back to list</button>
                                         </div>
 
                                     </div>

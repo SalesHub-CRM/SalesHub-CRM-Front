@@ -15,6 +15,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {setConnected} from "../../redux/actions/AuthenticationActions";
 import ListClientsAdmin from "../../blocks/backOffice/Clients/ListClientsAdmin";
 import ClientDetailsAdmin from "../../blocks/backOffice/Clients/ClientDetailsAdmin";
+import DisplayContactsAdmin from "../../blocks/backOffice/Contacts/DisplayContactsAdmin";
+import AddContactAdmin from "../../blocks/backOffice/Contacts/AddContactAdmin";
+import EditContactAdmin from "../../blocks/backOffice/Contacts/EditContactAdmin";
+import ContactDetailsAdmin from "../../blocks/backOffice/Contacts/ContactDetailsAdmin";
 
 
 
@@ -62,6 +66,12 @@ const Dashboard = () => {
                     {/*client routes*/}
                     <Route path='/listClients' element={<ListClientsAdmin/>}/>
                     <Route path='/ClientDetails/:clientId' element={<ClientDetailsAdmin/>}/>
+                    {/*contact routes*/}
+                    <Route path='/listContacts/:clientId' element={<DisplayContactsAdmin/>}/>
+                    <Route path='/AddContactAdmin/:clientId' element={<AddContactAdmin/>}/>
+                    <Route path='/ContactDetailsAdmin/:clientId/:contactId' element={<ContactDetailsAdmin/>}/>
+                    <Route path='/EditContactAdmin/:clientId/:contactId' element={<EditContactAdmin/>}/>
+
 
                 </Routes>
             </div>

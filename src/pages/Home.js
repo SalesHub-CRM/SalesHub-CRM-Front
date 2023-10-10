@@ -51,7 +51,7 @@ const Home=()=>{
                 <Link className="btn btn-light" to="/home/lead">Leads</Link>
                 <Link className="btn btn-light" to="/home/task">Tasks</Link>
                 <Link className="btn btn-light" to="/home/client">Clients</Link>
-                <Link className="btn btn-light" to="/home/contact">Contacts</Link>
+                {/*<Link className="btn btn-light" to="/home/contact">Contacts</Link>*/}
                 <Link className="btn btn-light" to="/home/case">Cases</Link>
                 <Link className="btn btn-light" to="/home/product">Products</Link>
                 <Link className="btn btn-light" to="/home/opportunity">Opportunities</Link>

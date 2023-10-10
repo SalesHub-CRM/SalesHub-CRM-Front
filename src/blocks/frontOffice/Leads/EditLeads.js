@@ -79,7 +79,7 @@ const EditLeads = () => {
                                         <div className="formUnit d-flex justify-content-between">
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Salutation :</label>
-                                                <select className="form-select" {...register("salutation")}>
+                                                <select className="form-select" {...register("salutation")} defaultValue={Lead.salutation}>
                                                     <option value="mr">Mr</option>
                                                     <option value="ms">Ms</option>
                                                 </select>
@@ -88,7 +88,7 @@ const EditLeads = () => {
 
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form2Example11">Status :</label>
-                                                <select className="form-select" {...register("status")}>
+                                                <select className="form-select" {...register("status")} defaultValue={Lead.status}>
                                                     <option value="NEW">New</option>
                                                     <option value="CONTACTED">Contacted</option>
                                                     <option value="QUALIFIED">Qualified</option>
@@ -273,11 +273,13 @@ const EditLeads = () => {
 
 
 
-                                        <div className="d-flex justify-content-around pt-1 mb-5 pb-1">
+                                        <div className="d-flex justify-content-around pt-1 mb-5 mt-5 pb-1">
                                             <button
                                                 className="btn btn-primary btn-block fa-lg gradient-custom-1 mb-3"
                                                 type="submit">Update lead
                                             </button>
+
+                                            <button className="btn btn-danger btn-block fa-lg gradient-custom-1 mb-3" onClick={() => navigate(`/home/lead/leadDetails/${Lead.id}`)}>Back to details</button>
 
                                         </div>
 

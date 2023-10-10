@@ -110,8 +110,9 @@ const ClientDetailsAdmin = () => {
 
 
                                         <div className="d-flex justify-content-around mt-5 mb-5">
-                                            <button className="btn btn-info" onClick={() => navigate(`/home/client/editClient/${Client.id}`)}>View contact list</button>
-                                            <button className="btn btn-info" onClick={() => navigate(`/home/client/editClient/${Client.id}`)}>Add contacts</button>
+                                            <button className="btn btn-info" onClick={() => navigate(`/Dashboard/listContacts/${Client.id}`)}>View contact list</button>
+                                            <button className="btn btn-danger" onClick={() => navigate(`/Dashboard/listClients`)}>Back to client list</button>
+                                            <button className="btn btn-info" onClick={() => navigate(`/Dashboard/AddContactAdmin/${Client.id}`)}>Add contacts</button>
                                         </div>
 
                                     </div>

@@ -1,15 +1,21 @@
 
 const initialState={
     createContact:{},
+    updateContact:{},
     getContactById:{},
     ListContacts:{},
+    ListContactsByGroup:[],
+    ListContactsByClient:[],
     DeleteContacts:{},
     errors:{},
 }
 
 export const CREATE_CONTACT="CREATECONTACT";
+export const UPDATE_CONTACT="UPDATECONTACT";
 export const GET_CONTACT="GETCONTACT";
 export const LIST_CONTACT="LISTCONTACT";
+export const LIST_CONTACT_BY_GROUP="LISTCONTACTBYGROUP";
+export const LIST_CONTACT_BY_CLIENT="LISTCONTACTBYCLIENT";
 export const DELETE_CONTACT="DELETECONTACT";
 export const ERROR = "ERROR";
 
@@ -21,6 +27,14 @@ export default function (state = initialState,action){
 
             return {
                 createContact:"contact created"
+            }
+
+
+        case UPDATE_CONTACT:
+            return {
+                ...state,
+                isEditedSuccess:true,
+                updateContact: action.payload
             }
 
 
@@ -39,9 +53,25 @@ export default function (state = initialState,action){
             }
 
 
-        case DELETE_CONTACT:
+        case LIST_CONTACT_BY_GROUP:
             return{
-                DeleteContacts:"contact deleted"
+                ...state,
+                ListContactsByGroup:action.payload
+            }
+
+
+        case LIST_CONTACT_BY_CLIENT:
+            return{
+                ...state,
+                ListContactsByClient:action.payload
+            }
+
+
+        case DELETE_CONTACT:
+            const contactId=action.payload
+            return{
+                ...state,
+                ListContactsByClient: state.ListContactsByClient.filter((contact)=>contact.id!==contactId)
             }
 
 

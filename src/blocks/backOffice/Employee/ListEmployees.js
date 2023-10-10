@@ -34,18 +34,24 @@ const ListEmployees = () => {
         console.log("groups",groups)
     },[]);
 
+    const [selectedGroupEmployeesLength, setSelectedGroupEmployeesLength] = useState(0);
+
 
     const handleGroupChange = (e) => {
         const groupId = e.target.value;
         setSelectedGroupId(groupId);
         // Filter employees for the selected group
         const selectedGroup = groups.find(group => group.id === parseInt(groupId));
+
         if (selectedGroup) {
             setSelectedGroupEmployees(selectedGroup.employees);
+            setSelectedGroupEmployeesLength(selectedGroup.employees.length);
         } else {
             setSelectedGroupEmployees([]);
+            setSelectedGroupEmployeesLength(0);
         }
     };
+
 
 
     //employee array config
@@ -196,7 +202,7 @@ const ListEmployees = () => {
                                          <TablePagination
                                              rowsPerPageOptions={[10, 25, 100]}
                                              component="div"
-                                             count={groups.length}
+                                             count={selectedGroupEmployeesLength}
                                              rowsPerPage={rowsPerPage}
                                              page={page}
                                              onPageChange={handleChangePage}

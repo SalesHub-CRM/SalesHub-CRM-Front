@@ -88,6 +88,7 @@ const LeadDetails = () => {
 
                 <div className="d-flex justify-content-around mt-5 mb-5">
                     <button className="btn btn-info" onClick={() => navigate(`/home/lead/editlead/${Lead.id}`)}>Edit this Lead</button>
+                    <button className="btn btn-danger" onClick={() => navigate(`/home/lead`)}>Back to list</button>
                 </div>
 
 

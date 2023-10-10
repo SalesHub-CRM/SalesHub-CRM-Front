@@ -1,4 +1,4 @@
-.addLead-success-modal .modalBackground {
+.editContact-success-modal .modalBackground {
     z-index: 999;
     /*background-color: rgba(200, 200, 200);*/
     position: fixed;
@@ -7,12 +7,12 @@
     align-items: center;
 }
 
-.addLead-success-modal .modalContainers {
+.editContact-success-modal .modalContainers {
     width: 500px;
     height: 500px;
     width: 50vw;
     height: 60vh;
-    margin-top: -40%;
+    margin-top: -20%;
     margin-right: -40%;
     border-radius: 12px;
     background-color: white;
@@ -22,25 +22,25 @@
     padding: 40px;
 }
 
-.addLead-success-modal .modalContainers .modalTitle {
+.editContact-success-modal .modalContainers .modalTitle {
     display: inline-block;
     text-align: center;
     margin-top: 10px;
 }
 
-.addLead-success-modal .titleCloseBtn {
+.editContact-success-modal .titleCloseBtn {
     display: flex;
     justify-content: flex-end;
 }
 
-.addLead-success-modal .titleCloseBtn button {
+.editContact-success-modal .titleCloseBtn button {
     background-color: transparent;
     border: none;
     font-size: 25px;
     cursor: pointer;
 }
 
-.addLead-success-modal .modalContainers .modalBody {
+.editContact-success-modal .modalContainers .modalBody {
     flex: 50%;
     display: flex;
     justify-content: center;
@@ -49,14 +49,14 @@
     text-align: center;
 }
 
-.addLead-success-modal .modalContainers .modalFooter {
+.editContact-success-modal .modalContainers .modalFooter {
     flex: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.addLead-success-modal .modalContainers .modalFooter button {
+.editContact-success-modal .modalContainers .modalFooter button {
     width: 150px;
     height: 45px;
     margin: 10px;
@@ -72,6 +72,6 @@
     background-color: crimson;
 }
 
-.addLead-success-modal {
+.editContact-success-modal {
     z-index: 9999;
 }

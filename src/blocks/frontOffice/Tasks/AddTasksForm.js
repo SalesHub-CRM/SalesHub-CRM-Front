@@ -4,10 +4,12 @@ import React, {useEffect, useRef, useState} from "react";
 import {GetGroupById, ListGroupsByAdmin} from "../../../redux/actions/GroupsActions";
 import {CreateTask} from "../../../redux/actions/TasksActions";
 import AddTaskSuccessModal from "../modals/task/AddTaskSuccessModal";
+import {useNavigate} from "react-router";
 
 const AddTasksForm = () => {
     const {register, handleSubmit, formState:{errors}}= useForm();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     const dataUser = JSON.parse(localStorage.getItem('user'));
     const groups = useSelector(state=>state.Group.ListGroups);
@@ -310,6 +312,11 @@ const AddTasksForm = () => {
                                                 <button
                                                     className="btn btn-primary btn-block fa-lg gradient-custom-1 mb-3"
                                                     type="submit">Create task
+                                                </button>
+
+                                                <button
+                                                    className="btn btn-danger btn-block fa-lg gradient-custom-1 mb-3"
+                                                    onClick={() => navigate(`/home/task`)}>Back to list
                                                 </button>
 
                                             </div>
