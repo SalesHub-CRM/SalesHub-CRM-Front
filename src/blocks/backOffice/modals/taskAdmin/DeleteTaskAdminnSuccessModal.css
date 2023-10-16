@@ -1,0 +1,76 @@
+.deleteTaskAdmin-success-modal .modalBackground {
+    z-index: 999;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deleteTaskAdmin-success-modal .modalContainers {
+    width: 500px;
+    height: 500px;
+    width: 40vw;
+    height: 70vh;
+    margin-top: -5%;
+    margin-right: -40%;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 30px 60px;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+}
+
+.deleteTaskAdmin-success-modal .modalContainers .modalTitle {
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.deleteTaskAdmin-success-modal .titleCloseBtn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.deleteTaskAdmin-success-modal .titleCloseBtn button {
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.deleteTaskAdmin-success-modal .modalContainers .modalBody {
+    flex: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7rem;
+    text-align: center;
+}
+
+.deleteTaskAdmin-success-modal .modalContainers .modalFooter {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deleteTaskAdmin-success-modal .modalContainers .modalFooter button {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#cancelBtn {
+    background-color: crimson;
+}
+
+.deleteTaskAdmin-success-modal {
+    z-index: 9999;
+}

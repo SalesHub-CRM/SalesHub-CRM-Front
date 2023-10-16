@@ -3,6 +3,8 @@ import "./SideBar.css";
 import {Home, Timeline, Person, Store} from '@mui/icons-material';
 import GroupsIcon from '@mui/icons-material/Groups';
 import BusinessIcon from '@mui/icons-material/Business';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import SearchIcon from '@mui/icons-material/Search';
 import HailIcon from '@mui/icons-material/Hail';
 import {Link} from "react-router-dom";
@@ -57,8 +59,26 @@ const SideBar = () => {
                             </ul>
                         </li>
 
-                        <li className="sidebarItem"> <BusinessIcon className="sidebarIcon"/> <Link to="/Dashboard/listClients">My clients</Link></li>
+                        <li className="sidebarItem"> <BusinessIcon className="sidebarIcon"/> <Link to="/Dashboard/listClients">Manage Clients</Link></li>
 
+                        <li className="sidebarItem mt-2"> <GroupAddIcon className="sidebarIcon"/> <Link to="/Dashboard/listLeads">Manage Leads</Link></li>
+
+                        <li className="sidebarItem dropdown">
+                            <FormatListBulletedIcon />
+                            <button
+                                className="sidebarIcon btn btn-link dropdown-toggle"
+                                type="button"
+                                id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                Manage Tasks
+                            </button>
+                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><Link className="dropdown-item" to="/Dashboard/listTasks">Check tasks list</Link></li>
+                                <li><Link className="dropdown-item" to="/Dashboard/AddTaskAdmin">Add a new task</Link></li>
+                            </ul>
+                        </li>
 
                     </ul>
                 </div>

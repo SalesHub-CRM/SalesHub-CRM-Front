@@ -2,6 +2,9 @@ import {useState} from "react";
 import DisplayCases from "../../blocks/frontOffice/Cases/DisplayCases";
 import AddCasesForm from "../../blocks/frontOffice/Cases/AddCasesForm";
 import '../../blocks/frontOffice/Cases/cases.css';
+import {Link, Route, Routes} from "react-router-dom";
+import CaseDetails from "../../blocks/frontOffice/Cases/CaseDetails";
+import EditCases from "../../blocks/frontOffice/Cases/EditCases";
 
 const Casespage = () => {
     const [show, setShow] = useState(0)
@@ -14,16 +17,23 @@ const Casespage = () => {
                 </div>
 
                 <div>
-                    <button className="btn btn-light" onClick={() => setShow(0)}>show list</button>
-                    <button className="btn btn-light" onClick={() => setShow(1)}>Add case</button>
+                    <Link className="btn btn-light" to="/home/case">show list</Link>
+                    <Link className="btn btn-light" to="/home/case/addCase">Add case</Link>
                 </div>
-            </div>
 
+            </div>
 
             <div className="casesMainPage">
-                {show===0 && <DisplayCases/>}
-                {show===1 && <AddCasesForm/>}
+                <Routes>
+                    <Route path="/" element={<DisplayCases/>}/>
+                    <Route path="/addCase" element={<AddCasesForm/>}/>
+                    <Route path="/caseDetails/:caseId" element={<CaseDetails/>}/>
+                    <Route path="/editCase/:caseId/:clientId" element={<EditCases/>}/>
+                </Routes>
             </div>
+
+
+
         </div>
     )
 }

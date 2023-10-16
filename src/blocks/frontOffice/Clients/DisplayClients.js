@@ -102,7 +102,6 @@ const DisplayClients = () => {
     {
 
         if (isLoading) {
-            // Handle the case where Leads is not an array yet
             return (
                 <div>
                     <h1>Loading...</h1>
@@ -111,7 +110,6 @@ const DisplayClients = () => {
         }
 
         else if ((!dataUser?.roles.includes("ROLE_ADMIN") && !Clients.length)) {
-            // Handle the case where Leads is an empty array
             return (
                 <div>
                     <h1>There are currently no leads available</h1>

@@ -16,9 +16,6 @@ const EmployeeDetails = () => {
         dispatch(fetchEmployee(empId));
     },[dispatch,empId])
 
-    const bdaydformat = new Date(employee.birthdate);
-    const createdformat = new Date(employee.createdat);
-    const updatedfrmat = new Date(employee.updatedat);
 
     console.log("employee",employee)
 
@@ -42,6 +39,9 @@ const EmployeeDetails = () => {
     }
 
     else {
+        const bdaydformat = new Date(employee.birthdate);
+        const createdformat = new Date(employee.createdat);
+        const updatedfrmat = new Date(employee.updatedat);
         return(
             <div className="DashboardHome">
                 <div className="container mt-5">

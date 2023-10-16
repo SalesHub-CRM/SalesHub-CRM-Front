@@ -17,12 +17,30 @@ const Login = () => {
     }
 
 
-    useEffect(()=>{
+    /*useEffect(()=>{
 
         AuthState.isConnected && localStorage.setItem('authTokens',JSON.stringify(AuthState.tokens))
         AuthState.isConnected && localStorage.setItem('user',JSON.stringify(AuthState.user))
         localStorage.getItem('authTokens') && navigate('/home');
-    },[AuthState.isConnected])
+    },[AuthState.isConnected])*/
+
+
+    useEffect(() => {
+        if (AuthState.isConnected) {
+            localStorage.setItem("authTokens", JSON.stringify(AuthState.tokens));
+            localStorage.setItem("user", JSON.stringify(AuthState.user));
+
+            if (AuthState.user && AuthState.user.roles) {
+                if (AuthState.user.roles.includes("ROLE_ADMIN")) {
+                    navigate("/Dashboard");
+                } else {
+                    navigate("/home");
+                }
+            }
+        }
+    }, [AuthState.isConnected]);
+
+
 
   return(
 

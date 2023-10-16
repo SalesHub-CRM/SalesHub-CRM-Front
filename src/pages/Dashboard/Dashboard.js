@@ -19,6 +19,13 @@ import DisplayContactsAdmin from "../../blocks/backOffice/Contacts/DisplayContac
 import AddContactAdmin from "../../blocks/backOffice/Contacts/AddContactAdmin";
 import EditContactAdmin from "../../blocks/backOffice/Contacts/EditContactAdmin";
 import ContactDetailsAdmin from "../../blocks/backOffice/Contacts/ContactDetailsAdmin";
+import {ListLeadsByAdmin} from "../../redux/actions/LeadsActions";
+import ListLeadsAdmin from "../../blocks/backOffice/Leads/ListLeadsAdmin";
+import LeadDetailsAdmin from "../../blocks/backOffice/Leads/LeadDetailsAdmin";
+import ListTasksAdmin from "../../blocks/backOffice/Tasks/ListTasksAdmin";
+import TaskDetailsAdmin from "../../blocks/backOffice/Tasks/TaskDetailsAdmin";
+import AddTaskAdmin from "../../blocks/backOffice/Tasks/AddTaskAdmin";
+import EditTaskAdmin from "../../blocks/backOffice/Tasks/EditTaskAdmin";
 
 
 
@@ -42,6 +49,15 @@ const Dashboard = () => {
             dispatch(setConnected(token,user));
         }
     },[AuthState.isConnected,dispatch, navigate])
+
+
+    //this useEffect will block normal users from accessing the dashboard
+
+    useEffect(() => {
+        if (AuthState.user && AuthState.user.roles && !AuthState.user.roles.includes("ROLE_ADMIN")) {
+            navigate("/home");
+        }
+    }, [AuthState.user, navigate]);
 
 
     return(
@@ -71,6 +87,15 @@ const Dashboard = () => {
                     <Route path='/AddContactAdmin/:clientId' element={<AddContactAdmin/>}/>
                     <Route path='/ContactDetailsAdmin/:clientId/:contactId' element={<ContactDetailsAdmin/>}/>
                     <Route path='/EditContactAdmin/:clientId/:contactId' element={<EditContactAdmin/>}/>
+                    {/*lead routes*/}
+                    <Route path='/listLeads' element={<ListLeadsAdmin/>}/>
+                    <Route path='/leadDetailsAdmin/:leadId' element={<LeadDetailsAdmin/>}/>
+                    {/*task routes*/}
+                    <Route path='/listTasks' element={<ListTasksAdmin/>}/>
+                    <Route path='/AddTaskAdmin' element={<AddTaskAdmin/>}/>
+                    <Route path='/taskDetailsAdmin/:taskId' element={<TaskDetailsAdmin/>}/>
+                    <Route path='/editTaskAdmin/:taskId' element={<EditTaskAdmin/>}/>
+
 
 
                 </Routes>

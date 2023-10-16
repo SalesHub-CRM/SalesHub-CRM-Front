@@ -130,16 +130,8 @@ const AddTasksForm = () => {
     if(isLoading || (!Array.isArray(employeeGroup) && !employeeGroup))
     {
         return (
-            <div className="DashboardHome">
-                <div className="container mt-5">
-                    <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col-xl-10">
-                            <div>
-                                <h1>Loading....</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div>
+                <h1>Loading....</h1>
             </div>
         );
     }

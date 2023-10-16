@@ -40,6 +40,16 @@ const Home=()=>{
 
 
 
+    //this useEffect will make sure to redirect an admin to the dashboard
+
+    useEffect(() => {
+        if (AuthState.user && AuthState.user.roles && AuthState.user.roles.includes("ROLE_ADMIN")) {
+            navigate("/Dashboard");
+        }
+    }, [AuthState.user, navigate]);
+
+
+
     return(
 
         <div>

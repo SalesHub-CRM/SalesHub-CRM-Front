@@ -254,11 +254,15 @@ const EditClients = () => {
                                             </div>
                                         </div>
 
-                                        <div className="d-flex justify-content-around pt-1 mb-5 pb-1">
+                                        <div className="d-flex justify-content-around pt-1 mb-5 mt-5 pb-1">
                                             <button
                                                 className="btn btn-primary btn-block fa-lg gradient-custom-1 mb-3"
                                                 type="submit">Edit client
                                             </button>
+
+                                            <button className="btn btn-danger btn-block fa-lg gradient-custom-1 mb-3"
+                                                    onClick={() => navigate(`/home/client/clientDetails/${Client.id}`)}>
+                                                Back to details</button>
 
                                         </div>
 

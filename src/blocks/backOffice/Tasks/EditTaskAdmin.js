@@ -1,12 +1,15 @@
 import {useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
-import React, {useEffect, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router";
-import { GetTaskById, UpdateTask} from "../../../redux/actions/TasksActions";
-import {GetGroupById, ListGroupsByAdmin} from "../../../redux/actions/GroupsActions";
-import EditTaskSuccessModal from "../modals/task/EditTaskSuccessModal";
+import React, {useEffect, useRef, useState} from "react";
+import {GetTaskById, UpdateTask} from "../../../redux/actions/TasksActions";
+import {ListGroupsByAdmin} from "../../../redux/actions/GroupsActions";
+import EditTaskSuccessModal from "../../frontOffice/modals/task/EditTaskSuccessModal";
+import EditTaskSuccessAdminModal from "../modals/taskAdmin/EditTaskSuccessAdminModal";
 
-const EditTask = () => {
+
+const EditTaskAdmin = () => {
+
     const {register, handleSubmit, formState:{errors}}= useForm();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -14,18 +17,12 @@ const EditTask = () => {
     const Task = useSelector(state => state.Task.getTaskById);
     const [isLoading, setIsLoading] = useState(true);
     const dataUser = JSON.parse(localStorage.getItem('user'));
+    const groups = useSelector(state=>state.Group.ListGroups);
 
 
     useEffect(()=>{
         dispatch(GetTaskById(taskId));
     },[])
-
-    console.log("task",Task)
-
-
-    const groups = useSelector(state=>state.Group.ListGroups);
-    const employeeGroup = useSelector(state => state.Group.getGroupById);
-
 
     useEffect(()=>{
 
@@ -42,26 +39,6 @@ const EditTask = () => {
         }
 
     },[])
-
-
-    useEffect(()=>{
-
-        try {
-            if(!dataUser?.roles.includes("ROLE_ADMIN"))
-            {
-                dispatch(GetGroupById(dataUser.groupId));
-                setIsLoading(false);
-                console.log("useEffect employeeGroup",employeeGroup)
-            }
-        }
-        catch (error) {
-            console.error("Something went wrong:", error);
-            setIsLoading(false);
-        }
-
-
-    },[])
-
 
     const [selectedGroup, setSelectedGroup] = useState(null);
     const [selectedGroupObject, setSelectedGroupObject] = useState(null);
@@ -91,19 +68,14 @@ const EditTask = () => {
         }
     }, [selectedGroup, groups]);
 
-    console.log("selectedGroupObject",selectedGroupObject)
+
 
     //modal handling
-
     const [isEditSuccess, setIsEditSuccess] = useState(false);
-
     const handleModalClose = () => {
         setIsEditSuccess(false);
-        navigate(`/home/task/taskDetails/${Task.id}`);
-        console.log("Modal closed, isEditSuccess set to false");
+        navigate(`/Dashboard/taskDetailsAdmin/${Task.id}`);
     };
-
-
 
     const submit = async(data)=>{
 
@@ -114,19 +86,9 @@ const EditTask = () => {
         formData.append("status",data.status);
         formData.append("priority",data.priority);
         formData.append("employeeId",dataUser.id);
+        formData.append("groupId",selectedGroup);
+        formData.append("assignedto",data.assignedto);
 
-        if(!dataUser?.roles.includes("ROLE_ADMIN"))
-        {
-            formData.append("groupId",dataUser.groupId);
-            formData.append("assignedto",data.assignedto);
-            console.log(data.assignedto)
-        }
-
-        else{
-            console.log("selectedGroup",selectedGroup)
-            formData.append("groupId",selectedGroup);
-            formData.append("assignedto",data.assignedto);
-        }
 
         try {
             await dispatch(UpdateTask(formData,Task.id));
@@ -139,27 +101,34 @@ const EditTask = () => {
     }
 
 
-    if(isLoading || (!Array.isArray(employeeGroup) && !employeeGroup))
+    if(isLoading)
     {
         return (
-            <div>
-                <h1>Loading....</h1>
+            <div className="DashboardHome">
+                <div className="container mt-5">
+                    <div className="row d-flex justify-content-center align-items-center h-100">
+                        <div className="col-xl-10">
+                            <div>
+                                <h1>Loading....</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
 
     else {
         return (
-            <div className="AddTaskPage">
+            <div className="DashboardHome">
                 <div className="container mt-5">
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-xl-10">
                             <div className="card rounded-3 text-black">
                                 <div className="row g-0">
 
-                                    {/* Display the AddLeadSuccessModal component */}
-                                    <EditTaskSuccessModal show={ isEditSuccess} onClose={handleModalClose} taskId={Task.id}/>
-
+                                    <EditTaskSuccessAdminModal show={isEditSuccess} taskId={Task.id}
+                                                          onClose={handleModalClose}/>
 
                                     <div className="card-body p-md-5 mx-md-4">
 
@@ -188,7 +157,7 @@ const EditTask = () => {
                                                         :</label>
                                                     <input type="text" id="form2Example11" className="form-control"
                                                            placeholder="short commentary about the task" {...register("comment", {required: true})}
-                                                    defaultValue={Task.comment}/>
+                                                           defaultValue={Task.comment}/>
                                                     {(errors.comment?.type) &&
                                                         <div className="alert alert-danger" role="alert">
                                                             The commentary is required
@@ -233,35 +202,12 @@ const EditTask = () => {
                                                         :</label>
                                                     <input type="date" id="form3Example90"
                                                            className="form-control form-control-lg" {...register("duedate", {required: true})}
-                                                    defaultValue={Task.duedate ? new Date(Task.duedate).toISOString().substr(0, 10) : ''}/>
+                                                           defaultValue={Task.duedate ? new Date(Task.duedate).toISOString().substr(0, 10) : ''}/>
                                                     {errors.duedate?.type &&
                                                         <div className="alert alert-danger" role="alert">
                                                             Due date is required
                                                         </div>}
                                                 </div>
-
-                                                {!dataUser?.roles.includes("ROLE_ADMIN") ? (
-                                                    <div className="form-outline col-5 mb-5">
-                                                        <label className="form-label" htmlFor="form2Example11">Please
-                                                            choose the employee :</label>
-                                                        <select className="form-select" {...register("assignedto", {required: true})} defaultValue={Task.assignedto}>
-                                                            <option value="" disabled>Assign to an employee</option>
-
-                                                            {employeeGroup.employees && employeeGroup.employees.length > 0 && (
-                                                                employeeGroup?.employees.map(employee => (
-                                                                    <option key={employee.id} value={employee.id}>
-
-                                                                        {employee.firstname} {employee.lastname}
-                                                                    </option>
-                                                                ))
-                                                            )}
-                                                        </select>
-                                                        {errors.assignedto?.type &&
-                                                            <div className="alert alert-danger" role="alert">
-                                                                You need to assign an employee to this task
-                                                            </div>}
-                                                    </div>
-                                                ) : null}
 
                                             </div>
 
@@ -315,7 +261,7 @@ const EditTask = () => {
                                                     type="submit">Update task
                                                 </button>
 
-                                                <button className="btn btn-danger btn-block fa-lg gradient-custom-1 mb-3" onClick={() => navigate(`/home/task/taskDetails/${Task.id}`)}>Back to details</button>
+                                                <button className="btn btn-danger btn-block fa-lg gradient-custom-1 mb-3" onClick={() => navigate(`/Dashboard/taskDetailsAdmin/${Task.id}`)}>Back to details</button>
 
                                             </div>
 
@@ -332,6 +278,6 @@ const EditTask = () => {
         )
     }
 
-
 }
-export default EditTask;
+
+export default EditTaskAdmin;

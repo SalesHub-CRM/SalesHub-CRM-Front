@@ -205,7 +205,7 @@ const AddContactsForm = () => {
                                             </button>
 
                                             <button className="btn btn-danger btn-block fa-lg gradient-custom-1 mb-3"
-                                                    onClick={() => navigate(`/home/contact/listContacts/${clientId}`)}>Return to contacts
+                                                    onClick={() => navigate(`/home/client/clientDetails/${clientId}`)}>Return to client
                                             </button>
 
                                         </div>
