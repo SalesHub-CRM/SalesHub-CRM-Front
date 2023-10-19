@@ -91,10 +91,23 @@ const ClientDetails = () => {
 
                 </div>
 
-                <div className="d-flex justify-content-around mt-5 mb-5">
-                    <button className="btn btn-info" onClick={() => navigate(`/home/client/editClient/${Client.id}`)}>Edit this client</button>
-                    <button className="btn btn-info" onClick={() => navigate(`/home/contact/listContacts/${Client.id}`)}>Display contacts</button>
-                    <button className="btn btn-info" onClick={() => navigate(`/home/contact/addContact/${Client.id}`)}>Add contacts</button>
+                <div className="text-center mb-5 mt-5" style={{width:"70%",margin:"auto"}}>
+
+                    <h2 className="text-center">Actions</h2>
+
+                    <div className="d-flex justify-content-between mt-5 mb-5">
+                        <button style={{width:"20%"}} className="btn btn-primary" onClick={() => navigate(`/home/client/editClient/${Client.id}`)}>Edit this client</button>
+                        <button style={{width:"20%"}} className="btn btn-info" onClick={() => navigate(`/home/contact/listContacts/${Client.id}`)}>Display contacts</button>
+                        <button style={{width:"20%"}} className="btn btn-info" onClick={() => navigate(`/home/contact/addContact/${Client.id}`)}>Add contacts</button>
+                    </div>
+
+
+
+                    <div className="d-flex justify-content-between mt-5 mb-5">
+                        <button style={{width:"20%"}} className="btn btn-warning" onClick={() => navigate(`/home/opportunity/AddOpportunityClient/${Client.id}`)}>Add opportunity</button>
+                        <button style={{width:"20%"}} className="btn btn-warning" onClick={() => navigate(`/home/opportunity/OppByClient/${Client.id}`)}>Check opportunities</button>
+                        <button style={{width:"20%"}} className="btn btn-danger" onClick={() => navigate(`/home/client`)}>Back to clients list</button>
+                    </div>
                 </div>
 
 

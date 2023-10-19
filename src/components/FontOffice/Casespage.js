@@ -17,7 +17,7 @@ const Casespage = () => {
                 </div>
 
                 <div>
-                    <Link className="btn btn-light" to="/home/case">show list</Link>
+                    <Link className="btn btn-light" style={{marginRight:"30px"}} to="/home/case">show list</Link>
                     <Link className="btn btn-light" to="/home/case/addCase">Add case</Link>
                 </div>
 

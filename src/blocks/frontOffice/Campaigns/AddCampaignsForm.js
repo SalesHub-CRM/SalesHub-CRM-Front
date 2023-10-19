@@ -1,21 +1,80 @@
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
 import Footer from "../Footer";
-import React from "react";
+import React, {useState} from "react";
+import {useNavigate, useParams} from "react-router";
+import {CreateCampaign} from "../../../redux/actions/CampaignsActions";
+import AddCampaignSuccessModal from "../modals/campaign/AddCampaignSuccessModal";
 
 const AddCampaignsForm = () => {
-    const {register, handleSubmit, formState:{errors}}= useForm();
+    const {register, handleSubmit, formState:{errors},setError,clearErrors}= useForm();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {productId} = useParams();
+    const [showAddModal, setShowAddModal] = useState(false);
+
+    const validateDateOrder=(start,end)=>{
+        const startDate=new Date(start);
+        const endDate=new Date(end);
+        return startDate<endDate;
+    }
     const submit = async(data)=>{
+        const isDateValid=validateDateOrder(data.startdate,data.enddate);
+
+        if (!isDateValid){
+            setError("startdate",{
+                type:"manual",
+                message:"the start date must come before the end date !"
+            });
+            return;
+        }
+        clearErrors("startdate");
+
+        let formData = new FormData();
+
+        formData.append("name",data.name);
+        formData.append("description",data.description);
+        formData.append("startdate",data.startdate);
+        formData.append("enddate",data.enddate);
+        formData.append("employeenumber",data.employeenumber);
+        formData.append("expectedresponse",data.expectedresponse);
+        formData.append("budget",data.budget);
+        formData.append("actualcost",data.actualcost);
+        formData.append("expectedrevenue",data.expectedrevenue);
+        formData.append("type",data.type);
+        formData.append("status",data.status);
+        formData.append("productId",productId);
+
+        try {
+            await dispatch(CreateCampaign(formData));
+            setShowAddModal(true);
+        }
+        catch (error) {
+            console.error('Operation failed:', error);
+        }
 
     }
+
+    const refreshPage = () => {
+        window.location.reload();
+    };
+
+
     return(
-        <div className="AddLeadPage">
+        <div className="AddCampaignPage">
             <div className="container mt-5">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col-xl-10">
                         <div className="card rounded-3 text-black">
                             <div className="row g-0">
+
+
+                                <AddCampaignSuccessModal show={showAddModal} productId={productId} onClose={
+                                    ()=>{
+                                        setShowAddModal(false);
+                                        refreshPage()}
+                                }/>
+
 
                                 <div className="card-body p-md-5 mx-md-4">
 
@@ -54,21 +113,29 @@ const AddCampaignsForm = () => {
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form3Example90">Start date :</label>
                                                 <input type="date" id="form3Example90"
-                                                       className="form-control form-control-lg" {...register("startdate", {required: true})} />
+                                                       className={`form-control form-control-lg ${errors.startdate ? "is-invalid" : ""}`}
+                                                       {...register("startdate", {required: true})} />
                                                 {errors.startdate?.type &&
                                                     <div className="alert alert-danger" role="alert">
                                                         Start date is required
                                                     </div>}
+                                                {errors.startdate && !errors.startdate?.type && (
+                                                    <div className="alert alert-danger">{errors.startdate.message}</div>
+                                                )}
                                             </div>
 
                                             <div className="form-outline col-5 mb-4">
                                                 <label className="form-label" htmlFor="form3Example90">End date :</label>
                                                 <input type="date" id="form3Example90"
-                                                       className="form-control form-control-lg" {...register("enddate", {required: true})} />
+                                                       className={`form-control form-control-lg ${errors.enddate ? "is-invalid" : ""}`}
+                                                       {...register("enddate", {required: true})} />
                                                 {errors.enddate?.type &&
                                                     <div className="alert alert-danger" role="alert">
                                                         End date is required
                                                     </div>}
+                                                {errors.enddate && !errors.enddate?.type && (
+                                                    <div className="invalid-feedback">{errors.enddate.message}</div>
+                                                )}
                                             </div>
 
                                         </div>
@@ -164,10 +231,15 @@ const AddCampaignsForm = () => {
                                         </div>
 
 
-                                        <div className="d-flex justify-content-around pt-1 mb-5 pb-1">
+                                        <div className="d-flex justify-content-around pt-1 mb-5 mt-5 pb-1">
                                             <button
                                                 className="btn btn-primary btn-block fa-lg gradient-custom-1 mb-3"
                                                 type="submit">Create campaign
+                                            </button>
+
+                                            <button
+                                                className="btn btn-danger btn-block fa-lg gradient-custom-1 mb-3" onClick={() => navigate(`/home/product/productDetails/${productId}`)}>
+                                                Back to product details
                                             </button>
 
                                         </div>

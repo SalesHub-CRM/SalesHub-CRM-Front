@@ -17,7 +17,7 @@ const Taskspage = () => {
                 </div>
 
                 <div>
-                    <Link className="btn btn-light" to="/home/task">Show List</Link>
+                    <Link className="btn btn-light" style={{marginRight:"30px"}} to="/home/task">Show List</Link>
                     <Link className="btn btn-light" to="/home/task/addTask">Add Task</Link>
                 </div>
             </div>

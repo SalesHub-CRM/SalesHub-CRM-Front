@@ -61,11 +61,10 @@ const Home=()=>{
                 <Link className="btn btn-light" to="/home/lead">Leads</Link>
                 <Link className="btn btn-light" to="/home/task">Tasks</Link>
                 <Link className="btn btn-light" to="/home/client">Clients</Link>
-                {/*<Link className="btn btn-light" to="/home/contact">Contacts</Link>*/}
                 <Link className="btn btn-light" to="/home/case">Cases</Link>
                 <Link className="btn btn-light" to="/home/product">Products</Link>
-                <Link className="btn btn-light" to="/home/opportunity">Opportunities</Link>
-                <Link className="btn btn-light" to="/home/campaign">Campaigns</Link>
+                <Link className="btn btn-light" to="/home/opportunity">My Opportunities</Link>
+                <Link className="btn btn-light" to="/home/campaign">Our Campaigns</Link>
             </div>
 
             <hr style={{width:'60%', margin:'25px auto'}}/>

@@ -1,29 +1,24 @@
-import {useState} from "react";
-import DisplayCampaigns from "../../blocks/frontOffice/Campaigns/DisplayCampaigns";
-import AddCampaignsForm from "../../blocks/frontOffice/Campaigns/AddCampaignsForm";
 import '../../blocks/frontOffice/Campaigns/campaigns.css';
+import {Route, Routes} from "react-router-dom";
+import AddCampaignsForm from "../../blocks/frontOffice/Campaigns/AddCampaignsForm";
+import ListOurCampaigns from "../../blocks/frontOffice/Campaigns/ListOurCampaigns";
+import EditCampaigns from "../../blocks/frontOffice/Campaigns/EditCampaigns";
+import CampaignDetails from "../../blocks/frontOffice/Campaigns/CampaignDetails";
+import ListCampaignsByProduct from "../../blocks/frontOffice/Campaigns/ListCampaignsByProduct";
 
 const Campaignspage = () => {
 
-    const [show, setShow] = useState(0)
 
     return(
         <div>
-            <div className="d-flex justify-content-between campaignNav">
-                <div>
-                    <span>Manage campaigns</span>
-                </div>
-
-                <div>
-                    <button className="btn btn-light" onClick={() => setShow(0)}>show list</button>
-                    <button className="btn btn-light" onClick={() => setShow(1)}>Add campaign</button>
-                </div>
-            </div>
-
-
             <div className="campaignsMainPage">
-                {show===0 && <DisplayCampaigns/>}
-                {show===1 && <AddCampaignsForm/>}
+                <Routes>
+                    <Route path="/" element={<ListOurCampaigns/>}/>
+                    <Route path="/ListCampByProd/:productId" element={<ListCampaignsByProduct/>}/>
+                    <Route path="/AddCampaign/:productId" element={<AddCampaignsForm/>}/>
+                    <Route path="/CampaignDetails/:campaignId" element={<CampaignDetails/>}/>
+                    <Route path="/EditCampaign/:campaignId" element={<EditCampaigns/>}/>
+                </Routes>
             </div>
         </div>
     )

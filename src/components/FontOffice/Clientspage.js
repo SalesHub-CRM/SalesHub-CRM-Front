@@ -16,7 +16,7 @@ const Clientspage = () => {
                 </div>
 
                 <div>
-                    <Link className="btn btn-light" to="/home/client">Show List</Link>
+                    <Link className="btn btn-light" style={{marginRight:"30px"}} to="/home/client">Show List</Link>
                     <Link className="btn btn-light" to="/home/client/addClient">Add Client</Link>
                 </div>
             </div>

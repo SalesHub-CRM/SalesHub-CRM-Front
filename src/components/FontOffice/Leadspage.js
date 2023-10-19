@@ -20,7 +20,7 @@ const Leadspage = () => {
 
               <div>
 
-                  <Link className="btn btn-light" to="/home/lead">show list</Link>
+                  <Link className="btn btn-light" style={{marginRight:"30px"}} to="/home/lead">show list</Link>
                   <Link className="btn btn-light" to="/home/lead/addLead">Add lead</Link>
 
               </div>
