@@ -80,7 +80,7 @@ const DisplayProducts = () => {
     else {
         return (
             <div className="DisplayProductPage">
-                <h2>Current registered products :</h2>
+                <h3 className="text-center mb-5">Current registered products :</h3>
 
 
                 <Paper style={{ width: "100%", overflow: "hidden" }} className="mt-5 mb-5">

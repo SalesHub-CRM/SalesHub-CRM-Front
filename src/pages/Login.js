@@ -3,7 +3,7 @@ import {useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router";
 import {LoginAction} from "../redux/actions/AuthenticationActions";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
 const Login = () => {
@@ -12,6 +12,8 @@ const Login = () => {
     const dispatch = useDispatch();
     const AuthState = useSelector(state => state.Auth);
     const navigate=useNavigate();
+    const [verificationError,setVerificationError]=useState(false);
+    const [errorMessage,setErrorMessage]=useState("");
     const submit = async(data)=>{
         dispatch(LoginAction(data))
     }
@@ -30,11 +32,19 @@ const Login = () => {
             localStorage.setItem("authTokens", JSON.stringify(AuthState.tokens));
             localStorage.setItem("user", JSON.stringify(AuthState.user));
 
-            if (AuthState.user && AuthState.user.roles) {
-                if (AuthState.user.roles.includes("ROLE_ADMIN")) {
-                    navigate("/Dashboard");
-                } else {
-                    navigate("/home");
+            if(AuthState.user && AuthState.user.confirmaccount ===false)
+            {
+                setVerificationError(true);
+                setErrorMessage("This account has not been confirmed. Please check your inbox for the verification email!");
+            }
+
+            else{
+                if (AuthState.user && AuthState.user.roles) {
+                    if (AuthState.user.roles.includes("ROLE_ADMIN")) {
+                        navigate("/Dashboard");
+                    } else {
+                        navigate("/home");
+                    }
                 }
             }
         }
@@ -64,6 +74,12 @@ const Login = () => {
                                           <h4 className="mt-1 mb-5 pb-1">Login to your account </h4>
                                       </div>
                                   </div>
+
+                                  {verificationError && (
+                                      <div className="alert alert-danger">
+                                          {errorMessage}
+                                      </div>
+                                  )}
 
                                   <form onSubmit={handleSubmit(submit)}>
 

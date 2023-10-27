@@ -23,13 +23,7 @@ const NavbarMenu = () => {
     return(
         <div className="nav-menu NavbarMenu">
             <ul>
-                {!JSON.parse(localStorage.getItem('user')) && <li><Link to="/Login">Login</Link></li>}
-                {!JSON.parse(localStorage.getItem('user')) && <li><Link to="/Signup">Signup</Link></li>}
-                {
-                    dataUser?.roles[0] === 'ROLE_ADMIN' && <li><Link to="/Dashboard">Admin Interface</Link></li>
-                }
-
-                <li><a href="src/components/Home#">About Us</a></li>
+                <li><Link to="/home/tutorialEmp">Tutorial</Link></li>
                 {JSON.parse(localStorage.getItem('user')) && <li><Link to="/" onClick={logoutHandler}><PowerSettingsNewIcon/> Logout</Link></li>}
 
             </ul>

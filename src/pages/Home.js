@@ -16,6 +16,7 @@ import {setConnected} from "../redux/actions/AuthenticationActions";
 import {Link, Route, Routes} from "react-router-dom";
 import {CountsGroupsByAdmin} from "../redux/actions/GroupsActions";
 import Welcomepage from "../components/FontOffice/Welcomepage";
+import EmployeeTutorial from "../components/FontOffice/EmployeeTutorial";
 
 
 const Home=()=>{
@@ -79,6 +80,7 @@ const Home=()=>{
                 <Route path="/product/*" element={<Productspage/>}/>
                 <Route path="/opportunity/*" element={<Opportunitiespage/>}/>
                 <Route path="/campaign/*" element={<Campaignspage/>}/>
+                <Route path="/tutorialEmp" element={<EmployeeTutorial/>}/>
 
             </Routes>
 

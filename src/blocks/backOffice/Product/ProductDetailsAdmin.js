@@ -83,19 +83,26 @@ const ProductDetailsAdmin = () => {
                                         {/*other details*/}
 
                                         <h2 className="text-center">Additional information</h2>
+                                        <div className="d-flex mt-5 mb-5 justify-content-around">
+                                            {/*details about the product*/}
+                                            <div className=" mt-5">
+                                                <h4 className="text-center mb-4">Details</h4>
+                                                    <p><span className="detailsSpan">Price  :</span> {Product.price}</p>
+                                                    <p><span className="detailsSpan">Description  :</span> {Product.description}</p>
+                                                    <p><span className="detailsSpan">Created at :</span> {createdFormat.toLocaleDateString("en-GB")}</p>
+                                                    <p><span className="detailsSpan">Last updated :</span> {updatedFormat.toLocaleDateString("en-GB")}</p>
+                                                    <p><span className="detailsSpan">Number of associated opportunities :</span> {Product.opportunities.length}</p>
+                                                    <p><span className="detailsSpan">Number of associated campaigns :</span> {Product.campaigns.length}</p>
+                                            </div>
 
-
-                                        <div className=" mt-5">
-
-                                                <p><span className="detailsSpan">Price  :</span> {Product.price}</p>
-                                                <p><span className="detailsSpan">Description  :</span> {Product.description}</p>
-                                                <p><span className="detailsSpan">Created at :</span> {createdFormat.toLocaleDateString("en-GB")}</p>
-                                                <p><span className="detailsSpan">Last updated :</span> {updatedFormat.toLocaleDateString("en-GB")}</p>
-                                                <p><span className="detailsSpan">Number of associated opportunities :</span> {Product.opportunities.length}</p>
-                                                <p><span className="detailsSpan">Number of associated campaigns :</span> {Product.campaigns.length}</p>
-
+                                            {/*actions*/}
+                                            <div className="mt-5">
+                                                <h4 className="text-center mb-4">Actions</h4>
+                                                <div><button className="btn btn-primary mt-4 mb-3" onClick={() => navigate(`/Dashboard/listOpportunitiesByProductAdmin/${productId}`)}>Check associated opportunities</button></div>
+                                                <div><button className="btn btn-warning mt-4 mb-3" onClick={() => navigate(`/Dashboard/AddCampaignsAdmin/${productId}`)}>Add new campaign</button></div>
+                                                <div><button className="btn btn-warning mt-4 mb-3" onClick={() => navigate(`/Dashboard/listCampaignsByProductAdmin/${productId}`)}>Check associated campaigns</button></div>
+                                            </div>
                                         </div>
-
 
                                         <div className="d-flex justify-content-around mt-5 mb-5">
                                             <button className="btn btn-info" onClick={() => navigate(`/Dashboard/editProductAdmin/${productId}`)}>Edit this product</button>

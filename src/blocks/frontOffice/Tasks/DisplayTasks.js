@@ -180,6 +180,7 @@ const DisplayTasks = () => {
                     refreshPage(); // Refresh the page when the modal is closed
                 }}
                 />
+                <h3 className="text-center mb-5">Tasks currently assigned to me :</h3>
 
                 <Paper style={{ width: "100%", overflow: "hidden" }}>
 

@@ -10,12 +10,14 @@ const initialState={
     ListClientsByType:[],
     CountClientsByEmployee:{},
     DeleteClients:{},
+    ClientStats:{},
     errors:{},
 }
 
 export const CREATE_CLIENT="CREATECLIENT";
 export const UPDATE_CLIENT="UPDATECLIENT";
 export const GET_CLIENT="GETCLIENT";
+export const GET_CLIENT_STATS="GETCLIENTSTATS";
 export const LIST_CLIENT="LISTCLIENT";
 export const LIST_CLIENT_BY_ADMIN="LISTCLIENTBYADMIN";
 export const LIST_CLIENT_BY_GROUP="LISTCLIENTBYGROUP";
@@ -50,6 +52,14 @@ export default function (state = initialState,action){
             return{
                 ...state,
                 getClientById:action.payload
+            }
+
+
+
+        case GET_CLIENT_STATS:
+            return{
+                ...state,
+                ClientStats:action.payload
             }
 
 

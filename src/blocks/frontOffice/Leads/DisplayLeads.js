@@ -187,6 +187,7 @@ const DisplayLeads = () => {
               refreshPage(); // Refresh the page when the modal is closed
           }}
           />
+          <h3 className="text-center mb-5">My current leads :</h3>
 
        <Paper style={{ width: "100%", overflow: "hidden" }}>
 

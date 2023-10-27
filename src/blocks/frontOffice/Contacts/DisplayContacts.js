@@ -123,6 +123,8 @@ const DisplayContacts = () => {
                 }} clientId={clientId}
                 />
 
+                <h3 className="text-center mb-5">Registered contacts for this client :</h3>
+
                 <Paper style={{ width: "100%", overflow: "hidden" }}>
 
                     <TableContainer style={{ maxHeight: 440 }}>

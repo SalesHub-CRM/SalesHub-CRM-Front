@@ -30,10 +30,13 @@ import ListProductsAdmin from "../../blocks/backOffice/Product/ListProductsAdmin
 import AddProductAdmin from "../../blocks/backOffice/Product/AddProductAdmin";
 import ProductDetailsAdmin from "../../blocks/backOffice/Product/ProductDetailsAdmin";
 import EditProductAdmin from "../../blocks/backOffice/Product/EditProductAdmin";
-import ListOpportunitiesAdmin from "../../blocks/backOffice/Opportunity/ListOpportunitiesAdmin";
+import ListOpportunitiesByClientAdmin from "../../blocks/backOffice/Opportunity/ListOpportunitiesByClientAdmin";
 import OpportunityDetailsAdmin from "../../blocks/backOffice/Opportunity/OpportunityDetailsAdmin";
-import ListCampaignsAdmin from "../../blocks/backOffice/Campaign/ListCampaignsAdmin";
+import ListCampaignsByProductAdmin from "../../blocks/backOffice/Campaign/ListCampaignsByProductAdmin";
 import CampaignDetailsAdmin from "../../blocks/backOffice/Campaign/CampaignDetailsAdmin";
+import ListOpportunitiesByProductAdmin from "../../blocks/backOffice/Opportunity/ListOpportunitiesByProductAdmin";
+import AddCampaignAdmin from "../../blocks/backOffice/Campaign/AddCampaignAdmin";
+import EditCampaignAdmin from "../../blocks/backOffice/Campaign/EditCampaignAdmin";
 
 
 
@@ -109,11 +112,14 @@ const Dashboard = () => {
                     <Route path='/productDetailsAdmin/:productId' element={<ProductDetailsAdmin/>}/>
                     <Route path='/editProductAdmin/:productId' element={<EditProductAdmin/>}/>
                     {/*opportunity routes*/}
-                    <Route path='/listOpportunitiesAdmin' element={<ListOpportunitiesAdmin/>}/>
-                    <Route path='/opportunityDetailsAdmin/:opportunityId' element={<OpportunityDetailsAdmin/>}/>
+                    <Route path='/listOpportunitiesByClientAdmin/:clientId' element={<ListOpportunitiesByClientAdmin/>}/>
+                    <Route path='/listOpportunitiesByProductAdmin/:productId' element={<ListOpportunitiesByProductAdmin/>}/>
+                    <Route path='/opportunityDetailsAdmin/:oppId' element={<OpportunityDetailsAdmin/>}/>
                     {/*campaign routes*/}
-                    <Route path='/listCampaigns' element={<ListCampaignsAdmin/>}/>
-                    <Route path='/campaignDetailsAdmin/:campaignId' element={<CampaignDetailsAdmin/>}/>
+                    <Route path='/AddCampaignsAdmin/:productId' element={<AddCampaignAdmin/>}/>
+                    <Route path='/listCampaignsByProductAdmin/:productId' element={<ListCampaignsByProductAdmin/>}/>
+                    <Route path='/CampaignDetailsAdmin/:campaignId' element={<CampaignDetailsAdmin/>}/>
+                    <Route path='/EditCampaignAdmin/:campaignId' element={<EditCampaignAdmin/>}/>
 
                 </Routes>
             </div>

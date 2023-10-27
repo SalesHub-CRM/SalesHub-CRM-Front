@@ -107,13 +107,21 @@ const ClientDetailsAdmin = () => {
 
                                             </div>
 
+                                            <div className="text-center mb-5 mt-5" style={{margin:"auto"}}>
+                                                <h2 className="text-center">Actions</h2>
+                                                <div className="d-flex justify-content-around mt-5 mb-5">
+                                                    <button className="btn btn-info" onClick={() => navigate(`/Dashboard/listContacts/${Client.id}`)}>View contact list</button>
+                                                    <button className="btn btn-info" onClick={() => navigate(`/Dashboard/AddContactAdmin/${Client.id}`)}>Add contacts</button>
+                                                </div>
 
 
-                                        <div className="d-flex justify-content-around mt-5 mb-5">
-                                            <button className="btn btn-info" onClick={() => navigate(`/Dashboard/listContacts/${Client.id}`)}>View contact list</button>
-                                            <button className="btn btn-danger" onClick={() => navigate(`/Dashboard/listClients`)}>Back to client list</button>
-                                            <button className="btn btn-info" onClick={() => navigate(`/Dashboard/AddContactAdmin/${Client.id}`)}>Add contacts</button>
-                                        </div>
+                                                <div className="d-flex justify-content-around mt-5 mb-5">
+                                                    <button style={{width:"20%"}} className="btn btn-warning" onClick={() => navigate(`/Dashboard/listOpportunitiesByClientAdmin/${Client.id}`)}>Check opportunities</button>
+                                                    <button className="btn btn-danger" onClick={() => navigate(`/Dashboard/listClients`)}>Back to client list</button>
+                                                </div>
+                                            </div>
+
+
 
                                     </div>
 

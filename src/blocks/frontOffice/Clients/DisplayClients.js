@@ -112,7 +112,7 @@ const DisplayClients = () => {
         else if ((!dataUser?.roles.includes("ROLE_ADMIN") && !Clients.length)) {
             return (
                 <div>
-                    <h1>There are currently no leads available</h1>
+                    <h1>There are currently no clients available</h1>
                 </div>
             );
         }
@@ -122,6 +122,8 @@ const DisplayClients = () => {
             return (
 
                 <div className="DisplayClientPage">
+
+                    <h3 className="text-center mb-5">Clients i'm working with : </h3>
 
                     <Paper style={{ width: "100%", overflow: "hidden" }}>
 

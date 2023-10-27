@@ -1,5 +1,7 @@
 import axios from "axios"
-import {CREATE_CLIENT,UPDATE_CLIENT,GET_CLIENT,LIST_CLIENT,LIST_CLIENT_BY_ADMIN,LIST_CLIENT_BY_GROUP,LIST_CLIENT_BY_EMPLOYEE,LIST_CLIENT_BY_TYPE,DELETE_CLIENT,COUNT_CLIENTS_BY_EMPLOYEE,ERROR} from "../reducers/ClientsReducer"
+import {CREATE_CLIENT,UPDATE_CLIENT,GET_CLIENT,LIST_CLIENT,LIST_CLIENT_BY_ADMIN,LIST_CLIENT_BY_GROUP,
+    LIST_CLIENT_BY_EMPLOYEE,LIST_CLIENT_BY_TYPE,DELETE_CLIENT,COUNT_CLIENTS_BY_EMPLOYEE,GET_CLIENT_STATS,
+    ERROR} from "../reducers/ClientsReducer"
 
 
 export const CreateClient=(client)=>dispatch=>{
@@ -192,3 +194,21 @@ export const DeleteClient=(clientID,user)=>dispatch=>{
             })
     })
 }
+
+
+export const GetClientsStats=(adminId)=>dispatch=>{
+    axios.get("http://localhost:8081/API/client/getClientStats/"+adminId,{withCredentials:true})
+        .then(result=>{
+            dispatch({
+                type:GET_CLIENT_STATS,
+                payload:result.data
+            })
+        })
+        .catch(err=>{
+            dispatch({
+                type:ERROR,
+                payload:err.response
+            })
+        })
+}
+
